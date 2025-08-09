@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <h3>Información Funcionarios</h3>
+  <hr>
+
+  <div class="mb-4">
+    <h5>Búsqueda de Funcionarios</h5>
+    <label for="searchInput" class="form-label">Identificación del funcionario</label>
+    <div class="input-group">
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Identificación del funcionario"
+        [(ngModel)]="searchId"
+      />
+      <button class="btn btn-outline-secondary">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <hr>
+
+  <h5>Funcionario registrado</h5>
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Identificación</th>
+        <th>Nombres y Apellidos</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let funcionario of funcionarios">
+        <td>{{ funcionario.id }}</td>
+        <td>{{ funcionario.nombre }}</td>
+        <td>{{ funcionario.estado }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2">
+            Editar
+          </button>
+          <button class="btn btn-danger btn-sm">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-end">
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+      Agregar Funcionario
+    </button>
+  </div>
+
+  <div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Agregar Funcionario</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <app-proc-funcionario-insert></app-proc-funcionario-insert>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
