@@ -48,7 +48,16 @@ export class App {
     if (this.showFuncionarios) {
       this.showParametros = false;
       this.showProcesos= false;
-
     }
+  }
+
+  inicio(){
+
+    if (this.router.url === '/inicio'){
+        this.showParametros = false;
+        this.showProcesos = false;
+        this.showFuncionarios = false;
+    }
+
   }
 }

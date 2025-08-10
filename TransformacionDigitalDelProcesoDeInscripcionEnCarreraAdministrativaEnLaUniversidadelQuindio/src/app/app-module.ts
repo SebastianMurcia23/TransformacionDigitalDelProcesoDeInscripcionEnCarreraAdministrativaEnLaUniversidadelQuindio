@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { ProcFuncionarioInsert } from './proc-funcionario-insert/proc-funcionario-insert';
 import { ProcAnotaciones } from './proc-anotaciones/proc-anotaciones';
 import { ProcAnotacionesInsAct } from './proc-anotaciones-ins-act/proc-anotaciones-ins-act';
+import { Inicio } from './inicio/inicio';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ProcAnotacionesInsAct } from './proc-anotaciones-ins-act/proc-anotacion
     ProcFuncionario,
     ProcFuncionarioInsert,
     ProcAnotaciones,
-    ProcAnotacionesInsAct
+    ProcAnotacionesInsAct,
+    Inicio
   ],
   imports: [
     BrowserModule,

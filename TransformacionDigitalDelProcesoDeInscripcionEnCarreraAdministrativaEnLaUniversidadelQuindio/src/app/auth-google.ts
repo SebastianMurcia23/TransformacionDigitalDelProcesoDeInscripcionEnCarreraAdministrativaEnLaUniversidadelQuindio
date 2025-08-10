@@ -18,7 +18,7 @@ export class AuthGoogle {
       issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false,
       clientId: '71083061665-ukpmspt3t1ur4jfp3192omct1nm4bt9n.apps.googleusercontent.com',
-      redirectUri: window.location.origin + '/main',
+      redirectUri: window.location.origin + '/inicio',
       scope: 'openid profile email',
     }
 

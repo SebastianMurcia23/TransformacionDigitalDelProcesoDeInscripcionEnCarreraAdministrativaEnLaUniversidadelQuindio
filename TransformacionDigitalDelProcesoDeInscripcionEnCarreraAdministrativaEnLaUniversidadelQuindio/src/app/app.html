@@ -8,9 +8,9 @@
 
     <div class="bg-menu text-white p-5 d-flex flex-column sidebar">
       <h5 class="fw-bold pt-5"> Sistema de Gestión de Inscripción en Carrera </h5>
-      <h6 class="fw-bold pt-5">Inicio</h6>
-
- 
+      <div (click)="inicio()" class="mt-3 pointer">
+        <h6 class="fw-bold pt-5 text-white text-decoration-none" routerLink="/inicio">Inicio</h6>
+      </div> 
       <div (click)="arrowParametros()" class="mt-3 pointer">
         <h6 class="fw-bold">
           Parámetros <span class="float-end">{{ showParametros ? '▾' : '›' }}</span>
