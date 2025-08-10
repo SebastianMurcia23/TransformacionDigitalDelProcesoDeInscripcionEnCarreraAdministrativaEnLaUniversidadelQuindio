@@ -1,1 +1,101 @@
-<p>proc-anotaciones-ins-act works!</p>
+<div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Agregar Anotación</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+
+          <div class="mb-3">
+            <label for="tipoAnotacion" class="form-label">Seleccionar anotación</label>
+            <select id="tipoAnotacion" class="form-select" required>
+              <option value="">Inscripción / Actualización</option>
+            </select>
+          </div>
+
+          <hr>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="incorporacion">
+                <label class="form-check-label" for="incorporacion">Por Incorporación</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="sentencia">
+                <label class="form-check-label" for="sentencia">Por Sentencia Judicial</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="ascenso">
+                <label class="form-check-label" for="ascenso">Por Ascenso derivado de un concurso de mérito</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="traslado">
+                <label class="form-check-label" for="traslado">Por Traslado</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="nomenclatura">
+                <label class="form-check-label" for="nomenclatura">Por Cambio de Nomenclatura</label>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="actoAdmin" class="form-label">Acto Administrativo</label>
+              <input type="text" id="actoAdmin" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label for="fecha" class="form-label">Fecha</label>
+              <input type="date" id="fecha" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6 col-lg-4">
+              <label for="denominacion" class="form-label">Denominación del empleo</label>
+              <input type="text" id="denominacion" class="form-control" required>
+            </div>
+            <div class="col-md-3 col-lg-4">
+              <label for="codigo" class="form-label">Código</label>
+              <input type="text" id="codigo" class="form-control" required>
+            </div>
+            <div class="col-md-3 col-lg-4">
+              <label for="grado" class="form-label">Grado</label>
+              <div class="input-group">
+                <input type="text" id="grado" class="form-control" required>
+                <button class="btn btn-outline-secondary" type="button">
+                  🔍
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success me-2">Agregar</button>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Login } from './login/login';
-import { Main } from './main/main';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 import { ProcFuncionario } from './proc-funcionario/proc-funcionario';
@@ -17,7 +16,6 @@ import { ProcAnotacionesInsAct } from './proc-anotaciones-ins-act/proc-anotacion
   declarations: [
     App,
     Login,
-    Main,
     ProcFuncionario,
     ProcFuncionarioInsert,
     ProcAnotaciones,

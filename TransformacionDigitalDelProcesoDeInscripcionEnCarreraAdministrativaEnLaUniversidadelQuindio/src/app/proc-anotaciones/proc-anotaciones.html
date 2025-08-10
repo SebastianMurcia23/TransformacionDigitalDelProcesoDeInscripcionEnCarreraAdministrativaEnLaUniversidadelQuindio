@@ -1,8 +1,7 @@
 <div class="container mt-4">
-  <h3>Gestión de Anotaciones</h3>
+  <h3>Gestión Anotaciones</h3>
   <hr>
 
-  <!-- Búsqueda -->
   <div class="mb-4">
     <h5>Búsqueda de Funcionarios</h5>
     <label for="searchInput" class="form-label">Identificación del funcionario</label>
@@ -15,13 +14,12 @@
         [(ngModel)]="searchId"
       />
       <button class="btn btn-outline-secondary">
-        <i class="bi bi-search"></i> 
+      🔍
       </button>
     </div>
   </div>
 
   <hr>
-
 
   <h5>Funcionario registrado</h5>
   <table class="table table-hover align-middle">
@@ -50,9 +48,12 @@
     </tbody>
   </table>
 
+
   <div class="text-end">
-    <button class="btn btn-success">
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
       Agregar Anotación
     </button>
   </div>
+  <app-proc-anotaciones-ins-act></app-proc-anotaciones-ins-act> 
+
 </div>
