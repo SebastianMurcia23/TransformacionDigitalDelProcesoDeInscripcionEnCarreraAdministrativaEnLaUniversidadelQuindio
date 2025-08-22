@@ -30,24 +30,12 @@ export class App {
   arrowParametros() {
     this.showParametros = !this.showParametros;
     if (this.showParametros) {
-      this.showProcesos = false;
-      this.showFuncionarios = false;
     }
   }
 
   arrowProcesos() {
     this.showProcesos = !this.showProcesos;
     if (this.showProcesos) {
-      this.showParametros = false;
-      this.showFuncionarios = false;
-    }
-  }
-
-  arrowFuncionarios() {
-    this.showFuncionarios = !this.showFuncionarios;
-    if (this.showFuncionarios) {
-      this.showParametros = false;
-      this.showProcesos= false;
     }
   }
 
@@ -56,7 +44,6 @@ export class App {
     if (this.router.url === '/inicio'){
         this.showParametros = false;
         this.showProcesos = false;
-        this.showFuncionarios = false;
     }
 
   }

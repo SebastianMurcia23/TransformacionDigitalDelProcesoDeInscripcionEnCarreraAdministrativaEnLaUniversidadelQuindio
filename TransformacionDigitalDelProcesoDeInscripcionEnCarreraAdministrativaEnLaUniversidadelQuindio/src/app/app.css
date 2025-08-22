@@ -1,3 +1,10 @@
+/*Centrado y Tamaño del titulo*/
+.id-title{
+
+  font-size: 30px;
+  text-align: center;
+}
+
 /* Altura total y sin margen */
 html, body {
   height: 100%;
@@ -12,7 +19,7 @@ html, body {
 
 /* Sidebar */
 .sidebar {
-  width: 300px;
+  width: 400px;
 }
 
 /* Flecha clickable */
@@ -32,3 +39,28 @@ html, body {
   right: 30px;
 }
 
+.id-inicio{
+  font-size: 25px;
+}
+
+.id-parametros{
+  font-size: 25px;
+}
+
+.id-procesos{
+  font-size: 25px;
+}
+.id-cerrarSesion{
+  font-size: 25px;
+}
+
+.id-selection-procesos{
+  background-color: #007C00;
+  font-size: 20px;
+}
+
+.id-selection-parametros{
+  background-color: #007C00;
+  font-size: 20px;
+}
+/*#007C00 color para el efecto del arrow */
