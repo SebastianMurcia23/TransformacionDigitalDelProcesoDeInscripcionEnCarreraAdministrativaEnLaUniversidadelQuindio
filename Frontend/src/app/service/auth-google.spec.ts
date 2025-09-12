@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AuthGoogle } from './auth-google';
+
 
 describe('AuthGoogle', () => {
   let service: AuthGoogle;
