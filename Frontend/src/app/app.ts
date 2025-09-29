@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { AuthGoogle } from './service/auth-google';
+import { AuthGoogle } from './service/LoginService/auth-google';
 import { Router } from '@angular/router';
 
 @Component({

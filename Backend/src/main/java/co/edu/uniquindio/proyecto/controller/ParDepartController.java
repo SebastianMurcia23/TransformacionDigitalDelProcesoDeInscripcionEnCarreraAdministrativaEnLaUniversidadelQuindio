@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/departamentos")
 @RequiredArgsConstructor
@@ -53,4 +53,5 @@ public class ParDepartController {
         List<ListarDepartDto> lista = parDepartService.listarDepartamentos();
         return ResponseEntity.ok(lista);
     }
+
 }

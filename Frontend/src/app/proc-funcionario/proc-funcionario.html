@@ -12,9 +12,10 @@
         class="form-control"
         placeholder="Identificación del funcionario"
         [(ngModel)]="searchId"
+        (input)="buscarFuncionario()"
       />
-      <button class="btn btn-outline-secondary">
-      🔍
+      <button class="btn btn-outline-secondary" (click)="buscarFuncionario()">
+        🔍
       </button>
     </div>
   </div>
@@ -22,25 +23,25 @@
   <hr>
 
   <h5>Funcionario registrado</h5>
-  <table class="table table-hover align-middle">
+  <table class="table table-hover align-middle" *ngIf="funcionarios.length > 0">
     <thead>
       <tr>
         <th>Identificación</th>
         <th>Nombres y Apellidos</th>
-        <th>Estado</th>
+        <th>Email</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let funcionario of funcionarios">
-        <td>{{ funcionario.id }}</td>
-        <td>{{ funcionario.nombre }}</td>
-        <td>{{ funcionario.estado }}</td>
+        <td>{{ funcionario.id_funcio}}</td>
+        <td>{{ funcionario.nm_func1 }}</td>
+        <td>{{ funcionario.ce_funcio}}</td>
         <td>
           <button class="btn btn-primary btn-sm me-2">
             Editar
           </button>
-          <button class="btn btn-danger btn-sm">
+          <button class="btn btn-danger btn-sm" (click)="eliminarFuncionario(funcionario.id_funcio)">
             Eliminar
           </button>
         </td>
@@ -48,6 +49,9 @@
     </tbody>
   </table>
 
+  <div *ngIf="funcionarios.length === 0" class="alert alert-warning">
+    No se encontraron funcionarios
+  </div>
 
   <div class="text-end">
     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
@@ -55,5 +59,4 @@
     </button>
   </div>
   <app-proc-funcionario-insert></app-proc-funcionario-insert>
-
 </div>

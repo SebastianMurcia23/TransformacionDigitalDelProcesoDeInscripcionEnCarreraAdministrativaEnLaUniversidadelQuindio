@@ -63,7 +63,10 @@
                 <label for="paises" class="form-label">País</label>
                 <select id="paises" class="form-select" required>
                   <option value="">Seleccione...</option>
-                  <option value="">Colombia</option>
+                   <option *ngFor="let pais of paises" [value]="pais.idPais">
+                     {{ pais.nombre }}
+                    </option>
+
                 </select>
             </div>
             <div class="col-md-4">

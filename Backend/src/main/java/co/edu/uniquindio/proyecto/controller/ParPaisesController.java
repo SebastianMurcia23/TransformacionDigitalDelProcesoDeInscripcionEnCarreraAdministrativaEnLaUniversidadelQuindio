@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/paises")
 @RequiredArgsConstructor
-public class ParPaisesController {
+public class    ParPaisesController {
 
     private final ParPaisesService parPaisesService;
 

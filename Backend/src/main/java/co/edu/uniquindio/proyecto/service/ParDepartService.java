@@ -18,4 +18,5 @@ public interface ParDepartService {
     InformacionDepartDto obtenerDepartamento(Integer id) throws Exception;
 
     List<ListarDepartDto> listarDepartamentos();
+
 }

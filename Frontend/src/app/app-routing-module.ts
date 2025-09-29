@@ -11,7 +11,7 @@ const routes: Routes = [
 
   {path:'', component: Login},
   {path:'login', component: Login},
-  {path:'proc-funcionario', component: ProcFuncionario },
+  {path:'proc-funcionario', component: ProcFuncionario},
   {path:'proc-funcionario-insert', component : ProcFuncionarioInsert},
   {path:'proc-anotaciones', component: ProcAnotaciones},
   {path:'proc-anotaciones-ins-act', component: ProcAnotacionesInsAct},
