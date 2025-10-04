@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.service.impl;
 
-import co.edu.uniquindio.proyecto.dto.ParDepartDto.CrearDepartDto;
-import co.edu.uniquindio.proyecto.dto.ParDepartDto.EditarDepartDto;
-import co.edu.uniquindio.proyecto.dto.ParDepartDto.InformacionDepartDto;
-import co.edu.uniquindio.proyecto.dto.ParDepartDto.ListarDepartDto;
+import co.edu.uniquindio.proyecto.dto.ParDepartDto.*;
 import co.edu.uniquindio.proyecto.model.ParDepart;
 import co.edu.uniquindio.proyecto.model.ParPaises;
 import co.edu.uniquindio.proyecto.repository.ParDepartRepository;
@@ -13,12 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
+@Transactional
 public class ParDepartServiceImpl implements ParDepartService {
 
     private final ParDepartRepository parDepartRepository;
@@ -29,57 +26,57 @@ public class ParDepartServiceImpl implements ParDepartService {
         ParPaises pais = parPaisesRepository.findById(dto.id_paises())
                 .orElseThrow(() -> new Exception("País no encontrado"));
 
-        ParDepart nuevo = ParDepart.builder()
+        ParDepart departamento = ParDepart.builder()
                 .nm_depart(dto.nm_depart())
                 .pais(pais)
                 .build();
 
-        return parDepartRepository.save(nuevo).getId_depart();
+        return parDepartRepository.save(departamento).getId_depart();
     }
 
     @Override
     public void editarDepartamento(EditarDepartDto dto) throws Exception {
-        ParDepart depart = parDepartRepository.findById(dto.id_depart())
+        ParDepart departamento = parDepartRepository.findById(dto.id_depart())
                 .orElseThrow(() -> new Exception("Departamento no encontrado"));
 
         ParPaises pais = parPaisesRepository.findById(dto.id_paises())
                 .orElseThrow(() -> new Exception("País no encontrado"));
 
-        depart.setNm_depart(dto.nm_depart());
-        depart.setPais(pais);
-
-        parDepartRepository.save(depart);
+        departamento.setNm_depart(dto.nm_depart());
+        departamento.setPais(pais);
     }
 
     @Override
     public void eliminarDepartamento(Integer id) throws Exception {
-        ParDepart depart = parDepartRepository.findById(id)
-                .orElseThrow(() -> new Exception("Departamento no encontrado"));
-
-        parDepartRepository.delete(depart);
+        if (!parDepartRepository.existsById(id)) {
+            throw new Exception("Departamento no encontrado");
+        }
+        parDepartRepository.deleteById(id);
     }
 
     @Override
     public InformacionDepartDto obtenerDepartamento(Integer id) throws Exception {
-        ParDepart depart = parDepartRepository.findById(id)
+        ParDepart departamento = parDepartRepository.findById(id)
                 .orElseThrow(() -> new Exception("Departamento no encontrado"));
 
         return new InformacionDepartDto(
-                depart.getId_depart(),
-                depart.getNm_depart(),
-                depart.getPais().getNm_paises()
+                departamento.getId_depart(),
+                departamento.getNm_depart(),
+                departamento.getPais().getNm_paises()
         );
     }
 
     @Override
     public List<ListarDepartDto> listarDepartamentos() {
-        List<ParDepart> departamentos = parDepartRepository.findAll();
-        List<ListarDepartDto> items = new ArrayList<>();
+        return parDepartRepository.findAll().stream()
+                .map(d -> new ListarDepartDto(d.getId_depart(), d.getNm_depart()))
+                .collect(Collectors.toList());
+    }
 
-        for (ParDepart d : departamentos) {
-            items.add(new ListarDepartDto(d.getId_depart(), d.getNm_depart()));
-        }
-
-        return items;
+    @Override
+    public List<ListarDepartDto> listarDepartamentosPorPais(Integer idPais) {
+        return parDepartRepository.findByPaisId(idPais).stream()
+                .map(d -> new ListarDepartDto(d.getId_depart(), d.getNm_depart()))
+                .collect(Collectors.toList());
     }
 }

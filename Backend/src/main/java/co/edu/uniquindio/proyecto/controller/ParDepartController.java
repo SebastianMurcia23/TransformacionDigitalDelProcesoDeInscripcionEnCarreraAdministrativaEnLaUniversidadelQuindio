@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/departamentos")
@@ -49,8 +50,18 @@ public class ParDepartController {
 
     // Listar todos los departamentos
     @GetMapping
-    public ResponseEntity<List<ListarDepartDto>> listarDepartamentos() {
-        List<ListarDepartDto> lista = parDepartService.listarDepartamentos();
+    public ResponseEntity<List<ListarDepartDto>> listarDepartamentos(
+            @RequestParam(required = false) Integer idPais) {
+        List<ListarDepartDto> lista;
+
+        if (idPais != null) {
+            // Si se proporciona idPais, filtrar por país
+            lista = parDepartService.listarDepartamentosPorPais(idPais);
+        } else {
+            // Si no se proporciona, listar todos
+            lista = parDepartService.listarDepartamentos();
+        }
+
         return ResponseEntity.ok(lista);
     }
 

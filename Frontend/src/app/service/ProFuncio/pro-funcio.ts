@@ -3,12 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface ProFuncioDto {
+  id_genero: number;
+  id_tipdoc: number;
   id_funcio: number;
+  fechaExpedicion: string;
   nm_func1: string;
   nm_func2: string;
   ap_func1: string;
   ap_func2: string;
-  no_funcio: number;
+  id_pais: number;
+  idDepart: number;
+  idMunici: number;
+  no_funcio: string;
   ce_funcio: string;
 }
 
@@ -29,8 +35,8 @@ export class ProFuncioService {
     return this.http.get<ProFuncioDto>(`${this.apiUrl}/${id}`);
   }
 
-  crearFuncionario(dto: any): Observable<number> {
-    return this.http.post<number>(this.apiUrl, dto);
+  crearFuncionario(ProcFuncioDto: ProFuncioDto): Observable<number> {
+    return this.http.post<number>(this.apiUrl, ProcFuncioDto);
   }
 
   editarFuncionario(dto: any): Observable<void> {
@@ -46,7 +52,7 @@ export class ProFuncioService {
   }
 
   listarTiposDocumento(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8080/api/tipodoc');
+    return this.http.get<any[]>('http://localhost:8080/api/tipooc');
   }
 
   listarDepartamentos(idPais: number): Observable<any[]> {

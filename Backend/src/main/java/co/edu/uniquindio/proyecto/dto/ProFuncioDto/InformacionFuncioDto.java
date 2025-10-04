@@ -9,6 +9,9 @@ public record InformacionFuncioDto(
         String ap_func1,
         String ap_func2,
         Integer id_pais,
+        Integer id_depart,
+        Integer id_munici,
         Integer no_funcio,
         String ce_funcio
 ) { }
+

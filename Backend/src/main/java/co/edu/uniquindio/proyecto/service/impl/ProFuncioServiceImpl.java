@@ -4,12 +4,8 @@ import co.edu.uniquindio.proyecto.dto.ProFuncioDto.CrearFuncioDto;
 import co.edu.uniquindio.proyecto.dto.ProFuncioDto.EditarFuncioDto;
 import co.edu.uniquindio.proyecto.dto.ProFuncioDto.InformacionFuncioDto;
 import co.edu.uniquindio.proyecto.dto.ProFuncioDto.ListarFuncioDto;
-import co.edu.uniquindio.proyecto.model.ParGenero;
-import co.edu.uniquindio.proyecto.model.ParTipdoc;
-import co.edu.uniquindio.proyecto.model.ProFuncio;
-import co.edu.uniquindio.proyecto.repository.ParGeneroRepository;
-import co.edu.uniquindio.proyecto.repository.ParTipdocRepository;
-import co.edu.uniquindio.proyecto.repository.ProFuncioRepository;
+import co.edu.uniquindio.proyecto.model.*;
+import co.edu.uniquindio.proyecto.repository.*;
 import co.edu.uniquindio.proyecto.service.ProFuncioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +22,9 @@ public class ProFuncioServiceImpl implements ProFuncioService {
     private final ProFuncioRepository proFuncioRepository;
     private final ParTipdocRepository parTipdocRepository;
     private final ParGeneroRepository parGeneroRepository;
+    private final ParDepartRepository parDepartRepository;
+    private final ParMuniciRepository parMuniciRepository;
+    private final ParPaisesRepository parPaisesRepository;
 
     @Override
     public Integer crearFuncio(CrearFuncioDto dto) throws Exception {
@@ -35,14 +34,26 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         ParGenero genero = parGeneroRepository.findById(dto.id_genero())
                 .orElseThrow(() -> new Exception("Género no encontrado"));
 
+        ParMunici munici = parMuniciRepository.findById(dto.id_munici())
+                .orElseThrow(() -> new Exception("Municipio no encontrado"));
+
+        ParDepart depart = parDepartRepository.findById(dto.id_depart())
+                .orElseThrow(() -> new Exception("Departamento no encontrado"));
+
+        ParPaises pais = parPaisesRepository.findById(dto.id_pais())
+                .orElseThrow(() -> new Exception("País no encontrado"));
+
         ProFuncio nuevo = ProFuncio.builder()
+                .id_funcio(dto.id_funcio())
                 .tipdoc(tipdoc)
                 .genero(genero)
                 .nm_func1(dto.nm_func1())
                 .nm_func2(dto.nm_func2())
                 .ap_func1(dto.ap_func1())
                 .ap_func2(dto.ap_func2())
-                .id_pais(dto.id_pais())
+                .pais(pais)
+                .depart(depart)
+                .munici(munici)
                 .no_funcio(dto.no_funcio())
                 .ce_funcio(dto.ce_funcio())
                 .build();
@@ -61,13 +72,24 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         ParGenero genero = parGeneroRepository.findById(dto.id_genero())
                 .orElseThrow(() -> new Exception("Género no encontrado"));
 
+        ParMunici munici = parMuniciRepository.findById(dto.id_munici())
+                .orElseThrow(() -> new Exception("Municipio no encontrado"));
+
+        ParDepart depart = parDepartRepository.findById(dto.id_depart())
+                .orElseThrow(() -> new Exception("Departamento no encontrado"));
+
+        ParPaises pais = parPaisesRepository.findById(dto.id_pais())
+                .orElseThrow(() -> new Exception("País no encontrado"));
+
         funcio.setTipdoc(tipdoc);
         funcio.setGenero(genero);
         funcio.setNm_func1(dto.nm_func1());
         funcio.setNm_func2(dto.nm_func2());
         funcio.setAp_func1(dto.ap_func1());
         funcio.setAp_func2(dto.ap_func2());
-        funcio.setId_pais(dto.id_pais());
+        funcio.setPais(pais);
+        funcio.setDepart(depart);
+        funcio.setMunici(munici);
         funcio.setNo_funcio(dto.no_funcio());
         funcio.setCe_funcio(dto.ce_funcio());
 
@@ -95,7 +117,9 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 funcio.getNm_func2(),
                 funcio.getAp_func1(),
                 funcio.getAp_func2(),
-                funcio.getId_pais(),
+                funcio.getPais().getId_paises(),
+                funcio.getDepart().getId_depart(),
+                funcio.getMunici().getId_munici(),
                 funcio.getNo_funcio(),
                 funcio.getCe_funcio()
         );
@@ -107,7 +131,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         List<ListarFuncioDto> items = new ArrayList<>();
 
         for (ProFuncio f : lista) {
-            items.add(new ListarFuncioDto(f.getId_funcio(), f.getNm_func1(), f.getCe_funcio()));
+            items.add(new ListarFuncioDto(f.getId_funcio(), f.getNm_func1(),f.getNm_func2(),f.getAp_func1(),f.getAp_func2(),f.getCe_funcio()));
         }
 
         return items;

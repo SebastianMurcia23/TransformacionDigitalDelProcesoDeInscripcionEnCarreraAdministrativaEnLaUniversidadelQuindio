@@ -13,7 +13,6 @@ import lombok.*;
 public class ProFuncio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_funcio;
 
     @ManyToOne
@@ -36,8 +35,17 @@ public class ProFuncio {
     @Column(nullable = false, length = 25)
     private String ap_func2;
 
-    @Column(nullable = false)
-    private Integer id_pais;
+    @ManyToOne
+    @JoinColumn(name = "id_pais", nullable = false)
+    private ParPaises pais;
+
+    @ManyToOne
+    @JoinColumn(name = "id_depart", nullable = false)
+    private ParDepart depart;
+
+    @ManyToOne
+    @JoinColumn(name = "id_munici", nullable = false)
+    private ParMunici munici;
 
     @Column(nullable = false)
     private Integer no_funcio;
@@ -45,3 +53,14 @@ public class ProFuncio {
     @Column(nullable = false, length = 100)
     private String ce_funcio;
 }
+
+
+
+
+
+
+
+
+
+
+

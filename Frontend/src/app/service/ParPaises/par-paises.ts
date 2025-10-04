@@ -11,13 +11,14 @@ export interface PaisDto {
 @Injectable({
   providedIn: 'root'
 })
-export class ParPaises {
+export class ParPaisesService {
 
   private apiUrl = 'http://localhost:8080/api/paises';
 
   constructor(private http: HttpClient) {}
 
-  listarPaises(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  listarPaises(): Observable<PaisDto[]> {
+    return this.http.get<PaisDto[]>(this.apiUrl);
   }
+  
 }

@@ -35,7 +35,7 @@
     <tbody>
       <tr *ngFor="let funcionario of funcionarios">
         <td>{{ funcionario.id_funcio}}</td>
-        <td>{{ funcionario.nm_func1 }}</td>
+        <td>{{ funcionario.nm_func1 + " " }}{{funcionario.nm_func2 +"  "}}{{funcionario.ap_func1 + " "}}{{funcionario.ap_func2 + " "}}</td>
         <td>{{ funcionario.ce_funcio}}</td>
         <td>
           <button class="btn btn-primary btn-sm me-2">
