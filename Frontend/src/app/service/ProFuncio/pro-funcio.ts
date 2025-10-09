@@ -3,19 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface ProFuncioDto {
-  id_genero: number;
-  id_tipdoc: number;
   id_funcio: number;
-  fechaExpedicion: string;
+  id_tipdoc: number;
+  id_genero: number;
   nm_func1: string;
   nm_func2: string;
   ap_func1: string;
   ap_func2: string;
   id_pais: number;
-  idDepart: number;
-  idMunici: number;
+  id_depart: number;
+  id_munici: number;
   no_funcio: string;
   ce_funcio: string;
+  fechaExpedicion?: string;
 }
 
 @Injectable({

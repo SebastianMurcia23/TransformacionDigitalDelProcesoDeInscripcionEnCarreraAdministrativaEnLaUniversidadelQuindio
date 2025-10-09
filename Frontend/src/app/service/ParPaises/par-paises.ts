@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';   
 
 export interface PaisDto {
-  idPais: number;
+  id: number;
   nombre: string;
 }
 
