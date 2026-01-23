@@ -1,0 +1,90 @@
+<div class="modal fade modal-derecha" id="modalMostrar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content shadow-lg rounded-4">
+
+      <div class="modal-header bg-success text-white">
+        <h4 class="modal-title">
+          <i class="bi bi-person-badge"></i> Información del Funcionario
+        </h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" *ngIf="funcionarioSeleccionado; else noData">
+        <div class="container py-3">
+
+          <div class="card border-0 shadow-sm p-4 rounded-4">
+            <h5 class="mb-3 text-success fw-bold">Datos personales</h5>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <strong>Identificación:</strong>
+                <div>{{ funcionarioSeleccionado.id_funcio }}</div>
+              </div>
+              <div class="col-md-4">
+                <strong>Tipo de documento:</strong>
+                <div>{{ funcionarioSeleccionado.tipdoc }}</div>
+              </div>
+              <div class="col-md-4">
+                <strong>Género:</strong>
+                <div>{{ funcionarioSeleccionado.genero }}</div>
+              </div>
+            </div>
+
+            <h5 class="mb-3 text-success fw-bold">Nombres y Apellidos</h5>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <strong>Apellidos:</strong>
+                <div>{{ funcionarioSeleccionado.ap_func1 }} {{ funcionarioSeleccionado.ap_func2 }}</div>
+              </div>
+              <div class="col-md-6">
+                <strong>Nombres:</strong>
+                <div>{{ funcionarioSeleccionado.nm_func1 }} {{ funcionarioSeleccionado.nm_func2 }}</div>
+              </div>
+            </div>
+
+            <h5 class="mb-3 text-success fw-bold">Ubicación</h5>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <strong>País:</strong>
+                <div>{{ funcionarioSeleccionado.id_pais }}</div>
+              </div>
+              <div class="col-md-4">
+                <strong>Departamento:</strong>
+                <div>{{ funcionarioSeleccionado.id_depart }}</div>
+              </div>
+              <div class="col-md-4">
+                <strong>Municipio:</strong>
+                <div>{{ funcionarioSeleccionado.id_munici }}</div>
+              </div>
+            </div>
+
+            <h5 class="mb-3 text-success fw-bold">Contacto</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <strong>Correo electrónico:</strong>
+                <div>{{ funcionarioSeleccionado.ce_funcio }}</div>
+              </div>
+              <div class="col-md-6">
+                <strong>Teléfono:</strong>
+                <div>{{ funcionarioSeleccionado.no_funcio }}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <ng-template #noData>
+        <div class="p-4 text-center text-muted">
+          <i class="bi bi-exclamation-circle fs-1"></i>
+          <p>No hay información disponible del funcionario.</p>
+        </div>
+      </ng-template>
+
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle"></i> Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

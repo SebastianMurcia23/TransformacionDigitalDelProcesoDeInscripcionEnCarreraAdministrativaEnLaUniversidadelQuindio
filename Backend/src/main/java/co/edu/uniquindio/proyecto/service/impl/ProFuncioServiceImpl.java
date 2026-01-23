@@ -131,7 +131,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         List<ListarFuncioDto> items = new ArrayList<>();
 
         for (ProFuncio f : lista) {
-            items.add(new ListarFuncioDto(f.getId_funcio(), f.getNm_func1(),f.getNm_func2(),f.getAp_func1(),f.getAp_func2(),f.getCe_funcio()));
+            items.add(new ListarFuncioDto(f.getId_funcio(), f.getNm_func1(),f.getNm_func2(),f.getAp_func1(),f.getAp_func2(),f.getNo_funcio(),f.getCe_funcio()));
         }
 
         return items;

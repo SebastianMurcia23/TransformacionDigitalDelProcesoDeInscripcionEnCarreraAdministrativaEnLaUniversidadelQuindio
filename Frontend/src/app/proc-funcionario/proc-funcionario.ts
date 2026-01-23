@@ -13,13 +13,20 @@ export class ProcFuncionario implements OnInit {
   searchId: string = '';
   funcionarios: ProFuncioDto[] = [];
   todosLosFuncionarios: ProFuncioDto[] = []; 
+  funcionarioSeleccionado: ProFuncioDto | null = null;
 
   constructor(private proFuncioService: ProFuncioService) {}
+
 
   ngOnInit(): void {
     this.cargarFuncionarios();
   }
 
+  abrirModalMostrar(funcionario: ProFuncioDto): void {
+    this.funcionarioSeleccionado = funcionario;
+    console.log('Funcionario seleccionado:', funcionario);
+
+  }
   cargarFuncionarios(): void {
     this.proFuncioService.listarFuncionarios().subscribe({
       next: (data) => {

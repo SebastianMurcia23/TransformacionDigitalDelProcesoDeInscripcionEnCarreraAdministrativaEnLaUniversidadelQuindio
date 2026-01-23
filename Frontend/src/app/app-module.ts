@@ -12,6 +12,8 @@ import { ProcFuncionarioInsert } from './proc-funcionario-insert/proc-funcionari
 import { ProcAnotaciones } from './proc-anotaciones/proc-anotaciones';
 import { ProcAnotacionesInsAct } from './proc-anotaciones-ins-act/proc-anotaciones-ins-act';
 import { Inicio } from './inicio/inicio';
+import { ProcFuncionarioEdit } from './proc-funcionario-edit/proc-funcionario-edit';
+import { ProcFuncionarioMostrar } from './proc-funcionario-mostrar/proc-funcionario-mostrar';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { Inicio } from './inicio/inicio';
     ProcFuncionarioInsert,
     ProcAnotaciones,
     ProcAnotacionesInsAct,
-    Inicio
+    Inicio,
+    ProcFuncionarioEdit,
+    ProcFuncionarioMostrar,
   ],
   imports: [
     BrowserModule,

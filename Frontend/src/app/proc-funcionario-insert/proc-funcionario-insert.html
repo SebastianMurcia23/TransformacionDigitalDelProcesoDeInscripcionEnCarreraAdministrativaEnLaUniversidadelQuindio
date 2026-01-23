@@ -2,10 +2,13 @@
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
 
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar Funcionario</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header bg-success text-white">
+        <h4 class="modal-title">
+          <i class="bi bi-person-badge"></i> Agregar Funcionario
+        </h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
+
 
       <div class="modal-body">
         <form (ngSubmit)="guardarFuncionario()" #formFuncio="ngForm">
@@ -14,7 +17,7 @@
             <div class="col-md-3">
               <label for="genero" class="form-label">Género</label>
               <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.id_genero" name="id_genero">
-                <option value="">Seleccione...</option>
+                <option value=""disabled >Seleccione...</option>
                 <option *ngFor="let genero of generos" [value]="genero.id_genero">
                   {{ genero.ds_genero }}
                 </option>
@@ -22,9 +25,9 @@
             </div>
 
             <div class="col-md-3">
-              <label for="tipdoc" class="form-label">Tipo Documento</label>
+              <label for="tipdoc" class="form-label" >Tipo Documento</label>
               <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.id_tipdoc" name="id_tipdoc">
-                <option value="">Seleccione...</option>
+                <option value="" disabled>Seleccione...</option>
                 <option *ngFor="let tipdoc of tipDocs" [value]="tipdoc.id_tipdoc">
                   {{ tipdoc.ds_tipdoc }}
                 </option>
@@ -65,7 +68,7 @@
             <div class="col-md-4">
               <label for="paises" class="form-label">País</label>
               <select id="paises" class="form-select" required [(ngModel)]="nuevoFuncionario.id_pais" name="id_pais">
-                <option value="">Seleccione...</option>
+                <option value="" disabled>Seleccione...</option>
                 <option *ngFor="let pais of paises" [value]="pais.id">
                   {{ pais.nombre }}
                 </option>
@@ -74,8 +77,8 @@
 
             <div class="col-md-4">
               <label for="depart" class="form-label">Departamento</label>
-              <select id="depart" class="form-select" required [(ngModel)]="nuevoFuncionario.id_depart" name="id_depart">
-                <option value="">Seleccione...</option>
+              <select id="depart" class="form-select" required [(ngModel)]="nuevoFuncionario.id_pais" name="id_depart">
+                <option value="" disabled>Seleccione...</option>
                 <option [value]="1">Quindio</option>
               </select>
             </div>
@@ -83,8 +86,8 @@
             <div class="col-md-4">
               <label for="munici" class="form-label">Municipio</label>
               <select id="munici" class="form-select" required [(ngModel)]="nuevoFuncionario.id_munici" name="id_munici">
-                <option value="">Seleccione...</option>
-                <option [value]="1">Armenia</option>
+                <option value="" disabled>Seleccione...</option>
+                <option [value]="1" >Armenia</option>
               </select>
             </div>
           </div>

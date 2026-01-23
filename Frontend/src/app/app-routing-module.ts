@@ -6,7 +6,6 @@ import { ProcAnotaciones } from './proc-anotaciones/proc-anotaciones';
 import { ProcAnotacionesInsAct } from './proc-anotaciones-ins-act/proc-anotaciones-ins-act';
 import { ProcFuncionarioInsert } from './proc-funcionario-insert/proc-funcionario-insert';
 import { Inicio } from './inicio/inicio';
-
 const routes: Routes = [
 
   {path:'', component: Login},

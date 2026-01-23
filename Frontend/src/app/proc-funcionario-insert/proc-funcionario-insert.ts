@@ -20,15 +20,15 @@ export class ProcFuncionarioInsert {
 
   nuevoFuncionario: ProFuncioDto = {
     id_funcio: 0,
-    id_tipdoc: 0,
-    id_genero: 0,
+    id_tipdoc: '',
+    id_genero: '',
     nm_func1: '',
     nm_func2: '',
     ap_func1: '',
     ap_func2: '',
-    id_pais: 0,
-    id_depart: 0,
-    id_munici: 0,
+    id_pais: '',
+    id_depart: '',
+    id_munici: '',
     no_funcio: '',
     ce_funcio: ''
   };
@@ -44,6 +44,10 @@ export class ProcFuncionarioInsert {
     this.cargarPaises();
     this.cargarGeneros();
     this.cargarParTipDocs();
+  }
+
+  cerrarModal(): void {
+  (document.querySelector('#modalAgregar .btn-close') as HTMLElement)?.click();
   }
 
   guardarFuncionario(): void {
@@ -91,20 +95,22 @@ export class ProcFuncionarioInsert {
 
             // Limpiar el formulario
             this.nuevoFuncionario = {
-              id_genero: 0,
-              id_tipdoc: 0,
+              id_genero: '',
+              id_tipdoc: '',
               id_funcio: 0,
               fechaExpedicion: '',
               nm_func1: '',
               nm_func2: '',
               ap_func1: '',
               ap_func2: '',
-              id_pais: 0,
-              id_depart: 0,
-              id_munici: 0,
+              id_pais: '',
+              id_depart: '',
+              id_munici: '',
               no_funcio: '',
               ce_funcio: ''
             };
+
+            this.cerrarModal();
           },
           error: (err) => {
             console.error('Error al guardar funcionario', err);

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 export interface ProFuncioDto {
   id_funcio: number;
-  id_tipdoc: number;
-  id_genero: number;
+  tipdoc: string;
+  genero: string;
   nm_func1: string;
   nm_func2: string;
   ap_func1: string;
@@ -13,7 +13,7 @@ export interface ProFuncioDto {
   id_pais: number;
   id_depart: number;
   id_munici: number;
-  no_funcio: string;
+  no_funcio: number;
   ce_funcio: string;
   fechaExpedicion?: string;
 }
@@ -47,7 +47,7 @@ export class ProFuncioService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-    listarGeneros(): Observable<any[]> {
+  listarGeneros(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8080/api/generos');
   }
 
