@@ -20,8 +20,8 @@ export class ProcFuncionarioInsert {
 
   nuevoFuncionario: ProFuncioDto = {
     id_funcio: 0,
-    id_tipdoc: '',
-    id_genero: '',
+    tipdoc: '',
+    genero: '',
     nm_func1: '',
     nm_func2: '',
     ap_func1: '',
@@ -95,8 +95,8 @@ export class ProcFuncionarioInsert {
 
             // Limpiar el formulario
             this.nuevoFuncionario = {
-              id_genero: '',
-              id_tipdoc: '',
+              genero: '',
+              tipdoc: '',
               id_funcio: 0,
               fechaExpedicion: '',
               nm_func1: '',

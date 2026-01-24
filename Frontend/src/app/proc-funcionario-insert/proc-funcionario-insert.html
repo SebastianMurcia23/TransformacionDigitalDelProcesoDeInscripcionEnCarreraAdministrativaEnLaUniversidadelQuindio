@@ -16,7 +16,7 @@
           <div class="row mb-3">
             <div class="col-md-3">
               <label for="genero" class="form-label">Género</label>
-              <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.id_genero" name="id_genero">
+              <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.genero" name="id_genero">
                 <option value=""disabled >Seleccione...</option>
                 <option *ngFor="let genero of generos" [value]="genero.id_genero">
                   {{ genero.ds_genero }}
@@ -26,7 +26,7 @@
 
             <div class="col-md-3">
               <label for="tipdoc" class="form-label" >Tipo Documento</label>
-              <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.id_tipdoc" name="id_tipdoc">
+              <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.tipdoc" name="id_tipdoc">
                 <option value="" disabled>Seleccione...</option>
                 <option *ngFor="let tipdoc of tipDocs" [value]="tipdoc.id_tipdoc">
                   {{ tipdoc.ds_tipdoc }}
