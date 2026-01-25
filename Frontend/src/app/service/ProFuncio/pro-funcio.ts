@@ -15,7 +15,7 @@ export interface ProFuncioDto {
   id_munici: number;
   no_funcio: number;
   ce_funcio: string;
-  fechaExpedicion?: string;
+  fechaExpedicion?: Date;
 }
 
 @Injectable({

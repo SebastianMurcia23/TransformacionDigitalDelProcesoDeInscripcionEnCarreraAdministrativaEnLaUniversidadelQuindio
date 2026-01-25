@@ -3,6 +3,8 @@ package co.edu.uniquindio.proyecto.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigInteger;
+
 @Entity
 @Table(name = "pro_funcio")
 @Getter
@@ -47,8 +49,7 @@ public class ProFuncio {
     @JoinColumn(name = "id_munici", nullable = false)
     private ParMunici munici;
 
-    @Column(nullable = false)
-    private Integer no_funcio;
+    private BigInteger no_funcio;
 
     @Column(nullable = false, length = 100)
     private String ce_funcio;

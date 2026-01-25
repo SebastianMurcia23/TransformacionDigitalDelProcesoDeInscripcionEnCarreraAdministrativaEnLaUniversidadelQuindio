@@ -11,7 +11,7 @@ public record ListarFuncioDto(
         String id_pais,
         String id_depart,
         String id_munici,
-        Integer no_funcio,
+        java.math.BigInteger no_funcio,
         String ce_funcio
 
 ) { }

@@ -2,6 +2,8 @@
 
     import jakarta.validation.constraints.*;
 
+    import java.math.BigInteger;
+
     public record CrearFuncioDto(
             @NotNull Integer id_funcio,
             @NotNull Integer id_tipdoc,
@@ -13,7 +15,7 @@
             @NotNull Integer id_pais,
             @NotNull Integer id_depart,
             @NotNull Integer id_munici,
-            @NotNull Integer no_funcio,
+            @NotNull BigInteger no_funcio,
             @NotBlank @Size(max = 100) String ce_funcio
     ) { }
 

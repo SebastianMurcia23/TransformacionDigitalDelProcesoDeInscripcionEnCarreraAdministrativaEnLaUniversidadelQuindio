@@ -11,7 +11,7 @@ public record InformacionFuncioDto(
         Integer id_pais,
         Integer id_depart,
         Integer id_munici,
-        Integer no_funcio,
+        java.math.BigInteger no_funcio,
         String ce_funcio
 ) { }
 
