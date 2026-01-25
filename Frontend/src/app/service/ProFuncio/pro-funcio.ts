@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 
 export interface ProFuncioDto {
   id_funcio: number;
-  tipdoc: string;
-  genero: string;
+  id_tipdoc: number;
+  id_genero: number;
   nm_func1: string;
   nm_func2: string;
   ap_func1: string;
   ap_func2: string;
-  id_pais: string;
-  id_depart: string;
-  id_munici: string;
-  no_funcio: string;
+  id_pais: number;
+  id_depart: number;
+  id_munici: number;
+  no_funcio: number;
   ce_funcio: string;
   fechaExpedicion?: string;
 }

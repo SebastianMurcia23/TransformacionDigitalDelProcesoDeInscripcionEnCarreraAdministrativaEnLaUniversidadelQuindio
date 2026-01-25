@@ -16,9 +16,9 @@
           <div class="row mb-3">
             <div class="col-md-3">
               <label for="genero" class="form-label">Género</label>
-              <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.genero" name="id_genero">
-                <option value=""disabled >Seleccione...</option>
-                <option *ngFor="let genero of generos" [value]="genero.id_genero">
+              <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.id_genero" name="id_genero">
+                <option [ngValue]="null" disabled >Seleccione...</option>
+                <option *ngFor="let genero of generos" [ngValue]="genero.id_genero">
                   {{ genero.ds_genero }}
                 </option>
               </select>
@@ -26,9 +26,9 @@
 
             <div class="col-md-3">
               <label for="tipdoc" class="form-label" >Tipo Documento</label>
-              <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.tipdoc" name="id_tipdoc">
-                <option value="" disabled>Seleccione...</option>
-                <option *ngFor="let tipdoc of tipDocs" [value]="tipdoc.id_tipdoc">
+              <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.id_tipdoc" name="id_tipdoc">
+                <option [ngValue]="null" disabled>Seleccione...</option>
+                <option *ngFor="let tipdoc of tipDocs" [ngValue]="tipdoc.id_tipdoc">
                   {{ tipdoc.ds_tipdoc }}
                 </option>
               </select>
@@ -47,14 +47,6 @@
 
           <div class="row mb-3">
             <div class="col-md-3">
-              <label for="primerApellido" class="form-label">Primer Apellido</label>
-              <input id="primerApellido" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.ap_func1" name="ap_func1">
-            </div>
-            <div class="col-md-3">
-              <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-              <input id="segundoApellido" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.ap_func2" name="ap_func2">
-            </div>
-            <div class="col-md-3">
               <label for="primerNombre" class="form-label">Primer Nombre</label>
               <input id="primerNombre" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.nm_func1" name="nm_func1">
             </div>
@@ -62,14 +54,22 @@
               <label for="segundoNombre" class="form-label">Segundo Nombre</label>
               <input id="segundoNombre" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.nm_func2" name="nm_func2">
             </div>
+            <div class="col-md-3">
+              <label for="primerApellido" class="form-label">Primer Apellido</label>
+              <input id="primerApellido" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.ap_func1" name="ap_func1">
+            </div>
+            <div class="col-md-3">
+              <label for="segundoApellido" class="form-label">Segundo Apellido</label>
+              <input id="segundoApellido" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.ap_func2" name="ap_func2">
+            </div>
           </div>
 
           <div class="row mb-3">
             <div class="col-md-4">
               <label for="paises" class="form-label">País</label>
               <select id="paises" class="form-select" required [(ngModel)]="nuevoFuncionario.id_pais" name="id_pais">
-                <option value="" disabled>Seleccione...</option>
-                <option *ngFor="let pais of paises" [value]="pais.id">
+                <option [ngValue]="null" disabled>Seleccione...</option>
+                <option *ngFor="let pais of paises" [ngValue]="pais.id">
                   {{ pais.nombre }}
                 </option>
               </select>
@@ -77,17 +77,17 @@
 
             <div class="col-md-4">
               <label for="depart" class="form-label">Departamento</label>
-              <select id="depart" class="form-select" required [(ngModel)]="nuevoFuncionario.id_pais" name="id_depart">
-                <option value="" disabled>Seleccione...</option>
-                <option [value]="1">Quindio</option>
+              <select id="depart" class="form-select" required [(ngModel)]="nuevoFuncionario.id_depart" name="id_depart">
+                <option [ngValue]="null" disabled>Seleccione...</option>
+                <option [ngValue]="1">Quindio</option>
               </select>
             </div>
 
             <div class="col-md-4">
               <label for="munici" class="form-label">Municipio</label>
               <select id="munici" class="form-select" required [(ngModel)]="nuevoFuncionario.id_munici" name="id_munici">
-                <option value="" disabled>Seleccione...</option>
-                <option [value]="1" >Armenia</option>
+                <option [ngValue]="null" disabled>Seleccione...</option>
+                <option [ngValue]="1">Armenia</option>
               </select>
             </div>
           </div>

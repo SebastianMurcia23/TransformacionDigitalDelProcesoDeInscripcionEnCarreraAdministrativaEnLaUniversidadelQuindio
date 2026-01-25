@@ -20,16 +20,16 @@ export class ProcFuncionarioInsert {
 
   nuevoFuncionario: ProFuncioDto = {
     id_funcio: 0,
-    tipdoc: '',
-    genero: '',
+    id_tipdoc: 0,
+    id_genero: 0,
     nm_func1: '',
     nm_func2: '',
     ap_func1: '',
     ap_func2: '',
-    id_pais: '',
-    id_depart: '',
-    id_munici: '',
-    no_funcio: '',
+    id_pais: 0,
+    id_depart: 0,
+    id_munici: 0,
+    no_funcio: 0,
     ce_funcio: ''
   };
   
@@ -51,6 +51,7 @@ export class ProcFuncionarioInsert {
   }
 
   guardarFuncionario(): void {
+    this.nuevoFuncionario.no_funcio = Number(this.nuevoFuncionario.no_funcio);
     console.log('Valores actuales del funcionario:', this.nuevoFuncionario);
 
     if (!this.nuevoFuncionario.nm_func1 || !this.nuevoFuncionario.ap_func1) {
@@ -95,18 +96,18 @@ export class ProcFuncionarioInsert {
 
             // Limpiar el formulario
             this.nuevoFuncionario = {
-              genero: '',
-              tipdoc: '',
+              id_genero: 0,
+              id_tipdoc: 0,
               id_funcio: 0,
               fechaExpedicion: '',
               nm_func1: '',
               nm_func2: '',
               ap_func1: '',
               ap_func2: '',
-              id_pais: '',
-              id_depart: '',
-              id_munici: '',
-              no_funcio: '',
+              id_pais: 0,
+              id_depart: 0,
+              id_munici: 0,
+              no_funcio: 0,
               ce_funcio: ''
             };
 
