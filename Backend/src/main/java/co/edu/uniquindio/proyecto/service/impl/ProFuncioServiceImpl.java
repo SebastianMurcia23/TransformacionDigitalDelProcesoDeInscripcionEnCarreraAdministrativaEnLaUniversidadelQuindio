@@ -56,6 +56,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 .munici(munici)
                 .no_funcio(dto.no_funcio())
                 .ce_funcio(dto.ce_funcio())
+                .fechaExpedicion(dto.fechaExpedicion())
                 .build();
 
         return proFuncioRepository.save(nuevo).getId_funcio();
@@ -92,6 +93,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         funcio.setMunici(munici);
         funcio.setNo_funcio(dto.no_funcio());
         funcio.setCe_funcio(dto.ce_funcio());
+        funcio.setFechaExpedicion(dto.fechaExpedicion());
 
         proFuncioRepository.save(funcio);
     }
@@ -121,7 +123,8 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 funcio.getDepart().getId_depart(),
                 funcio.getMunici().getId_munici(),
                 funcio.getNo_funcio(),
-                funcio.getCe_funcio()
+                funcio.getCe_funcio(),
+                funcio.getFechaExpedicion()
         );
     }
 
@@ -131,7 +134,17 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         List<ListarFuncioDto> items = new ArrayList<>();
 
         for (ProFuncio f : lista) {
-            items.add(new ListarFuncioDto(f.getId_funcio(), f.getTipdoc().getDs_tipdoc(), f.getGenero().getDs_genero(), f.getNm_func1(),f.getNm_func2(),f.getAp_func1(),f.getAp_func2(), f.getPais().getNm_paises(), f.getDepart().getNm_depart(), f.getMunici().getNm_munici(),f.getNo_funcio(),f.getCe_funcio()));
+            items.add(new ListarFuncioDto(
+                    f.getId_funcio(),
+                    f.getTipdoc().getDs_tipdoc(),
+                    f.getGenero().getDs_genero(),
+                    f.getNm_func1(),f.getNm_func2(),
+                    f.getAp_func1(),f.getAp_func2(),
+                    f.getPais().getNm_paises(),
+                    f.getDepart().getNm_depart(),
+                    f.getMunici().getNm_munici(),
+                    f.getNo_funcio(),f.getCe_funcio(),
+                    f.getFechaExpedicion()));
         }
 
         return items;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pro_funcio")
@@ -28,13 +29,13 @@ public class ProFuncio {
     @Column(nullable = false, length = 25)
     private String nm_func1;
 
-    @Column(nullable = false, length = 25)
+    @Column(length = 25)
     private String nm_func2;
 
     @Column(nullable = false, length = 25)
     private String ap_func1;
 
-    @Column(nullable = false, length = 25)
+    @Column(length = 25)
     private String ap_func2;
 
     @ManyToOne
@@ -53,6 +54,9 @@ public class ProFuncio {
 
     @Column(nullable = false, length = 100)
     private String ce_funcio;
+
+    @Column(nullable = false)
+    private LocalDate fechaExpedicion;
 }
 
 

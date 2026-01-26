@@ -31,7 +31,7 @@ export class ProcFuncionarioInsert {
     id_munici: 0,
     no_funcio: 0,
     ce_funcio: '',
-    fechaExpedicion: undefined
+    fechaExpedicion: null
   };
   
   constructor(
@@ -100,7 +100,7 @@ export class ProcFuncionarioInsert {
               id_genero: 0,
               id_tipdoc: 0,
               id_funcio: 0,
-              fechaExpedicion: undefined,
+              fechaExpedicion: null,
               nm_func1: '',
               nm_func2: '',
               ap_func1: '',

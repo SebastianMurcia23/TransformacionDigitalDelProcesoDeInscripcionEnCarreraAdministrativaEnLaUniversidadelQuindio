@@ -1,5 +1,8 @@
 package co.edu.uniquindio.proyecto.dto.ProFuncioDto;
 
+import java.math.BigInteger;
+import java.time.LocalDate;
+
 public record ListarFuncioDto(
         Integer id_funcio,
         String id_tipdoc,
@@ -11,8 +14,9 @@ public record ListarFuncioDto(
         String id_pais,
         String id_depart,
         String id_munici,
-        java.math.BigInteger no_funcio,
-        String ce_funcio
+        BigInteger no_funcio,
+        String ce_funcio,
+        LocalDate fechaExpedicion
 
 ) { }
 
