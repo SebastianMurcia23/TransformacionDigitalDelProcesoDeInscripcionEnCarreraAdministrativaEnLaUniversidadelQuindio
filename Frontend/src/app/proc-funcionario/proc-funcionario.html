@@ -35,7 +35,7 @@
           <div class="btn id-eyes bi bi-eye-fill btn-sm me-2"(click)="abrirModalMostrar(funcionario)" data-bs-toggle="modal" data-bs-target="#modalMostrar"></div>
           <app-proc-funcionario-mostrar [funcionarioSeleccionado]="funcionarioSeleccionado"></app-proc-funcionario-mostrar>
           <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
-          <app-proc-funcionario-edit></app-proc-funcionario-edit>
+          <app-proc-funcionario-edit [funcionarioSeleccionado]="funcionarioSeleccionado"></app-proc-funcionario-edit>
           <button class="btn btn-danger btn-sm" (click)="eliminarFuncionario(funcionario.id_funcio)">Eliminar</button>
         </td>
       </tr>

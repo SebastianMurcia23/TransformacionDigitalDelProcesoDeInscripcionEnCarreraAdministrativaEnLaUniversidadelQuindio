@@ -25,8 +25,13 @@ export class ProcFuncionario implements OnInit {
   abrirModalMostrar(funcionario: ProFuncioDto): void {
     this.funcionarioSeleccionado = funcionario;
     console.log('Funcionario seleccionado:', funcionario);
-
   }
+
+  seleccionarParaEditar(funcionario: ProFuncioDto) {
+  this.funcionarioSeleccionado = funcionario;
+  console.log('Funcionario seleccionado:', funcionario);
+  }
+  
   cargarFuncionarios(): void {
     this.proFuncioService.listarFuncionarios().subscribe({
       next: (data) => {
