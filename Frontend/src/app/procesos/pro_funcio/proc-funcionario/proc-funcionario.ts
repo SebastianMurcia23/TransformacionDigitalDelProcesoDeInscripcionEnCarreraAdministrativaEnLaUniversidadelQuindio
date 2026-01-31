@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProFuncioService, ProFuncioDto } from '../service/ProFuncio/pro-funcio';
+import { ProFuncioService, ProFuncioDto } from '../../../service/ProFuncio/pro-funcio';
 import Swal from 'sweetalert2';
 
 @Component({

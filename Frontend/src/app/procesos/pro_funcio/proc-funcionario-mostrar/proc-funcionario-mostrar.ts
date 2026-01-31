@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProFuncioDto } from '../service/ProFuncio/pro-funcio';
+import { ProFuncioDto } from '../../../service/ProFuncio/pro-funcio';
 
 @Component({
   selector: 'app-proc-funcionario-mostrar',

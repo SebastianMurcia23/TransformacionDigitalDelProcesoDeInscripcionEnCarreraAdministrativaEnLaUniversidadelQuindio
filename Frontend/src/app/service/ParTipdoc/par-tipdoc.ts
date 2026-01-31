@@ -11,11 +11,26 @@ export interface ParTipdocDto {
   providedIn: 'root'
 })
 export class ParTipDocService {
+
+
   private apiUrl = 'http://localhost:8080/api/tipdoc';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}  
 
   listarTipDocs(): Observable<ParTipdocDto[]> {
     return this.http.get<ParTipdocDto[]>(this.apiUrl);
   }
+
+  crearTipDoc(ParTipdocDto: ParTipdocDto): Observable<number> {
+    return this.http.post<number>(this.apiUrl, ParTipdocDto);
+  }
+
+  editarTipDoc(dto: any): Observable<void> {
+    return this.http.put<void>(this.apiUrl, dto);
+  }
+
+  eliminarTipDoc(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
 }

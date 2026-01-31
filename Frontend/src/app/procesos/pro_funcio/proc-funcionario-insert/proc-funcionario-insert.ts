@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { PaisDto, ParPaisesService } from '../service/ParPaises/par-paises';
-import { ParGeneroService, ParGeneroDto } from '../service/ParGenero/par-genero';
-import { ParTipDocService, ParTipdocDto } from '../service/ParTipdoc/par-tipdoc';
-import { ProFuncioDto, ProFuncioService } from '../service/ProFuncio/pro-funcio';
+import { PaisDto, ParPaisesService } from '../../../service/ParPaises/par-paises';
+import { ParGeneroService, ParGeneroDto } from '../../../service/ParGenero/par-genero';
+import { ParTipDocService, ParTipdocDto } from '../../../service/ParTipdoc/par-tipdoc';
+import { ProFuncioDto, ProFuncioService } from '../../../service/ProFuncio/pro-funcio';
 import Swal from 'sweetalert2';
 
 @Component({

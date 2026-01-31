@@ -6,14 +6,15 @@ import { App } from './app';
 import { Login } from './login/login';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { ProcFuncionario } from './proc-funcionario/proc-funcionario';
+import { ProcFuncionario } from './procesos/pro_funcio/proc-funcionario/proc-funcionario';
 import { FormsModule } from '@angular/forms';
-import { ProcFuncionarioInsert } from './proc-funcionario-insert/proc-funcionario-insert';
-import { ProcAnotaciones } from './proc-anotaciones/proc-anotaciones';
-import { ProcAnotacionesInsAct } from './proc-anotaciones-ins-act/proc-anotaciones-ins-act';
+import { ProcFuncionarioInsert } from './procesos/pro_funcio/proc-funcionario-insert/proc-funcionario-insert';
+import { ProcAnotaciones } from './procesos/proc_anotaciones/proc-anotaciones/proc-anotaciones';
+import { ProcAnotacionesInsAct } from './procesos/proc_anotaciones/proc-anotaciones-ins-act/proc-anotaciones-ins-act';
 import { Inicio } from './inicio/inicio';
-import { ProcFuncionarioEdit } from './proc-funcionario-edit/proc-funcionario-edit';
-import { ProcFuncionarioMostrar } from './proc-funcionario-mostrar/proc-funcionario-mostrar';
+import { ProcFuncionarioEdit } from './procesos/pro_funcio/proc-funcionario-edit/proc-funcionario-edit';
+import { ProcFuncionarioMostrar } from './procesos/pro_funcio/proc-funcionario-mostrar/proc-funcionario-mostrar';
+import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ProcFuncionarioMostrar } from './proc-funcionario-mostrar/proc-funciona
     Inicio,
     ProcFuncionarioEdit,
     ProcFuncionarioMostrar,
+    ParTipdoc,
   ],
   imports: [
     BrowserModule,

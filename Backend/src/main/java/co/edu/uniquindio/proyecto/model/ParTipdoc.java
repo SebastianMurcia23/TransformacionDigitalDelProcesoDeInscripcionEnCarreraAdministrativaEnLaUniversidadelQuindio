@@ -15,7 +15,6 @@ public class ParTipdoc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_tipdoc;
-
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 100)
     private String ds_tipdoc;
 }
