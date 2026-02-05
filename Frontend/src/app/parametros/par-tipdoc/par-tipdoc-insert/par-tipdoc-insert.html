@@ -1,0 +1,33 @@
+<div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header bg-success text-white">
+        <h4 class="modal-title">
+          <i class="bi bi-person-badge"></i> Agregar Funcionario
+        </h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+
+      <div class="modal-body">
+        <form (ngSubmit)="guardarTipdoc()" #formFuncio="ngForm">
+
+            <div class="col-md-3">
+                <label for="ds_tipdoc" class="form-label" >Nombre del Tipo de Documento</label>
+                <input id="tipdoc" type="text" class="form-control" required [(ngModel)]="nuevoTipdoc.ds_tipdoc" name="ds_tipdoc">
+                <select>
+                    <option value="">Activo</option>
+                </select>
+            </div>
+
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success me-2">Agregar</button>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

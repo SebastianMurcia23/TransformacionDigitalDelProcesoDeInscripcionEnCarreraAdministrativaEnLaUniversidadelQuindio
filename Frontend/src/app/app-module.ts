@@ -14,7 +14,10 @@ import { ProcAnotacionesInsAct } from './procesos/proc_anotaciones/proc-anotacio
 import { Inicio } from './inicio/inicio';
 import { ProcFuncionarioEdit } from './procesos/pro_funcio/proc-funcionario-edit/proc-funcionario-edit';
 import { ProcFuncionarioMostrar } from './procesos/pro_funcio/proc-funcionario-mostrar/proc-funcionario-mostrar';
-import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc';
+import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc/par-tipdoc';
+import { NivCar } from './parametros/niv-car/niv-car';
+import { ParTipdocInsert } from './parametros/par-tipdoc/par-tipdoc-insert/par-tipdoc-insert';
+import { ParTipdocMostrar } from './parametros/par-tipdoc/par-tipdoc-mostrar/par-tipdoc-mostrar';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc';
     ProcFuncionarioEdit,
     ProcFuncionarioMostrar,
     ParTipdoc,
+    NivCar,
+    ParTipdocInsert,
+    ParTipdocMostrar,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ParTipDocService, ParTipdocDto } from '../../service/ParTipdoc/par-tipdoc';
+import { ParTipDocService, ParTipdocDto } from '../../../service/ParTipdoc/par-tipdoc';
 import Swal from 'sweetalert2';
 
 @Component({
