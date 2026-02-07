@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface ParTipdocDto {
   id_tipdoc: number;
   ds_tipdoc: string;
+  est_tipdoc: boolean;
 }
 
 @Injectable({

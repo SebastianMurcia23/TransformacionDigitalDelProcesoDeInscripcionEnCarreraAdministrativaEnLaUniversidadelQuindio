@@ -17,4 +17,6 @@ public class ParTipdoc {
     private Integer id_tipdoc;
     @Column(nullable = false, length = 100)
     private String ds_tipdoc;
+    @Column(nullable = false)
+    private Boolean est_tipdoc;
 }

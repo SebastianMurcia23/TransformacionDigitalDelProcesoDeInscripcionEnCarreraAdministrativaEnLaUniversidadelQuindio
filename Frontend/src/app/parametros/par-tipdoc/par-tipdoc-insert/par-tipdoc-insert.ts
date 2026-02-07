@@ -12,7 +12,8 @@ export class ParTipdocInsert {
 
 nuevoTipdoc: ParTipdocDto = {
   id_tipdoc: 0,
-  ds_tipdoc: ''
+  ds_tipdoc: '',
+  est_tipdoc: true
  };
 
  constructor(private parTipdocService: ParTipDocService ) {}
@@ -54,7 +55,9 @@ nuevoTipdoc: ParTipdocDto = {
           this.cargarTipdocs.emit(); 
           this.nuevoTipdoc={
             id_tipdoc: 0,
-            ds_tipdoc: ''
+            ds_tipdoc: '',
+            est_tipdoc: true
+
            };
           this.cerrarModal();        
         },

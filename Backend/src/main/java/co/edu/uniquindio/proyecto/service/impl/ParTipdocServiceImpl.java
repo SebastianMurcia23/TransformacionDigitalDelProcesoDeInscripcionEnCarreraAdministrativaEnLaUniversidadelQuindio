@@ -25,6 +25,7 @@ public class ParTipdocServiceImpl implements ParTipdocService {
     public Integer crearTipdoc(CrearTipdocDto dto) throws Exception {
         ParTipdoc nuevo = ParTipdoc.builder()
                 .ds_tipdoc(dto.ds_tipdoc())
+                .est_tipdoc(dto.est_tipdoc())
                 .build();
 
         return parTipdocRepository.save(nuevo).getId_tipdoc();

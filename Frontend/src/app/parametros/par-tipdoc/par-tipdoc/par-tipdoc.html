@@ -7,6 +7,7 @@
       <tr>
         <th>Identificación</th>
         <th>Nombre del Tipo de Documento</th>
+        <th>Estado</th>
         <th class="id-acciones">Acciones</th>
       </tr>
     </thead>
@@ -14,6 +15,7 @@
       <tr *ngFor="let tipdoc of tipdoc">
         <td>{{ tipdoc.id_tipdoc }}</td>
         <td>{{ tipdoc.ds_tipdoc }}</td>
+        <td>{{tipdoc.est_tipdoc ? 'Inactivo' : 'Activo'}}</td>
         <td>
           <button class="btn btn-primary btn-sm me-2"
                   data-bs-toggle="modal"
