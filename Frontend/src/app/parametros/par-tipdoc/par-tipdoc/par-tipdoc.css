@@ -6,3 +6,11 @@
    
     padding-left: 20px;
 }
+
+/* Fila inactiva completa */
+.fila-inactiva,
+.fila-inactiva td {
+  background-color: #e9ecef !important;
+  color: #6c757d; 
+  opacity: 0.9;
+}

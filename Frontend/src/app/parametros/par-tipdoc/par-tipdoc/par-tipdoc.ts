@@ -29,6 +29,7 @@ export class ParTipdoc {
     cargarTipDocs(): void {
       this.parTipDocService.listarTipDocs().subscribe({
         next: (data) => {
+          console.log('Tipdocs cargados con éxito', data);
           this.tipdoc = data;
           this.todosLosTipdocs = data;
         },

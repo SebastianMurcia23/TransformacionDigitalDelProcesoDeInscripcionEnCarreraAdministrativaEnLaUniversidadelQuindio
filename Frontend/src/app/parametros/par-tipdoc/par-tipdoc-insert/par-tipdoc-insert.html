@@ -4,7 +4,7 @@
 
       <div class="modal-header bg-success text-white">
         <h4 class="modal-title">
-          <i class="bi bi-person-badge"></i> Agregar Funcionario
+          <i class="bi bi-person-badge"></i> Agregar Tipo de Documento
         </h4>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
@@ -16,11 +16,11 @@
             <div class="col-md-3">
                 <label for="ds_tipdoc" class="form-label" >Nombre del Tipo de Documento</label>
                 <input id="tipdoc" type="text" class="form-control" required [(ngModel)]="nuevoTipdoc.ds_tipdoc" name="ds_tipdoc">
-                <select>
-                    <option value="">Activo</option>
+                <select id="est_tipdoc" class="form-select" required [(ngModel)]="nuevoTipdoc.est_tipdoc" name="est_tipdoc">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
                 </select>
             </div>
-
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-success me-2">Agregar</button>
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>

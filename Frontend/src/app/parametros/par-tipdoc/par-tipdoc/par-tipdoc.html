@@ -12,19 +12,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tipdoc of tipdoc">
+      <tr *ngFor="let tipdoc of tipdoc" [ngClass]="!tipdoc.est_tipdoc ? 'fila-inactiva' : ''">
         <td>{{ tipdoc.id_tipdoc }}</td>
         <td>{{ tipdoc.ds_tipdoc }}</td>
-        <td>{{tipdoc.est_tipdoc ? 'Inactivo' : 'Activo'}}</td>
+        <td>{{tipdoc.est_tipdoc ? 'Activo' : 'Inactivo'}}</td>
         <td>
           <button class="btn btn-primary btn-sm me-2"
                   data-bs-toggle="modal"
                   data-bs-target="#modalEditar">
             Editar
           </button>
-          <button class="btn btn-danger btn-sm"
-                  (click)="eliminarTipDoc(tipdoc.id_tipdoc)">
-            Eliminar
+          <button class="btn btn-sm"
+                  [ngClass]="tipdoc.est_tipdoc ? 'btn-danger' : 'btn-success'"
+                  (click)="eliminarTipDoc(  tipdoc.id_tipdoc)">
+            {{ tipdoc.est_tipdoc ? 'Desactivar' : 'Activar' }}
           </button>
         </td>
       </tr>
@@ -35,7 +36,6 @@
     No se encontraron tipos de documento
   </div>
 
-  <!-- BOTÓN IGUAL AL DE FUNCIONARIO -->
   <div class="text-end">
     <button class="btn btn-success mb-3"
             data-bs-toggle="modal"

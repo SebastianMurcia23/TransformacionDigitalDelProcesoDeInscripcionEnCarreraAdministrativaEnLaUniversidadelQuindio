@@ -28,9 +28,11 @@
               <label for="tipdoc" class="form-label" >Tipo Documento</label>
               <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.id_tipdoc" name="id_tipdoc">
                 <option value="0" disabled>Seleccione...</option>
-                <option *ngFor="let tipdoc of tipDocs" [ngValue]="tipdoc.id_tipdoc">
+                <ng-container *ngFor="let tipdoc of tipDocs">
+                <option *ngIf="tipdoc.est_tipdoc" [ngValue]="tipdoc.id_tipdoc" >
                   {{ tipdoc.ds_tipdoc }}
                 </option>
+                </ng-container>
               </select>
             </div>
 

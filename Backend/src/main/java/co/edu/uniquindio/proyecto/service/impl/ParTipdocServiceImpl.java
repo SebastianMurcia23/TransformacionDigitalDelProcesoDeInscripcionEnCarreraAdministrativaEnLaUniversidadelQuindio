@@ -56,7 +56,8 @@ public class ParTipdocServiceImpl implements ParTipdocService {
 
         return new InformacionTipdocDto(
                 tipdoc.getId_tipdoc(),
-                tipdoc.getDs_tipdoc()
+                tipdoc.getDs_tipdoc(),
+                tipdoc.getEst_tipdoc()
         );
     }
 
@@ -64,9 +65,8 @@ public class ParTipdocServiceImpl implements ParTipdocService {
     public List<ListarTipdocDto> listarTipdoc() {
         List<ParTipdoc> lista = parTipdocRepository.findAll();
         List<ListarTipdocDto> items = new ArrayList<>();
-
         for (ParTipdoc t : lista) {
-            items.add(new ListarTipdocDto(t.getId_tipdoc(), t.getDs_tipdoc()));
+            items.add(new ListarTipdocDto(t.getId_tipdoc(), t.getDs_tipdoc(),t.getEst_tipdoc()));
         }
 
         return items;

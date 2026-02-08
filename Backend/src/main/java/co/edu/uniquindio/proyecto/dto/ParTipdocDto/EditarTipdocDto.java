@@ -6,5 +6,6 @@ import jakarta.validation.constraints.Size;
 
 public record EditarTipdocDto(
         @NotNull Integer id_tipdoc,
-        @NotBlank @Size(max = 25) String ds_tipdoc
+        @NotBlank @Size(max = 25) String ds_tipdoc,
+        @NotNull Boolean est_tipdoc
 ) { }

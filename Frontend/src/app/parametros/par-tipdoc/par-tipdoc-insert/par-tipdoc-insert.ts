@@ -24,10 +24,11 @@ nuevoTipdoc: ParTipdocDto = {
  guardarTipdoc(): void {
 
   this.nuevoTipdoc.ds_tipdoc = this.nuevoTipdoc.ds_tipdoc.trim();
+  this.nuevoTipdoc.est_tipdoc = this.nuevoTipdoc.est_tipdoc;
   console.log('Valores actuales del tipo de documento:', this.nuevoTipdoc); 
 
   Swal.fire({
-    title: '¿Desea guardar este funcionario?',
+    title: '¿Desea guardar este tipo de documento?',
     text: 'Verifique que toda la información sea correcta antes de continuar.',
     icon: 'question',
     showCancelButton: true,
