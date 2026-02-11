@@ -18,6 +18,14 @@ nuevoTipdoc: ParTipdocDto = {
 
  constructor(private parTipdocService: ParTipDocService ) {}
 
+
+ limpiarCampos(): void {
+  this.nuevoTipdoc = {
+    id_tipdoc: 0,
+    ds_tipdoc: '',
+    est_tipdoc: true
+  };
+ }
  cerrarModal(): void {
   (document.querySelector('#modalAgregar .btn-close') as HTMLElement)?.click();
  }

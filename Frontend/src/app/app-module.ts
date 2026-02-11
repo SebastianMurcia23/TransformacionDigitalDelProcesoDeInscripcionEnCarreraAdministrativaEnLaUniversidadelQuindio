@@ -17,7 +17,7 @@ import { ProcFuncionarioMostrar } from './procesos/pro_funcio/proc-funcionario-m
 import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc/par-tipdoc';
 import { NivCar } from './parametros/niv-car/niv-car';
 import { ParTipdocInsert } from './parametros/par-tipdoc/par-tipdoc-insert/par-tipdoc-insert';
-import { ParTipdocMostrar } from './parametros/par-tipdoc/par-tipdoc-mostrar/par-tipdoc-mostrar';
+import { ParTipdocEdit } from './parametros/par-tipdoc/par-tipdoc-edit/par-tipdoc-edit';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import { ParTipdocMostrar } from './parametros/par-tipdoc/par-tipdoc-mostrar/par
     ParTipdoc,
     NivCar,
     ParTipdocInsert,
-    ParTipdocMostrar,
+    ParTipdocEdit
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,7 @@ import { ParTipdocMostrar } from './parametros/par-tipdoc/par-tipdoc-mostrar/par
     OAuthModule.forRoot(),
     HttpClientModule,
     FormsModule
-  ],
+],
   providers: [
     provideBrowserGlobalErrorListeners()
   ],

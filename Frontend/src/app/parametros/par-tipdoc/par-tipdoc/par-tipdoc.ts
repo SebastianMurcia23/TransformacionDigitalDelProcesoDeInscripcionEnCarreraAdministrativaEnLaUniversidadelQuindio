@@ -9,10 +9,12 @@ import Swal from 'sweetalert2';
   styleUrl: './par-tipdoc.css'
 })
 export class ParTipdoc {
-   searchId: string = '';
+    searchId: string = '';
     tipdoc: ParTipdocDto[] = [];
     todosLosTipdocs: ParTipdocDto[] = []; 
     tipDocSeleccionado: ParTipdocDto | null = null;
+    tipdocSeleccionado!: ParTipdocDto;
+
   
     constructor(private parTipDocService: ParTipDocService) {}
   
@@ -20,12 +22,9 @@ export class ParTipdoc {
     ngOnInit(): void {
       this.cargarTipDocs();
     }
-  
-    seleccionarParaEditar(tipDoc: ParTipdocDto) {
-    this.tipDocSeleccionado = tipDoc;
-    console.log('TipDoc seleccionado:', tipDoc);
+    seleccionarTipdocParaEditar(tipdoc: ParTipdocDto): void {
+      this.tipdocSeleccionado = { ...tipdoc };
     }
-    
     cargarTipDocs(): void {
       this.parTipDocService.listarTipDocs().subscribe({
         next: (data) => {
@@ -49,44 +48,52 @@ export class ParTipdoc {
         tipdoc.id_tipdoc.toString().startsWith(search)
       );
     }
-  
-    eliminarTipDoc(id: number): void {
+    cambiarEstadoTipDoc(tipdoc: ParTipdocDto) {
+
+      const nuevoEstado = !tipdoc.est_tipdoc;
+      const mensaje = nuevoEstado
+        ? '¿Está seguro de activar este tipo de documento?'
+        : '¿Está seguro de desactivar este tipo de documento?';
+
       Swal.fire({
-        title: '¿Estás seguro?',
-        text: 'Esta acción eliminará el tipo de documento de forma permanente.',
+        title: mensaje,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminar',
+        confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar',
-        reverseButtons: true,
+        reverseButtons: true
       }).then((result) => {
+
         if (result.isConfirmed) {
-          this.parTipDocService.eliminarTipDoc(id).subscribe({
+
+          this.parTipDocService.cambiarEstadoTipDoc({
+            id_tipdoc: tipdoc.id_tipdoc,
+            ds_tipdoc: tipdoc.ds_tipdoc,
+            est_tipdoc: nuevoEstado
+          }).subscribe({
+
             next: () => {
-              this.cargarTipDocs();
-  
+
+              tipdoc.est_tipdoc = nuevoEstado;
+
               Swal.fire({
-                title: '¡Eliminado!',
-                text: 'El tipo de documento ha sido eliminado correctamente.',
+                title: nuevoEstado ? '¡Activado!' : '¡Desactivado!',
+                text: 'El estado se actualizó correctamente.',
                 icon: 'success',
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#28a745',
                 timer: 2000,
                 showConfirmButton: false
               });
             },
-            error: (err) => {
-              console.error('Error eliminando tipo de documento', err);
-              Swal.fire({
-                title: 'Error',
-                text: 'Ocurrió un problema al eliminar el tipo de documento.',
-                icon: 'error',
-                confirmButtonColor: '#d33'
-              });
+
+            error: () => {
+              Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
             }
           });
         }
+
       });
     }
 }

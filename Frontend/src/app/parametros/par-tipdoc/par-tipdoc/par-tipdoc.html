@@ -19,12 +19,13 @@
         <td>
           <button class="btn btn-primary btn-sm me-2"
                   data-bs-toggle="modal"
-                  data-bs-target="#modalEditar">
+                  data-bs-target="#modalEditar"
+                  (click)="seleccionarTipdocParaEditar(tipdoc)">
             Editar
           </button>
           <button class="btn btn-sm"
                   [ngClass]="tipdoc.est_tipdoc ? 'btn-danger' : 'btn-success'"
-                  (click)="eliminarTipDoc(  tipdoc.id_tipdoc)">
+                  (click)="cambiarEstadoTipDoc(tipdoc)">
             {{ tipdoc.est_tipdoc ? 'Desactivar' : 'Activar' }}
           </button>
         </td>
@@ -40,8 +41,12 @@
     <button class="btn btn-success mb-3"
             data-bs-toggle="modal"
             data-bs-target="#modalAgregar">
-      Agregar Tipo de Documento
+      Agregar Documento
     </button>
   </div>
   <app-par-tipdoc-ins (cargarTipdocs)="cargarTipDocs()"></app-par-tipdoc-ins>
+  <app-par-tipdoc-edit 
+    [tipdocSeleccionado]="tipdocSeleccionado" 
+    (cargarTipdocs)="cargarTipDocs()">
+  </app-par-tipdoc-edit>
 </div>

@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.controller;
 
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.CrearTipdocDto;
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.EditarTipdocDto;
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.InformacionTipdocDto;
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.ListarTipdocDto;
+import co.edu.uniquindio.proyecto.dto.ParTipdocDto.*;
 import co.edu.uniquindio.proyecto.service.ParTipdocService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +28,12 @@ public class ParTipdocController {
     @PutMapping
     public ResponseEntity<Void> editarTipdoc(@Valid @RequestBody EditarTipdocDto dto) throws Exception {
         parTipdocService.editarTipdoc(dto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/est")
+    public ResponseEntity<Void> actualizarEstTipdoc(@Valid @RequestBody ActualizarEstTipdoc dto) throws Exception {
+        parTipdocService.actualizarEstTipdoc(dto);
         return ResponseEntity.noContent().build();
     }
 

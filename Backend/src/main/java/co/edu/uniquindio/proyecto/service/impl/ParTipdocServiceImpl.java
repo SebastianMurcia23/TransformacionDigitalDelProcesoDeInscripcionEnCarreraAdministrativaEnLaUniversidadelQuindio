@@ -1,13 +1,11 @@
 package co.edu.uniquindio.proyecto.service.impl;
 
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.CrearTipdocDto;
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.EditarTipdocDto;
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.InformacionTipdocDto;
-import co.edu.uniquindio.proyecto.dto.ParTipdocDto.ListarTipdocDto;
+import co.edu.uniquindio.proyecto.dto.ParTipdocDto.*;
 import co.edu.uniquindio.proyecto.model.ParTipdoc;
 import co.edu.uniquindio.proyecto.repository.ParTipdocRepository;
 import co.edu.uniquindio.proyecto.service.ParTipdocService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +40,17 @@ public class ParTipdocServiceImpl implements ParTipdocService {
     }
 
     @Override
+    public void actualizarEstTipdoc( ActualizarEstTipdoc dto) throws Exception {
+        ParTipdoc tipdoc = parTipdocRepository.findById(dto.id_tipdoc())
+                .orElseThrow(() -> new Exception("Tipo de documento no encontrado"));
+
+        tipdoc.setEst_tipdoc(dto.est_tipdoc());
+
+        parTipdocRepository.save(tipdoc);
+    }
+
+
+    @Override
     public void eliminarTipdoc(Integer id) throws Exception {
         ParTipdoc tipdoc = parTipdocRepository.findById(id)
                 .orElseThrow(() -> new Exception("Tipo de documento no encontrado"));
@@ -63,7 +72,7 @@ public class ParTipdocServiceImpl implements ParTipdocService {
 
     @Override
     public List<ListarTipdocDto> listarTipdoc() {
-        List<ParTipdoc> lista = parTipdocRepository.findAll();
+        List<ParTipdoc> lista = parTipdocRepository.findAllOrderByIdTipdocAsc();
         List<ListarTipdocDto> items = new ArrayList<>();
         for (ParTipdoc t : lista) {
             items.add(new ListarTipdocDto(t.getId_tipdoc(), t.getDs_tipdoc(),t.getEst_tipdoc()));

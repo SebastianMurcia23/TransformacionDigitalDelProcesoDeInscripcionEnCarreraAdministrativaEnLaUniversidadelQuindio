@@ -26,8 +26,11 @@ export class ParTipDocService {
     return this.http.post<number>(this.apiUrl, ParTipdocDto);
   }
 
-  editarTipDoc(dto: any): Observable<void> {
-    return this.http.put<void>(this.apiUrl, dto);
+  editarTipDoc(ParTipdocDto: ParTipdocDto): Observable<void> {
+    return this.http.put<void>(this.apiUrl, ParTipdocDto);
+  }
+  cambiarEstadoTipDoc(ParTipdocDto: ParTipdocDto): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/est`, ParTipdocDto);
   }
 
   eliminarTipDoc(id: number): Observable<void> {

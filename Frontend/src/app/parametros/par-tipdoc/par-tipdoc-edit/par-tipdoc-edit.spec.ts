@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ParTipdocEdit } from './par-tipdoc-edit';
 
-import { ParTipdocMostrar } from './par-tipdoc-mostrar';
 
-describe('ParTipdocMostrar', () => {
-  let component: ParTipdocMostrar;
-  let fixture: ComponentFixture<ParTipdocMostrar>;
+describe('ParTipdocEdit', () => {
+  let component: ParTipdocEdit;
+  let fixture: ComponentFixture<ParTipdocEdit>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ParTipdocMostrar]
+      declarations: [ParTipdocEdit]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ParTipdocMostrar);
+    fixture = TestBed.createComponent(ParTipdocEdit);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
