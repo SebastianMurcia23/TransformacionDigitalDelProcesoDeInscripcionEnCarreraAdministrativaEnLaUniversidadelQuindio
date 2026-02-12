@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
   styleUrl: './par-tipdoc-insert.css'
 })
 export class ParTipdocInsert {
+
 @Output() cargarTipdocs = new EventEmitter<void>();
 
 nuevoTipdoc: ParTipdocDto = {
@@ -18,6 +19,14 @@ nuevoTipdoc: ParTipdocDto = {
 
  constructor(private parTipdocService: ParTipDocService ) {}
 
+
+  convertirMayusculas(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input) return;
+
+    const valor = input.value.toUpperCase();
+    input.value = valor;
+  }
 
  limpiarCampos(): void {
   this.nuevoTipdoc = {

@@ -6,6 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 public record EditarNivcarDto(
         @NotNull Integer idNivcar,
-        @NotBlank @Length(max = 20) String dsNivcar,
+        @NotBlank @Length(max = 100) String dsNivcar,
         @NotNull Boolean estNivcar
 ) { }

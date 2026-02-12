@@ -11,6 +11,7 @@ import { ParTipdocDto, ParTipDocService } from '../../../service/ParTipdoc/par-t
 })
 export class ParTipdocEdit  {
 
+
   @Input() tipdocSeleccionado: ParTipdocDto | null = null;
   @Output() cargarTipdocs = new EventEmitter<void>();
 
@@ -21,6 +22,15 @@ export class ParTipdocEdit  {
   limpiarCampos(): void {
     this.nuevoNombre = '';
   }
+
+  convertirMayusculas(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input) return;
+
+    const valor = input.value.toUpperCase();
+    input.value = valor;
+  }
+
   cerrarModal(): void {
     (document.querySelector('#modalEditar .btn-close') as HTMLElement)?.click();
   }

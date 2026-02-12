@@ -1,4 +1,5 @@
-<div class="modal fade modal-derecha" id="modalEditar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade modal-derecha" id="modalEditar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+  data-bs-keyboard="false">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
 
@@ -14,22 +15,20 @@
 
           <div class="mb-3">
             <label for="ds_tipdoc_actual" class="form-label">Nombre Actual</label>
-            <input id="ds_tipdoc_actual" type="text" class="form-control" 
-                   [(ngModel)]="tipdocSeleccionado.ds_tipdoc" 
-                   name="ds_tipdoc_actual" disabled>
+            <input id="ds_tipdoc_actual" type="text" class="form-control" [(ngModel)]="tipdocSeleccionado.ds_tipdoc"
+              name="ds_tipdoc_actual" disabled>
           </div>
 
           <div class="mb-3">
             <label for="ds_tipdoc_nuevo" class="form-label">Nuevo Nombre del Tipo de Documento</label>
-            <input id="ds_tipdoc_nuevo" type="text" class="form-control" required
-                   [(ngModel)]="nuevoNombre" 
-                   name="ds_tipdoc_nuevo"
-                   placeholder="Ingrese el Nuevo Nombre">
+            <input id="ds_tipdoc_nuevo" type="text" class="form-control" required [(ngModel)]="nuevoNombre"
+              name="ds_tipdoc_nuevo" placeholder="Ingrese el Nuevo Nombre" (input)="convertirMayusculas($event)">
           </div>
 
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-success me-2" [disabled]="!nuevoNombre.trim()">Actualizar</button>
-            <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="limpiarCampos()">Cancelar</button>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
+              (click)="limpiarCampos()">Cancelar</button>
           </div>
 
         </form>

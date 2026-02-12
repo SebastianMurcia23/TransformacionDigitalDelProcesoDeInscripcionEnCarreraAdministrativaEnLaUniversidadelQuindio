@@ -1,4 +1,5 @@
-<div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+  data-bs-keyboard="false">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
 
@@ -16,7 +17,8 @@
           <div class="row mb-3">
             <div class="col-md-3">
               <label for="genero" class="form-label">Género</label>
-              <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.id_genero" name="id_genero">
+              <select id="genero" class="form-select" required [(ngModel)]="nuevoFuncionario.id_genero"
+                name="id_genero">
                 <option value="0" disabled>Seleccione...</option>
                 <option *ngFor="let genero of generos" [ngValue]="genero.id_genero">
                   {{ genero.ds_genero }}
@@ -25,44 +27,52 @@
             </div>
 
             <div class="col-md-3">
-              <label for="tipdoc" class="form-label" >Tipo Documento</label>
-              <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.id_tipdoc" name="id_tipdoc">
+              <label for="tipdoc" class="form-label">Tipo Documento</label>
+              <select id="tipdoc" class="form-select" required [(ngModel)]="nuevoFuncionario.id_tipdoc"
+                name="id_tipdoc">
                 <option value="0" disabled>Seleccione...</option>
                 <ng-container *ngFor="let tipdoc of tipDocs">
-                <option *ngIf="tipdoc.est_tipdoc" [ngValue]="tipdoc.id_tipdoc" >
-                  {{ tipdoc.ds_tipdoc }}
-                </option>
+                  <option *ngIf="tipdoc.est_tipdoc" [ngValue]="tipdoc.id_tipdoc">
+                    {{ tipdoc.ds_tipdoc }}
+                  </option>
                 </ng-container>
               </select>
             </div>
 
             <div class="col-md-3">
               <label for="numeroDocumento" class="form-label">No. Documento Identidad</label>
-              <input id="numeroDocumento" type="number" class="form-control" required [(ngModel)]="nuevoFuncionario.id_funcio" name="id_funcio">
+              <input id="numeroDocumento" type="number" class="form-control" required
+                [(ngModel)]="nuevoFuncionario.id_funcio" name="id_funcio">
             </div>
 
             <div class="col-md-3">
               <label for="fechaExpedicion" class="form-label">Fecha de Expedición</label>
-              <input id="fechaExpedicion" type="date" class="form-control" required [(ngModel)]="nuevoFuncionario.fechaExpedicion" name="fechaExpedicion">
+              <input id="fechaExpedicion" type="date" class="form-control" required
+                [(ngModel)]="nuevoFuncionario.fechaExpedicion" name="fechaExpedicion">
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col-md-3">
               <label for="primerNombre" class="form-label">Primer Nombre</label>
-              <input id="primerNombre" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.nm_func1" name="nm_func1">
+              <input id="primerNombre" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.nm_func1"
+                name="nm_func1" placeholder="Ingrese Primer Nombre" (input)="convertirMayusculas($event)">
             </div>
             <div class="col-md-3">
               <label for="segundoNombre" class="form-label">Segundo Nombre</label>
-              <input id="segundoNombre" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.nm_func2" name="nm_func2">
+              <input id="segundoNombre" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.nm_func2"
+                name="nm_func2" placeholder="Ingrese Segundo Nombre" (input)="convertirMayusculas($event)">
             </div>
             <div class="col-md-3">
               <label for="primerApellido" class="form-label">Primer Apellido</label>
-              <input id="primerApellido" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.ap_func1" name="ap_func1">
+              <input id="primerApellido" type="text" class="form-control" required
+                [(ngModel)]="nuevoFuncionario.ap_func1" name="ap_func1" placeholder="Ingrese Primer Apellido"
+                (input)="convertirMayusculas($event)">
             </div>
             <div class="col-md-3">
               <label for="segundoApellido" class="form-label">Segundo Apellido</label>
-              <input id="segundoApellido" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.ap_func2" name="ap_func2">
+              <input id="segundoApellido" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.ap_func2"
+                name="ap_func2" placeholder="Ingrese Segundo Apellido" (input)="convertirMayusculas($event)">
             </div>
           </div>
 
@@ -79,7 +89,8 @@
 
             <div class="col-md-4">
               <label for="depart" class="form-label">Departamento</label>
-              <select id="depart" class="form-select" required [(ngModel)]="nuevoFuncionario.id_depart" name="id_depart">
+              <select id="depart" class="form-select" required [(ngModel)]="nuevoFuncionario.id_depart"
+                name="id_depart">
                 <option value="0" disabled>Seleccione...</option>
                 <option [ngValue]="1">Quindio</option>
               </select>
@@ -87,7 +98,8 @@
 
             <div class="col-md-4">
               <label for="munici" class="form-label">Municipio</label>
-              <select id="munici" class="form-select" required [(ngModel)]="nuevoFuncionario.id_munici" name="id_munici">
+              <select id="munici" class="form-select" required [(ngModel)]="nuevoFuncionario.id_munici"
+                name="id_munici">
                 <option value="0" disabled>Seleccione...</option>
                 <option [ngValue]="1">Armenia</option>
               </select>
@@ -97,17 +109,20 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="contacto" class="form-label">Número de Contacto</label>
-              <input id="contacto" type="tel" class="form-control" pattern="[0-9]{7,10}" [(ngModel)]="nuevoFuncionario.no_funcio" name="no_funcio">
+              <input id="contacto" type="tel" class="form-control" pattern="[0-9]{7,10}"
+                [(ngModel)]="nuevoFuncionario.no_funcio" name="no_funcio">
             </div>
             <div class="col-md-6">
               <label for="correo" class="form-label">Correo Electrónico</label>
-              <input id="correo" type="email" class="form-control" required [(ngModel)]="nuevoFuncionario.ce_funcio" name="ce_funcio">
+              <input id="correo" type="email" class="form-control" required [(ngModel)]="nuevoFuncionario.ce_funcio"
+                name="ce_funcio" placeholder="Ingrese Correo Electronico" (input)="convertirMayusculas($event)">
             </div>
           </div>
 
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-success me-2">Agregar</button>
-            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
+              (click)="limpiarFormulario()">Cerrar</button>
           </div>
 
         </form>

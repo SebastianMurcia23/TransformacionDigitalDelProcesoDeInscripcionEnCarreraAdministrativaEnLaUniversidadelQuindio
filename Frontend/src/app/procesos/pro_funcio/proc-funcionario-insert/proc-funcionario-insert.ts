@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrl: './proc-funcionario-insert.css'
 })
 export class ProcFuncionarioInsert {
+
   @Output() cargarFuncionarios = new EventEmitter<void>();
 
   paises: PaisDto[] = [];
@@ -45,6 +46,14 @@ export class ProcFuncionarioInsert {
     this.cargarPaises();
     this.cargarGeneros();
     this.cargarParTipDocs();
+  }
+
+  convertirMayusculas(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input) return;
+
+    const valor = input.value.toUpperCase();
+    input.value = valor;
   }
 
   cerrarModal(): void {
@@ -147,5 +156,23 @@ export class ProcFuncionarioInsert {
       next: (data) => this.paises = data,
       error: (err) => console.error('Error cargando paises', err)
     });
+  }
+
+  limpiarFormulario(): void {
+    this.nuevoFuncionario = {
+    id_genero: 0,
+    id_tipdoc: 0,
+    id_funcio: 0,
+    fechaExpedicion: null,
+    nm_func1: '',
+    nm_func2: '',
+    ap_func1: '',
+    ap_func2: '',
+    id_pais: 0,
+    id_depart: 0,
+    id_munici: 0,
+    no_funcio: 0,
+    ce_funcio: ''
+    };
   }
 }
