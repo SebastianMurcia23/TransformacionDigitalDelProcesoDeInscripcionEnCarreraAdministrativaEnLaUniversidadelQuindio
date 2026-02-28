@@ -16,7 +16,7 @@ public class ParNivcar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idNivcar;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 100, nullable = false)
     private String dsNivcar;
 
     @Column(nullable = false)

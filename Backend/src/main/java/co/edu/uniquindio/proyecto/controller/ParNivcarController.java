@@ -1,23 +1,24 @@
 package co.edu.uniquindio.proyecto.controller;
 
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.CrearNivcarDto;
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.EditarNivcarDto;
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.InformacionNivcarDto;
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.ListarNivcarDto;
+import co.edu.uniquindio.proyecto.dto.ParNivcarDto.*;
+import co.edu.uniquindio.proyecto.dto.ParTipdocDto.ActualizarEstTipdoc;
+import co.edu.uniquindio.proyecto.model.ParNivcar;
+import co.edu.uniquindio.proyecto.repository.ParNivcarRepository;
 import co.edu.uniquindio.proyecto.service.ParNivcarService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/nivcar")
 @RequiredArgsConstructor
 public class ParNivcarController {
 
     private final ParNivcarService parNivcarService;
+    private final ParNivcarRepository parNivcarRepository;
 
     // Crear nivel de cargo
     @PostMapping
@@ -30,6 +31,14 @@ public class ParNivcarController {
     @PutMapping
     public ResponseEntity<Void> editarNivcar(@Valid @RequestBody EditarNivcarDto dto) throws Exception {
         parNivcarService.editarNivcar(dto);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Editar estado de nivcar
+
+    @PutMapping("/est")
+    public ResponseEntity<Void> actualizarEstNivcar(@Valid @RequestBody ActualizarEstNivcar dto) throws Exception {
+        parNivcarService.actualizarEstNivcar(dto);
         return ResponseEntity.noContent().build();
     }
 

@@ -7,6 +7,8 @@ import { ProcAnotacionesInsAct } from './procesos/proc_anotaciones/proc-anotacio
 import { ProcFuncionarioInsert } from './procesos/pro_funcio/proc-funcionario-insert/proc-funcionario-insert';
 import { Inicio } from './inicio/inicio';
 import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc/par-tipdoc';
+import { NivCar } from './parametros/niv-car/niv-car/niv-car';
+import { DenCar } from './parametros/den-car/den-car/den-car';
 const routes: Routes = [
 
   {path:'', component: Login},
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path:'proc-anotaciones', component: ProcAnotaciones},
   {path:'proc-anotaciones-ins-act', component: ProcAnotacionesInsAct},
   {path:'inicio', component: Inicio},
-  {path:'par-tipDoc', component: ParTipdoc}
+  {path:'par-tipDoc', component: ParTipdoc},
+  {path:'niv-car', component: NivCar},
+  {path:'den-car', component: DenCar}
 ];
 
 @NgModule({

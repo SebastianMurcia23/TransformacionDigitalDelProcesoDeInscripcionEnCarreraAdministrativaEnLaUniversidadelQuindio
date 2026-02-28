@@ -16,7 +16,7 @@ export class ParTipDocService {
 
   private apiUrl = 'http://localhost:8080/api/tipdoc';
 
-  constructor(private http: HttpClient) {}  
+  constructor(private http: HttpClient) { }
 
   listarTipDocs(): Observable<ParTipdocDto[]> {
     return this.http.get<ParTipdocDto[]>(this.apiUrl);

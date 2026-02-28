@@ -17,6 +17,12 @@ import { ProcFuncionarioMostrar } from './procesos/pro_funcio/proc-funcionario-m
 import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc/par-tipdoc';
 import { ParTipdocInsert } from './parametros/par-tipdoc/par-tipdoc-insert/par-tipdoc-insert';
 import { ParTipdocEdit } from './parametros/par-tipdoc/par-tipdoc-edit/par-tipdoc-edit';
+import { NivCar } from './parametros/niv-car/niv-car/niv-car';
+import { ParNivcarEdit } from './parametros/niv-car/par-nivcar-edit/par-nivcar-edit';
+import { NivCarInsert } from './parametros/niv-car/niv-car-insert/niv-car-insert';
+import { DenCar } from './parametros/den-car/den-car/den-car';
+import { DenCarInsert } from './parametros/den-car/den-car-insert/den-car-insert';
+import { DenCarEdit } from './parametros/den-car/den-car-edit/den-car-edit';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,13 @@ import { ParTipdocEdit } from './parametros/par-tipdoc/par-tipdoc-edit/par-tipdo
     ProcFuncionarioMostrar,
     ParTipdoc,
     ParTipdocInsert,
-    ParTipdocEdit
+    ParTipdocEdit,
+    NivCar,
+    ParNivcarEdit,
+    NivCarInsert,
+    DenCar,
+    DenCarInsert,
+    DenCarEdit
 
   ],
   imports: [
@@ -40,7 +52,7 @@ import { ParTipdocEdit } from './parametros/par-tipdoc/par-tipdoc-edit/par-tipdo
     OAuthModule.forRoot(),
     HttpClientModule,
     FormsModule
-],
+  ],
   providers: [
     provideBrowserGlobalErrorListeners()
   ],

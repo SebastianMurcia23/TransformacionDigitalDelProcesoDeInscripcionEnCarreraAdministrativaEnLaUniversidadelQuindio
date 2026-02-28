@@ -1,10 +1,9 @@
 package co.edu.uniquindio.proyecto.service.impl;
 
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.CrearDencarDto;
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.EditarDencarDto;
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.InformacionDencarDto;
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.ListarDencarDto;
+import co.edu.uniquindio.proyecto.dto.ParDencarDto.*;
+import co.edu.uniquindio.proyecto.dto.ParNivcarDto.ActualizarEstNivcar;
 import co.edu.uniquindio.proyecto.model.ParDencar;
+import co.edu.uniquindio.proyecto.model.ParNivcar;
 import co.edu.uniquindio.proyecto.repository.ParDencarRepository;
 import co.edu.uniquindio.proyecto.service.ParDencarService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +28,15 @@ public class ParDencarServiceImpl implements ParDencarService {
                 .build();
 
         return parDencarRepository.save(nuevo).getIdDencar();
+    }
+
+    public void actualizarEstDencar( ActualizarEstDencarDto dto) throws Exception {
+        ParDencar dencar = parDencarRepository.findById(dto.idDencar())
+                .orElseThrow(() -> new Exception("Denominacion del cargo no encontrado"));
+
+        dencar.setEstDencar(dto.estDencar());
+
+        parDencarRepository.save(dencar);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class ParDencarServiceImpl implements ParDencarService {
         List<ListarDencarDto> items = new ArrayList<>();
 
         for (ParDencar d : lista) {
-            items.add(new ListarDencarDto(d.getIdDencar(), d.getDsDencar()));
+            items.add(new ListarDencarDto(d.getIdDencar(), d.getDsDencar(),d.getEstDencar()));
         }
 
         return items;

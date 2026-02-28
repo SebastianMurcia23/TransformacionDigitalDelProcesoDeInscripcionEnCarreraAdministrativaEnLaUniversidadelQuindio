@@ -21,8 +21,7 @@
             (click)="seleccionarTipdocParaEditar(tipdoc)">
             Editar
           </button>
-          <button class="btn btn-sm" [ngClass]="tipdoc.est_tipdoc ? 'btn-danger' : 'btn-success'"
-            (click)="cambiarEstadoTipDoc(tipdoc)">
+          <button class="btn btn-sm" [ngClass]="tipdoc.est_tipdoc ? 'btn-danger' : 'btn-success'">
             {{ tipdoc.est_tipdoc ? 'Desactivar' : 'Activar' }}
           </button>
         </td>

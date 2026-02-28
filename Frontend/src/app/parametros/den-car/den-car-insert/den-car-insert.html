@@ -1,0 +1,32 @@
+<div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+  data-bs-keyboard="false">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header bg-success text-white">
+        <h4 class="modal-title">
+          <i class="bi bi-pencil-square"></i> Agregar Tipo de Documento
+        </h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+
+      <div class="modal-body">
+        <form (ngSubmit)="guardarDencar()" #formFuncio="ngForm">
+
+          <div class="mb-3 ">
+            <label for="ds_dencar" class="form-label">Nombre de la Denominación de Cargo</label>
+            <input id="dencar" type="text" class="form-control" required [(ngModel)]="nuevoDencar.dsDencar"
+              name="ds_dencar" placeholder="Ingrese el Nombre" (input)="convertirMayusculas($event)">
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success me-2"
+              [disabled]="!nuevoDencar.dsDencar.trim()">Agregar</button>
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="limpiarCampos()">Cerrar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.service.impl;
 
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.CrearNivcarDto;
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.EditarNivcarDto;
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.InformacionNivcarDto;
-import co.edu.uniquindio.proyecto.dto.ParNivcarDto.ListarNivcarDto;
+import co.edu.uniquindio.proyecto.dto.ParNivcarDto.*;
 import co.edu.uniquindio.proyecto.model.ParNivcar;
 import co.edu.uniquindio.proyecto.repository.ParNivcarRepository;
 import co.edu.uniquindio.proyecto.service.ParNivcarService;
@@ -29,6 +26,16 @@ public class ParNivcarServiceImpl implements ParNivcarService {
                 .build();
 
         return parNivcarRepository.save(nuevo).getIdNivcar();
+    }
+
+
+    public void actualizarEstNivcar( ActualizarEstNivcar dto) throws Exception {
+        ParNivcar nivcar = parNivcarRepository.findById(dto.idNivcar())
+                .orElseThrow(() -> new Exception("Nivel del cargo no encontrado"));
+
+        nivcar.setEstNivcar(dto.estNivcar());
+
+        parNivcarRepository.save(nivcar);
     }
 
     @Override
@@ -68,7 +75,7 @@ public class ParNivcarServiceImpl implements ParNivcarService {
         List<ListarNivcarDto> items = new ArrayList<>();
 
         for (ParNivcar n : lista) {
-            items.add(new ListarNivcarDto(n.getIdNivcar(), n.getDsNivcar()));
+            items.add(new ListarNivcarDto(n.getIdNivcar(), n.getDsNivcar(),n.getEstNivcar()));
         }
 
         return items;

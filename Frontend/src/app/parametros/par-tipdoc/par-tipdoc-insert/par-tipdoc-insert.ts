@@ -26,6 +26,7 @@ nuevoTipdoc: ParTipdocDto = {
 
     const valor = input.value.toUpperCase();
     input.value = valor;
+    this.nuevoTipdoc.ds_tipdoc = valor;
   }
 
  limpiarCampos(): void {

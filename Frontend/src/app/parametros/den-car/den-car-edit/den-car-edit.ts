@@ -1,28 +1,25 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ParDenCarDto, ParDenCarService } from '../../../service/DenCar/den-car';
 import Swal from 'sweetalert2';
-import { ParTipdocDto, ParTipDocService } from '../../../service/ParTipdoc/par-tipdoc';
-
 
 @Component({
-  selector: 'app-par-tipdoc-edit',
+  selector: 'app-den-car-edit',
   standalone: false,
-  templateUrl: './par-tipdoc-edit.html',
-  styleUrls: ['./par-tipdoc-edit.css']
+  templateUrl: './den-car-edit.html',
+  styleUrl: './den-car-edit.css'
 })
-export class ParTipdocEdit  {
+export class DenCarEdit {
 
 
-  @Input() tipdocSeleccionado: ParTipdocDto | null = null;
-  @Output() cargarTipdocs = new EventEmitter<void>();
+  @Input() dencarSeleccionado: ParDenCarDto | null = null;
+  @Output() cargarDencars = new EventEmitter<void>();
 
   nuevoNombre: string = '';
-  nuevoEstado: boolean = true;
 
-  constructor(private parTipDocService: ParTipDocService) {}
+  constructor(private parDenCarService: ParDenCarService) {}
 
   limpiarCampos(): void {
     this.nuevoNombre = '';
-    this.nuevoEstado = this.tipdocSeleccionado?.est_tipdoc ?? true;
   }
 
   convertirMayusculas(event: Event) {
@@ -40,31 +37,26 @@ export class ParTipdocEdit  {
   }
 
   guardarCambios(): void {
-    if (!this.tipdocSeleccionado) {
-      Swal.fire('Error', 'No hay tipo de documento seleccionado', 'error');
+    if (!this.dencarSeleccionado) {
+      Swal.fire('Error', 'No hay denominación de cargo seleccionada', 'error');
       return;
     }
 
     const nombreTrimmed = this.nuevoNombre.trim();
-    const estadoActual = this.nuevoEstado;
 
     if (!nombreTrimmed) {
       Swal.fire('Error', 'El nombre no puede estar vacío', 'error');
       return;
     }
 
-    if (nombreTrimmed === this.tipdocSeleccionado.ds_tipdoc) {
+    if (nombreTrimmed === this.dencarSeleccionado.dsDencar) {
       Swal.fire('Información', 'El nombre es igual al anterior. No hay cambios que guardar.', 'info');
-      return;
-    }
-    if (estadoActual === this.tipdocSeleccionado.est_tipdoc) {
-      Swal.fire('Información', 'El estado es igual al anterior. No hay cambios que guardar.', 'info');
       return;
     }
 
     Swal.fire({
       title: '¿Desea guardar los cambios?',
-      text: `Cambiará el nombre de "${this.tipdocSeleccionado.ds_tipdoc}" a "${nombreTrimmed}".`,
+      text: `Cambiará el nombre de "${this.dencarSeleccionado.dsDencar}" a "${nombreTrimmed}".`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#0d6efd',
@@ -74,26 +66,25 @@ export class ParTipdocEdit  {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        const tipdocActualizado: ParTipdocDto = {
-          id_tipdoc: this.tipdocSeleccionado!.id_tipdoc,
-          ds_tipdoc: nombreTrimmed,
-          est_tipdoc: estadoActual
+        const dencarActualizado: ParDenCarDto = {
+          idDencar: this.dencarSeleccionado!.idDencar,
+          dsDencar: nombreTrimmed,
+          estDencar: this.dencarSeleccionado!.estDencar
         };
 
-        this.parTipDocService.editarTipDoc(tipdocActualizado).subscribe({
+        this.parDenCarService.editarDenCar(dencarActualizado).subscribe({
           next: () => {
             Swal.fire({
               title: '¡Actualizado!',
-              text: 'El tipo de documento ha sido actualizado correctamente.',
+              text: 'La denominación de cargo ha sido actualizada correctamente.',
               icon: 'success',
               confirmButtonColor: '#0d6efd',
               timer: 2000,
               showConfirmButton: false
             });
 
-            this.tipdocSeleccionado!.ds_tipdoc = nombreTrimmed;
-            this.tipdocSeleccionado!.est_tipdoc = estadoActual;
-            this.cargarTipdocs.emit();
+            this.dencarSeleccionado!.dsDencar = nombreTrimmed;
+            this.cargarDencars.emit();
             this.nuevoNombre = '';
             this.cerrarModal();
           },
@@ -101,13 +92,12 @@ export class ParTipdocEdit  {
             console.error(err);
             Swal.fire({
               title: 'Error',
-              text: 'Ocurrió un error al actualizar el tipo de documento.',
+              text: 'Ocurrió un error al actualizar la denominación de cargo.',
               icon: 'error',
               confirmButtonColor: '#d33'
             });
           }
         });
-        console.log('Datos enviados para actualización:', tipdocActualizado);
       }
     });
   }

@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <h3> Denominaciones de Cargo registradas</h3>
+    <hr>
+
+    <table class="table table-hover align-middle" *ngIf="dencar.length > 0">
+        <thead>
+            <tr>
+                <th>Identificación</th>
+                <th>Nombre de la denominacion de Cargo</th>
+                <th>Estado</th>
+                <th class="id-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dencar of dencar" [ngClass]="!dencar.estDencar ? 'fila-inactiva' : ''">
+                <td>{{ dencar.idDencar }}</td>
+                <td>{{ dencar.dsDencar }}</td>
+                <td>{{dencar.estDencar ? 'Activo' : 'Inactivo'}}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
+                        (click)="seleccionarDenCarParaEditar(dencar)">
+                        Editar
+                    </button>
+                    <button class="btn btn-sm" [ngClass]="dencar.estDencar ? 'btn-danger' : 'btn-success'"
+                        (click)="cambiarEstadoDenCar(dencar)">
+                        {{ dencar.estDencar ? 'Desactivar' : 'Activar' }}
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="dencar.length === 0" class="alert alert-warning">
+        No se encontraron denominaciones de cargo
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+            Agregar denominacion
+        </button>
+    </div>
+    <app-den-car-insert (cargarDencars)="cargarDenCars()"></app-den-car-insert>
+    <app-den-car-edit [dencarSeleccionado]="dencarSeleccionado" (cargarDencars)="cargarDenCars()"></app-den-car-edit>
+</div>

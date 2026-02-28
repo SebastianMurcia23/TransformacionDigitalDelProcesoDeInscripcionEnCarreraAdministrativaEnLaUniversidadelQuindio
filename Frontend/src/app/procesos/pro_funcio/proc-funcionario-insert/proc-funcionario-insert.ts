@@ -34,13 +34,13 @@ export class ProcFuncionarioInsert {
     ce_funcio: '',
     fechaExpedicion: null
   };
-  
+
   constructor(
     private parPaises: ParPaisesService,
     private parGeneros: ParGeneroService,
     private parTipdoc: ParTipDocService,
     private proFuncioService: ProFuncioService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarPaises();
@@ -54,10 +54,11 @@ export class ProcFuncionarioInsert {
 
     const valor = input.value.toUpperCase();
     input.value = valor;
+
   }
 
   cerrarModal(): void {
-  (document.querySelector('#modalAgregar .btn-close') as HTMLElement)?.click();
+    (document.querySelector('#modalAgregar .btn-close') as HTMLElement)?.click();
   }
 
   guardarFuncionario(): void {
@@ -160,19 +161,19 @@ export class ProcFuncionarioInsert {
 
   limpiarFormulario(): void {
     this.nuevoFuncionario = {
-    id_genero: 0,
-    id_tipdoc: 0,
-    id_funcio: 0,
-    fechaExpedicion: null,
-    nm_func1: '',
-    nm_func2: '',
-    ap_func1: '',
-    ap_func2: '',
-    id_pais: 0,
-    id_depart: 0,
-    id_munici: 0,
-    no_funcio: 0,
-    ce_funcio: ''
+      id_genero: 0,
+      id_tipdoc: 0,
+      id_funcio: 0,
+      fechaExpedicion: null,
+      nm_func1: '',
+      nm_func2: '',
+      ap_func1: '',
+      ap_func2: '',
+      id_pais: 0,
+      id_depart: 0,
+      id_munici: 0,
+      no_funcio: 0,
+      ce_funcio: ''
     };
   }
 }

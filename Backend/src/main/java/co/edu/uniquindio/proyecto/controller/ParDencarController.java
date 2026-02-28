@@ -1,9 +1,7 @@
 package co.edu.uniquindio.proyecto.controller;
 
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.CrearDencarDto;
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.EditarDencarDto;
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.InformacionDencarDto;
-import co.edu.uniquindio.proyecto.dto.ParDencarDto.ListarDencarDto;
+import co.edu.uniquindio.proyecto.dto.ParDencarDto.*;
+import co.edu.uniquindio.proyecto.dto.ParNivcarDto.ActualizarEstNivcar;
 import co.edu.uniquindio.proyecto.service.ParDencarService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/dencar")
 @RequiredArgsConstructor
@@ -24,6 +23,12 @@ public class ParDencarController {
     public ResponseEntity<Integer> crearDencar(@Valid @RequestBody CrearDencarDto dto) throws Exception {
         Integer id = parDencarService.crearDencar(dto);
         return ResponseEntity.ok(id);
+    }
+
+    @PutMapping("/est")
+    public ResponseEntity<Void> actualizarEstDencar(@Valid @RequestBody ActualizarEstDencarDto dto) throws Exception {
+        parDencarService.actualizarEstDencar(dto);
+        return ResponseEntity.noContent().build();
     }
 
     // Editar denominación de cargo
