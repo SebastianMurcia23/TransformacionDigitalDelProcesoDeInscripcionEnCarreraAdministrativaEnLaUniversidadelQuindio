@@ -15,25 +15,25 @@
 
           <div class="mb-3">
             <label for="ds_tipdoc_actual" class="form-label">Nombre Actual</label>
-            <input id="ds_tipdoc_actual" type="text" class="form-control" [(ngModel)]="tipdocSeleccionado.ds_tipdoc"
+            <input id="ds_tipdoc_actual" type="text" class="form-control" [value]="tipdocSeleccionado.ds_tipdoc"
               name="ds_tipdoc_actual" disabled>
           </div>
 
           <div class="mb-3">
             <label for="ds_tipdoc_nuevo" class="form-label">Nuevo Nombre del Tipo de Documento</label>
-            <input id="ds_tipdoc_nuevo" type="text" class="form-control" required [(ngModel)]="nuevoNombre"
+            <input id="ds_tipdoc_nuevo" type="text" class="form-control" [(ngModel)]="nuevoNombre"
               name="ds_tipdoc_nuevo" placeholder="Ingrese el Nuevo Nombre" (input)="convertirMayusculas($event)">
           </div>
           <div class="mb-3">
             <label for="estado_tipdoc" class="form-label">Estado</label>
             <select id="estado_tipdoc" class="form-select" [(ngModel)]="nuevoEstado" name="estado_tipdoc">
-              <option [value]="true">Activo</option>
-              <option [value]="false">Inactivo</option>
+              <option [ngValue]="true">Activo</option>
+              <option [ngValue]="false">Inactivo</option>
             </select>
           </div>
 
           <div class="text-center mt-4">
-            <button type="submit" class="btn btn-success me-2" [disabled]="!nuevoNombre.trim()">Actualizar</button>
+            <button type="submit" class="btn btn-success me-2">Actualizar</button>
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
               (click)="limpiarCampos()">Cancelar</button>
           </div>

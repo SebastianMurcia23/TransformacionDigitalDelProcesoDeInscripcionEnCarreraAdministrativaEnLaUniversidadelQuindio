@@ -12,19 +12,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tipdoc of tipdoc" [ngClass]="!tipdoc.est_tipdoc ? 'fila-inactiva' : ''">
-        <td>{{ tipdoc.id_tipdoc }}</td>
-        <td>{{ tipdoc.ds_tipdoc }}</td>
-        <td>{{tipdoc.est_tipdoc ? 'Activo' : 'Inactivo'}}</td>
+      <tr *ngFor="let t of tipdoc" [ngClass]="!t.est_tipdoc ? 'fila-inactiva' : ''">
+        <td>{{ t.id_tipdoc }}</td>
+        <td>{{ t.ds_tipdoc }}</td>
+        <td>{{ t.est_tipdoc ? 'Activo' : 'Inactivo'}}</td>
         <td>
           <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
-            (click)="seleccionarTipdocParaEditar(tipdoc)">
+            (click)="seleccionarTipdocParaEditar(t)">
             Editar
           </button>
-          <button class="btn btn-sm" [ngClass]="tipdoc.est_tipdoc ? 'btn-danger' : 'btn-success'">
-            {{ tipdoc.est_tipdoc ? 'Desactivar' : 'Activar' }}
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>

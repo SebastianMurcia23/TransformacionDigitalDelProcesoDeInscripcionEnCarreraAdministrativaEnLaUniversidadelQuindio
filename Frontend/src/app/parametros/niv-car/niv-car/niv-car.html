@@ -12,18 +12,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let nivcar of nivcar" [ngClass]="!nivcar.estNivcar ? 'fila-inactiva' : ''">
-                <td>{{ nivcar.idNivcar }}</td>
-                <td>{{ nivcar.dsNivcar }}</td>
-                <td>{{nivcar.estNivcar ? 'Activo' : 'Inactivo'}}</td>
+            <tr *ngFor="let n of nivcar" [ngClass]="!n.estNivcar ? 'fila-inactiva' : ''">
+                <td>{{ n.idNivcar }}</td>
+                <td>{{ n.dsNivcar }}</td>
+                <td>{{ n.estNivcar ? 'Activo' : 'Inactivo'}}</td>
                 <td>
                     <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                        (click)="seleccionarNivcarParaEditar(nivcar)">
+                        (click)="seleccionarNivcarParaEditar(n)">
                         Editar
-                    </button>
-                    <button class="btn btn-sm" [ngClass]="nivcar.estNivcar ? 'btn-danger' : 'btn-success'"
-                        (click)="cambiarEstadoNivcar(nivcar)">
-                        {{ nivcar.estNivcar ? 'Desactivar' : 'Activar' }}
                     </button>
                 </td>
             </tr>
@@ -40,5 +36,6 @@
         </button>
     </div>
     <app-niv-car-insert (cargarNivcars)="cargarNivcars()"></app-niv-car-insert>
-    <app-par-nivcar-edit [nivcarSeleccionado]="nivCarSeleccionado" (cargarNivcars)="cargarNivcars()"></app-par-nivcar-edit>
+    <app-par-nivcar-edit [nivcarSeleccionado]="nivCarSeleccionado"
+        (cargarNivcars)="cargarNivcars()"></app-par-nivcar-edit>
 </div>

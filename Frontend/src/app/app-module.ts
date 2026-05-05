@@ -23,6 +23,15 @@ import { NivCarInsert } from './parametros/niv-car/niv-car-insert/niv-car-insert
 import { DenCar } from './parametros/den-car/den-car/den-car';
 import { DenCarInsert } from './parametros/den-car/den-car-insert/den-car-insert';
 import { DenCarEdit } from './parametros/den-car/den-car-edit/den-car-edit';
+import { DesCar } from './parametros/des-car/des-car/des-car';
+import { DesCarEdit } from './parametros/des-car/des-car-edit/des-car-edit/des-car-edit';
+import { DesCarInsert } from './parametros/des-car/des-car-insert/des-car-insert';
+import { ParTipsol } from './parametros/par-tipsol/par-tipsol/par-tipsol';
+import { ParTipsolEdit } from './parametros/par-tipsol/par-tipsol-edit/par-tipsol-edit';
+import { ParTipsolInsert } from './parametros/par-tipsol/par-tipsol-insert/par-tipsol-insert';
+import { ParCarsol } from './parametros/par-carsol/par-carsol/par-carsol';
+import { ParCarsolInsert } from './parametros/par-carsol/par-carsol-insert/par-carsol-insert';
+import { ParCarsolEdit } from './parametros/par-carsol/par-carsol-edit/par-carsol-edit';
 
 @NgModule({
   declarations: [
@@ -43,7 +52,16 @@ import { DenCarEdit } from './parametros/den-car/den-car-edit/den-car-edit';
     NivCarInsert,
     DenCar,
     DenCarInsert,
-    DenCarEdit
+    DenCarEdit,
+    DesCar,
+    DesCarEdit,
+    DesCarInsert,
+    ParTipsol,
+    ParTipsolEdit,
+    ParTipsolInsert,
+    ParCarsol,
+    ParCarsolInsert,
+    ParCarsolEdit
 
   ],
   imports: [

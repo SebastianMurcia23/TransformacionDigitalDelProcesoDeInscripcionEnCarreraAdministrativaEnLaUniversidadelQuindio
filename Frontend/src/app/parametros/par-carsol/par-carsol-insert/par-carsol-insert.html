@@ -1,0 +1,66 @@
+<div class="modal fade modal-derecha" id="modalAgregarCarsol" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+                <h4 class="modal-title">
+                    <i class="bi bi-plus-circle"></i> Agregar Característica de Solicitud
+                </h4>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form (ngSubmit)="guardarCarsol()" #formAgregar="ngForm">
+
+                    <div class="mb-3">
+                        <label for="id_tipsol_insert" class="form-label">Tipo de Solicitud</label>
+                        <select id="id_tipsol_insert" class="form-select" required
+                            [(ngModel)]="nuevoCarsol.idTipsol" name="id_tipsol_insert">
+                            <option value="" disabled>Seleccione un tipo</option>
+                            <option *ngFor="let t of tipsols" [value]="t.idTipsol">
+                                {{ t.dsTipsol }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ds_carsol" class="form-label">Descripción (máx. 300 caracteres)</label>
+                        <input id="ds_carsol" type="text" class="form-control" required maxlength="300"
+                            [(ngModel)]="nuevoCarsol.dsCarsol" name="ds_carsol"
+                            placeholder="Ingrese la descripción"
+                            (input)="convertirMayusculas($event)">
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle"></i>
+                            La sigla se generará automáticamente (Ej: ACT1, ACT2...)
+                        </small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="est_carsol_insert" class="form-label">Estado</label>
+                        <select id="est_carsol_insert" class="form-select"
+                            [(ngModel)]="nuevoCarsol.estCarsol" name="est_carsol_insert">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success me-2" [disabled]="formAgregar.invalid">
+                            Agregar
+                        </button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
+                            (click)="limpiarCampos()">
+                            Cerrar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

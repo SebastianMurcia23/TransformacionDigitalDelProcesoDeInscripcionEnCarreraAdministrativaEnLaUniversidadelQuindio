@@ -9,6 +9,10 @@ import { Inicio } from './inicio/inicio';
 import { ParTipdoc } from './parametros/par-tipdoc/par-tipdoc/par-tipdoc';
 import { NivCar } from './parametros/niv-car/niv-car/niv-car';
 import { DenCar } from './parametros/den-car/den-car/den-car';
+import { DesCar } from './parametros/des-car/des-car/des-car';
+import { ParTipsol } from './parametros/par-tipsol/par-tipsol/par-tipsol';
+import { ParCarsol } from './parametros/par-carsol/par-carsol/par-carsol';
+
 const routes: Routes = [
 
   {path:'', component: Login},
@@ -20,7 +24,10 @@ const routes: Routes = [
   {path:'inicio', component: Inicio},
   {path:'par-tipDoc', component: ParTipdoc},
   {path:'niv-car', component: NivCar},
-  {path:'den-car', component: DenCar}
+  {path:'den-car', component: DenCar},
+  {path:'des-car', component: DesCar},
+  {path:'par-tipsol', component: ParTipsol},
+  {path:'par-carsol', component: ParCarsol}
 ];
 
 @NgModule({

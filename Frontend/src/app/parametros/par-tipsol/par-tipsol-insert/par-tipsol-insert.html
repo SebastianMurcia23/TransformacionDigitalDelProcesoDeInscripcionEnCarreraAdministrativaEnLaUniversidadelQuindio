@@ -1,0 +1,60 @@
+<div class="modal fade modal-derecha" id="modalAgregarTipsol" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+                <h4 class="modal-title">
+                    <i class="bi bi-plus-circle"></i> Agregar Tipo de Solicitud
+                </h4>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form (ngSubmit)="guardarTipsol()" #formAgregar="ngForm">
+
+                    <div class="mb-3">
+                        <label for="id_tipsol" class="form-label">ID</label>
+                        <input id="id_tipsol" type="text" class="form-control" required maxlength="3"
+                            [(ngModel)]="nuevoTipsol.idTipsol" name="id_tipsol" placeholder="Ej: ACT"
+                            (input)="convertirMayusculas($event, 'id')">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ds_tipsol" class="form-label">Descripción Tipo de Solicitud</label>
+                        <input id="ds_tipsol" type="text" class="form-control" required maxlength="250"
+                            [(ngModel)]="nuevoTipsol.dsTipsol" name="ds_tipsol" placeholder="Ingrese la descripción"
+                            (input)="convertirMayusculas($event, 'ds')">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sg_tipsol_insert" class="form-label">Sigla</label>
+                        <input id="sg_tipsol_insert" type="text" class="form-control" required maxlength="3"
+                            [(ngModel)]="nuevoTipsol.sgTipsol" name="sg_tipsol_insert" placeholder="Ej: ACT"
+                            (input)="convertirMayusculas($event, 'sg')">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="est_tipsol_insert" class="form-label">Estado</label>
+                        <select id="est_tipsol_insert" class="form-select" [(ngModel)]="nuevoTipsol.estTipsol"
+                            name="est_tipsol_insert">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success me-2" [disabled]="formAgregar.invalid">
+                            Agregar
+                        </button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="limpiarCampos()">
+                            Cerrar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

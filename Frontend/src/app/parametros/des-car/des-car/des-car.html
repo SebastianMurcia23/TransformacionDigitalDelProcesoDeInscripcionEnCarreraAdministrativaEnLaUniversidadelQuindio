@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <h3>Descripciones de Cargo registradas</h3>
+    <hr>
+
+    <table class="table table-hover align-middle" *ngIf="descar.length > 0">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Grado</th>
+                <th>Denominación del Empleo</th>
+                <th>Nivel del Cargo</th>
+                <th>Denominación de Cargo</th>
+                <th>Estado</th>
+                <th class="id-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let d of descar "[ngClass]="!d.estDescar ? 'fila-inactiva' : ''">
+                <td>{{ d.idDescar }}</td>
+                <td>{{ d.grDescar }}</td>
+                <td>{{ d.dsDescar }}</td>
+                <td>{{ d.nombreNivcar }}</td>
+                <td>{{ d.nombreDencar }}</td>
+                <td>{{ d.estDescar ? 'Activo' : 'Inactivo' }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal"
+                        data-bs-target="#modalEditarDesCar" (click)="seleccionarDesCarParaEditar(d)">
+                        Editar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="descar.length === 0" class="alert alert-warning">
+        No se encontraron descripciones de cargo
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+            Agregar descripción
+        </button>
+    </div>
+
+    <app-des-car-insert (cargarDescars)="cargarDesCars()"></app-des-car-insert>
+
+    <app-des-car-edit [descarSeleccionado]="descarSeleccionado" (cargarDescars)="cargarDesCars()">
+    </app-des-car-edit>
+</div>

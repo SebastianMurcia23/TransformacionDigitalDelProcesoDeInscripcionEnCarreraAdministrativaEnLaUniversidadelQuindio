@@ -1,0 +1,63 @@
+<div class="modal fade modal-derecha" id="modalEditarTipsol" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+                <h4 class="modal-title">
+                    <i class="bi bi-pencil-square"></i> Editar Tipo de Solicitud
+                </h4>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form (ngSubmit)="guardarCambios()" #formEditar="ngForm" *ngIf="tipsolSeleccionado">
+
+                    <div class="mb-3">
+                        <label class="form-label">ID</label>
+                        <input type="text" class="form-control" [value]="tipsolSeleccionado.idTipsol" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descripción Actual</label>
+                        <input type="text" class="form-control" [value]="tipsolSeleccionado.dsTipsol" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ds_tipsol_nuevo" class="form-label">
+                            Nueva Descripción del Tipo de Solicitud
+                        </label>
+                        <input id="ds_tipsol_nuevo" type="text" class="form-control" required maxlength="250"
+                            [(ngModel)]="nuevoDs" name="ds_tipsol_nuevo" placeholder="Ingrese la nueva descripción">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sg_tipsol" class="form-label">Sigla</label>
+                        <input id="sg_tipsol" type="text" class="form-control" required maxlength="3"
+                            [(ngModel)]="nuevaSg" name="sg_tipsol" placeholder="Máx. 3 caracteres"
+                            (input)="convertirMayusculas($event, 'sg')">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estado_tipsol" class="form-label">Estado</label>
+                        <select id="estado_tipsol" class="form-select" [(ngModel)]="nuevoEst" name="estado_tipsol">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success me-2" [disabled]="formEditar.invalid">
+                            Actualizar
+                        </button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="limpiarCampos()">
+                            Cancelar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

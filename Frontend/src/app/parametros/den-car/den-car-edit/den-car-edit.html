@@ -5,7 +5,7 @@
 
             <div class="modal-header bg-success text-white">
                 <h4 class="modal-title">
-                    <i class="bi bi-pencil-square"></i> Editar Tipo de Documento
+                    <i class="bi bi-pencil-square"></i> Editar Denominación de Cargo
                 </h4>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
@@ -16,7 +16,7 @@
                     <div class="mb-3">
                         <label for="ds_dencar_actual" class="form-label">Nombre Actual</label>
                         <input id="ds_dencar_actual" type="text" class="form-control"
-                            [(ngModel)]="dencarSeleccionado.dsDencar" name="ds_dencar_actual" disabled>
+                            [value]="dencarSeleccionado.dsDencar" name="ds_dencar_actual" disabled>
                     </div>
 
                     <div class="mb-3">
@@ -26,13 +26,19 @@
                             (input)="convertirMayusculas($event)">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="estado_dencar" class="form-label">Estado</label>
+                        <select id="estado_dencar" class="form-select" [(ngModel)]="nuevoEstado" name="estado_dencar">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-success me-2"
-                            [disabled]="!nuevoNombre.trim()">Actualizar</button>
+                        <button type="submit" class="btn btn-success me-2">Actualizar</button>
                         <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
                             (click)="limpiarCampos()">Cancelar</button>
                     </div>
-
                 </form>
             </div>
         </div>

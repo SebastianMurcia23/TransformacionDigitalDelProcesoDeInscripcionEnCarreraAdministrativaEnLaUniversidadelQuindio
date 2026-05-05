@@ -5,7 +5,7 @@
 
       <div class="modal-header bg-success text-white">
         <h4 class="modal-title">
-          <i class="bi bi-pencil-square"></i> Editar Tipo de Documento
+          <i class="bi bi-pencil-square"></i> Editar Nivel de Cargo
         </h4>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
@@ -15,18 +15,25 @@
 
           <div class="mb-3">
             <label for="ds_nivcar_actual" class="form-label">Nombre Actual</label>
-            <input id="ds_nivcar_actual" type="text" class="form-control" [(ngModel)]="nivcarSeleccionado.dsNivcar"
+            <input id="ds_nivcar_actual" type="text" class="form-control" [value]="nivcarSeleccionado.dsNivcar"
               name="ds_nivcar_actual" disabled>
           </div>
 
           <div class="mb-3">
             <label for="ds_nivcar_nuevo" class="form-label">Nuevo Nombre del Nivel de Carrera</label>
-            <input id="ds_nivcar_nuevo" type="text" class="form-control" required [(ngModel)]="nuevoNombre"
+            <input id="ds_nivcar_nuevo" type="text" class="form-control" [(ngModel)]="nuevoNombre"
               name="ds_nivcar_nuevo" placeholder="Ingrese el Nuevo Nombre" (input)="convertirMayusculas($event)">
+          </div>
+          <div class="mb-3">
+            <label for="estado_nivcar" class="form-label">Estado</label>
+            <select id="estado_nivcar" class="form-select" [(ngModel)]="nuevoEstado" name="estado_nivcar">
+              <option [ngValue]="true">Activo</option>
+              <option [ngValue]="false">Inactivo</option>
+            </select>
           </div>
 
           <div class="text-center mt-4">
-            <button type="submit" class="btn btn-success me-2" [disabled]="!nuevoNombre.trim()">Actualizar</button>
+            <button type="submit" class="btn btn-success me-2">Actualizar</button>
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
               (click)="limpiarCampos()">Cancelar</button>
           </div>

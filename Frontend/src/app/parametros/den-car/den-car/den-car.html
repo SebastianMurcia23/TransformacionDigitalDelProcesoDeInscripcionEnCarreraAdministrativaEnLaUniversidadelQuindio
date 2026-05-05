@@ -12,18 +12,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let dencar of dencar" [ngClass]="!dencar.estDencar ? 'fila-inactiva' : ''">
-                <td>{{ dencar.idDencar }}</td>
-                <td>{{ dencar.dsDencar }}</td>
-                <td>{{dencar.estDencar ? 'Activo' : 'Inactivo'}}</td>
+            <tr *ngFor="let d of dencar" [ngClass]="!d.estDencar ? 'fila-inactiva' : ''">
+                <td>{{ d.idDencar }}</td>
+                <td>{{ d.dsDencar }}</td>
+                <td>{{d.estDencar ? 'Activo' : 'Inactivo'}}</td>
                 <td>
                     <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                        (click)="seleccionarDenCarParaEditar(dencar)">
+                        (click)="seleccionarDenCarParaEditar(d)">
                         Editar
-                    </button>
-                    <button class="btn btn-sm" [ngClass]="dencar.estDencar ? 'btn-danger' : 'btn-success'"
-                        (click)="cambiarEstadoDenCar(dencar)">
-                        {{ dencar.estDencar ? 'Desactivar' : 'Activar' }}
                     </button>
                 </td>
             </tr>

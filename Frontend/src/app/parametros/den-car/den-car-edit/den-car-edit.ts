@@ -15,21 +15,20 @@ export class DenCarEdit {
   @Output() cargarDencars = new EventEmitter<void>();
 
   nuevoNombre: string = '';
+  nuevoEstado: boolean = true;
 
   constructor(private parDenCarService: ParDenCarService) {}
 
   limpiarCampos(): void {
     this.nuevoNombre = '';
+    this.nuevoEstado = this.dencarSeleccionado?.estDencar ?? true;
   }
 
   convertirMayusculas(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input) return;
-
     const valor = input.value.toUpperCase();
-    input.value = valor;
     this.nuevoNombre = valor;
-
   }
 
   cerrarModal(): void {
@@ -42,21 +41,19 @@ export class DenCarEdit {
       return;
     }
 
-    const nombreTrimmed = this.nuevoNombre.trim();
+    const nombreTrimmed = this.nuevoNombre.trim() || this.dencarSeleccionado.dsDencar;
+    const estadoActual = this.nuevoEstado;
 
-    if (!nombreTrimmed) {
-      Swal.fire('Error', 'El nombre no puede estar vacío', 'error');
-      return;
-    }
-
-    if (nombreTrimmed === this.dencarSeleccionado.dsDencar) {
-      Swal.fire('Información', 'El nombre es igual al anterior. No hay cambios que guardar.', 'info');
+    if (
+      nombreTrimmed === this.dencarSeleccionado.dsDencar && 
+      estadoActual === this.dencarSeleccionado.estDencar
+    ) {
+      Swal.fire('Información', 'No hay cambios que guardar.', 'info');
       return;
     }
 
     Swal.fire({
       title: '¿Desea guardar los cambios?',
-      text: `Cambiará el nombre de "${this.dencarSeleccionado.dsDencar}" a "${nombreTrimmed}".`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#0d6efd',
@@ -69,7 +66,7 @@ export class DenCarEdit {
         const dencarActualizado: ParDenCarDto = {
           idDencar: this.dencarSeleccionado!.idDencar,
           dsDencar: nombreTrimmed,
-          estDencar: this.dencarSeleccionado!.estDencar
+          estDencar: estadoActual
         };
 
         this.parDenCarService.editarDenCar(dencarActualizado).subscribe({
@@ -84,8 +81,9 @@ export class DenCarEdit {
             });
 
             this.dencarSeleccionado!.dsDencar = nombreTrimmed;
+            this.dencarSeleccionado!.estDencar = estadoActual;
             this.cargarDencars.emit();
-            this.nuevoNombre = '';
+            this.limpiarCampos();
             this.cerrarModal();
           },
           error: (err) => {

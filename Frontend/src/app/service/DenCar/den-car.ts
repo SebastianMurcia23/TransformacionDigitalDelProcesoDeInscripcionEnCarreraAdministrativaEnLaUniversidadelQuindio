@@ -14,9 +14,6 @@ export interface ParDenCarDto {
 export class ParDenCarService {
 
 
-
-
-
   private apiUrl = 'http://localhost:8080/api/dencar';
 
   constructor(private http: HttpClient) { }

@@ -1,0 +1,81 @@
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+                <h4 class="modal-title">
+                    <i class="bi bi-plus-circle"></i> Agregar Descripción de Cargo
+                </h4>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form (ngSubmit)="guardarDesCar()" #formAgregar="ngForm">
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="cd_descar" class="form-label">Código</label>
+                            <input id="cd_descar" type="number" class="form-control" required [(ngModel)]="nuevoCodigo"
+                                name="cd_descar" placeholder="Ej: 3132">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="gr_descar" class="form-label">Grado</label>
+                            <input id="gr_descar" type="number" class="form-control" required [(ngModel)]="nuevoGrado"
+                                name="gr_descar" placeholder="Ej: 18">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ds_descar" class="form-label">Nombre de la Descripción de Cargo</label>
+                        <input id="ds_descar" type="text" class="form-control" required [(ngModel)]="nuevoNombre"
+                            name="ds_descar" placeholder="Ingrese el nombre" (input)="convertirMayusculas($event)">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="niv_descar_insert" class="form-label">Nivel del Cargo</label>
+                        <select id="niv_descar_insert" class="form-select" required [(ngModel)]="nuevoIdNivcar"
+                            name="niv_descar_insert">
+                            <option [ngValue]="0" disabled>-- Seleccione --</option>
+                            <option *ngFor="let n of nivcars" [ngValue]="n.idNivcar">
+                                {{ n.dsNivcar }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="den_descar_insert" class="form-label">Denominación de Cargo</label>
+                        <select id="den_descar_insert" class="form-select" required [(ngModel)]="nuevoIdDencar"
+                            name="den_descar_insert">
+                            <option [ngValue]="0" disabled>-- Seleccione --</option>
+                            <option *ngFor="let d of dencars" [ngValue]="d.idDencar">
+                                {{ d.dsDencar }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="est_descar_insert" class="form-label">Estado</label>
+                        <select id="est_descar_insert" class="form-select" [(ngModel)]="nuevoEstado"
+                            name="est_descar_insert">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success me-2"
+                            [disabled]="formAgregar.invalid || nuevoIdNivcar === 0 || nuevoIdDencar === 0">
+                            Agregar
+                        </button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="limpiarCampos()">
+                            Cancelar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

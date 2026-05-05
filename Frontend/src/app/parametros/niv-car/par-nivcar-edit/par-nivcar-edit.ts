@@ -15,20 +15,20 @@ export class ParNivcarEdit {
   @Output() cargarNivcars = new EventEmitter<void>();
 
   nuevoNombre: string = '';
+  nuevoEstado: boolean = true;
 
   constructor(private parNivcarService: ParNivcarService) { }
 
   limpiarCampos(): void {
     this.nuevoNombre = '';
+    this.nuevoEstado = this.nivcarSeleccionado?.estNivcar ?? true;
   }
 
   convertirMayusculas(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input) return;
-
     const valor = input.value.toUpperCase();
     input.value = valor;
-
     this.nuevoNombre = valor;
   }
 
@@ -42,21 +42,20 @@ export class ParNivcarEdit {
       return;
     }
 
-    const nombreTrimmed = this.nuevoNombre.trim();
+    const nombreTrimmed = this.nuevoNombre.trim() ||this.nivcarSeleccionado.dsNivcar;
+    const estadoActual=this.nuevoEstado;
 
-    if (!nombreTrimmed) {
-      Swal.fire('Error', 'El nombre no puede estar vacío', 'error');
-      return;
-    }
 
-    if (nombreTrimmed === this.nivcarSeleccionado.dsNivcar) {
-      Swal.fire('Información', 'El nombre es igual al anterior. No hay cambios que guardar.', 'info');
+    if (
+      nombreTrimmed === this.nivcarSeleccionado.dsNivcar && 
+      estadoActual === this.nivcarSeleccionado.estNivcar
+    ) {
+      Swal.fire('Información', 'No hay cambios que guardar.', 'info');
       return;
     }
 
     Swal.fire({
       title: '¿Desea guardar los cambios?',
-      text: `Cambiará el nombre de "${this.nivcarSeleccionado.dsNivcar}" a "${nombreTrimmed}".`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#0d6efd',
@@ -69,7 +68,7 @@ export class ParNivcarEdit {
         const nivcarActualizado: ParNivcarDto = {
           idNivcar: this.nivcarSeleccionado!.idNivcar,
           dsNivcar: nombreTrimmed,
-          estNivcar: this.nivcarSeleccionado!.estNivcar
+          estNivcar: estadoActual
         };
 
         this.parNivcarService.editarNivcar(nivcarActualizado).subscribe({
@@ -84,8 +83,9 @@ export class ParNivcarEdit {
             });
 
             this.nivcarSeleccionado!.dsNivcar = nombreTrimmed;
+            this.nivcarSeleccionado!.estNivcar = estadoActual;
             this.cargarNivcars.emit();
-            this.nuevoNombre = '';
+            this.limpiarCampos();
             this.cerrarModal();
           },
           error: (err) => {
@@ -98,6 +98,7 @@ export class ParNivcarEdit {
             });
           }
         });
+        console.log('Datos enviados para actualización:', nivcarActualizado);
       }
     });
   }

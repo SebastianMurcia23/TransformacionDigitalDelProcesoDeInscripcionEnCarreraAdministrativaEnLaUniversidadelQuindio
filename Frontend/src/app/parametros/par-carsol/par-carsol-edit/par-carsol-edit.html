@@ -1,0 +1,71 @@
+<div class="modal fade modal-derecha" id="modalEditarCarsol" tabindex="-1" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h4 class="modal-title">
+                    <i class="bi bi-pencil-square"></i> Editar Característica de Solicitud
+                </h4>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form (ngSubmit)="editarCarsol()" #formEditar="ngForm">
+
+                    <div class="mb-3">
+                        <label class="form-label">ID</label>
+                        <input type="text" class="form-control" [value]="carsolEditar.idCarsol" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_tipsol_edit" class="form-label">Tipo de Solicitud</label>
+                        <select id="id_tipsol_edit" class="form-select" required
+                            [(ngModel)]="carsolEditar.idTipsol" name="id_tipsol_edit">
+                            <option value="" disabled>Seleccione un tipo</option>
+                            <option *ngFor="let t of tipsols" [value]="t.idTipsol">
+                                {{ t.dsTipsol }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ds_carsol_edit" class="form-label">Descripción (máx. 300 caracteres)</label>
+                        <input id="ds_carsol_edit" type="text" class="form-control" required maxlength="300"
+                            [(ngModel)]="carsolEditar.dsCarsol" name="ds_carsol_edit"
+                            placeholder="Ingrese la descripción"
+                            (input)="convertirMayusculas($event, 'ds')">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sg_carsol_edit" class="form-label">Sigla (máx. 5 caracteres)</label>
+                        <input id="sg_carsol_edit" type="text" class="form-control" required maxlength="5"
+                            [(ngModel)]="carsolEditar.sgCarsol" name="sg_carsol_edit"
+                            placeholder="Ej: ACT1"
+                            (input)="convertirMayusculas($event, 'sg')">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="est_carsol_edit" class="form-label">Estado</label>
+                        <select id="est_carsol_edit" class="form-select"
+                            [(ngModel)]="carsolEditar.estCarsol" name="est_carsol_edit">
+                            <option [ngValue]="true">Activo</option>
+                            <option [ngValue]="false">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-2" [disabled]="formEditar.invalid">
+                            Guardar Cambios
+                        </button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
