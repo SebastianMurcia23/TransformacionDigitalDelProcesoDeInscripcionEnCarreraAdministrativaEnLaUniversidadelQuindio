@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ParTipsolService {
 
-    String crearTipsol(CrearTipsolDto dto) throws Exception;
+    void crearTipsol(CrearTipsolDto dto) throws Exception;
 
     void editarTipsol(EditarTipsolDto dto) throws Exception;
 

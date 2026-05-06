@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/tipsol")
 @RequiredArgsConstructor
@@ -21,9 +22,9 @@ public class ParTipsolController {
 
     // Crear tipo de solicitud
     @PostMapping
-    public ResponseEntity<String> crearTipsol(@Valid @RequestBody CrearTipsolDto dto) throws Exception {
-        String id = parTipsolService.crearTipsol(dto);
-        return ResponseEntity.ok(id);
+    public ResponseEntity<Void> crearTipsol(@Valid @RequestBody CrearTipsolDto dto) throws Exception {
+        parTipsolService.crearTipsol(dto);
+        return ResponseEntity.ok().build();
     }
 
     // Editar tipo de solicitud

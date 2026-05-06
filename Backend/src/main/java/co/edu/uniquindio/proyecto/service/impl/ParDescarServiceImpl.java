@@ -94,11 +94,21 @@ public class ParDescarServiceImpl implements ParDescarService {
 
     @Override
     public List<ListarDescarDto> listarDescar() {
-        List<ParDescar> lista = parDescarRepository.findAll();
+        List<ParDescar> lista = parDescarRepository.finAllOrderByDescarAsc();
         List<ListarDescarDto> items = new ArrayList<>();
 
         for (ParDescar d : lista) {
-            items.add(new ListarDescarDto(d.getIdDescar(), d.getDsDescar()));
+            items.add(new ListarDescarDto(
+                    d.getIdDescar(),
+                    d.getCdDescar(),
+                    d.getGrDescar(),
+                    d.getDsDescar(),
+                    d.getEstDescar(),
+                    d.getParNivcar().getDsNivcar(),
+                    d.getParDencar().getDsDencar(),
+                    d.getParNivcar().getIdNivcar(),
+                    d.getParDencar().getIdDencar()
+            ));
         }
 
         return items;

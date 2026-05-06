@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h3>Tipos de Documento registrado</h3>
+  <hr>
+
+  <table class="table table-hover align-middle" *ngIf="tipdoc.length > 0">
+    <thead>
+      <tr>
+        <th>Identificación</th>
+        <th>Nombre del Tipo de Documento</th>
+        <th>Estado</th>
+        <th class="id-acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of tipdoc" [ngClass]="!t.est_tipdoc ? 'fila-inactiva' : ''">
+        <td>{{ t.id_tipdoc }}</td>
+        <td>{{ t.ds_tipdoc }}</td>
+        <td>{{ t.est_tipdoc ? 'Activo' : 'Inactivo'}}</td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
+            (click)="seleccionarTipdocParaEditar(t)">
+            Editar
+          </button>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="tipdoc.length === 0" class="alert alert-warning">
+    No se encontraron tipos de documento
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+      Agregar Documento
+    </button>
+  </div>
+  <app-par-tipdoc-ins (cargarTipdocs)="cargarTipDocs()"></app-par-tipdoc-ins>
+  <app-par-tipdoc-edit [tipdocSeleccionado]="tipdocSeleccionado" (cargarTipdocs)="cargarTipDocs()">
+  </app-par-tipdoc-edit>
+</div>

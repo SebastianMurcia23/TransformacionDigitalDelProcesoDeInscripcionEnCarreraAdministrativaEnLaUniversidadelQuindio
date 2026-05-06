@@ -5,5 +5,6 @@ public record InformacionCarsolDto(
         String dsCarsol,
         String sgCarsol,
         Boolean estCarsol,
+        String idTipsol,
         String nombreTipsol
 ) { }

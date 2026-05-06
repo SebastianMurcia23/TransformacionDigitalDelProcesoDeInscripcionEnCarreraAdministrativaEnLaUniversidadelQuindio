@@ -25,18 +25,21 @@ public class ParCarsolServiceImpl implements ParCarsolService {
     private final ParTipsolRepository parTipsolRepository;
 
     @Override
-    public Integer crearCarsol(CrearCarsolDto dto) throws Exception {
+    public void crearCarsol(CrearCarsolDto dto) throws Exception {
         ParTipsol tipsol = parTipsolRepository.findById(dto.idTipsol())
                 .orElseThrow(() -> new Exception("Tipo de solicitud no encontrado"));
 
+        long cantidad = parCarsolRepository.contarPorTipsol(dto.idTipsol());
+        String sgGenerada = dto.idTipsol() + (cantidad + 1);
+
         ParCarsol nuevo = ParCarsol.builder()
                 .dsCarsol(dto.dsCarsol())
-                .sgCarsol(dto.sgCarsol())
+                .sgCarsol(sgGenerada)
                 .estCarsol(dto.estCarsol())
                 .parTipsol(tipsol)
                 .build();
 
-        return parCarsolRepository.save(nuevo).getIdCarsol();
+        parCarsolRepository.save(nuevo);
     }
 
     @Override
@@ -73,17 +76,24 @@ public class ParCarsolServiceImpl implements ParCarsolService {
                 carsol.getDsCarsol(),
                 carsol.getSgCarsol(),
                 carsol.getEstCarsol(),
+                carsol.getParTipsol().getIdTipsol(),
                 carsol.getParTipsol().getDsTipsol()
         );
     }
 
     @Override
     public List<ListarCarsolDto> listarCarsol() {
-        List<ParCarsol> lista = parCarsolRepository.findAll();
+        List<ParCarsol> lista = parCarsolRepository.finAllOrderByCarsolAsc();
         List<ListarCarsolDto> items = new ArrayList<>();
 
         for (ParCarsol c : lista) {
-            items.add(new ListarCarsolDto(c.getIdCarsol(), c.getDsCarsol()));
+            items.add(new ListarCarsolDto(
+                    c.getIdCarsol(),
+                    c.getDsCarsol(),
+                    c.getSgCarsol(),
+                    c.getEstCarsol(),
+                    c.getParTipsol().getDsTipsol()
+            ));
         }
 
         return items;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/carsol")
 @RequiredArgsConstructor
@@ -19,35 +20,30 @@ public class ParCarsolController {
 
     private final ParCarsolService parCarsolService;
 
-    // Crear característica de solicitud
     @PostMapping
-    public ResponseEntity<Integer> crearCarsol(@Valid @RequestBody CrearCarsolDto dto) throws Exception {
-        Integer id = parCarsolService.crearCarsol(dto);
-        return ResponseEntity.ok(id);
+    public ResponseEntity<Void> crearCarsol(@Valid @RequestBody CrearCarsolDto dto) throws Exception {
+        parCarsolService.crearCarsol(dto);
+        return ResponseEntity.ok().build();
     }
 
-    // Editar característica de solicitud
     @PutMapping
     public ResponseEntity<Void> editarCarsol(@Valid @RequestBody EditarCarsolDto dto) throws Exception {
         parCarsolService.editarCarsol(dto);
         return ResponseEntity.noContent().build();
     }
 
-    // Eliminar característica de solicitud
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCarsol(@PathVariable Integer id) throws Exception {
         parCarsolService.eliminarCarsol(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Obtener característica de solicitud por id
     @GetMapping("/{id}")
     public ResponseEntity<InformacionCarsolDto> obtenerCarsol(@PathVariable Integer id) throws Exception {
         InformacionCarsolDto dto = parCarsolService.obtenerCarsol(id);
         return ResponseEntity.ok(dto);
     }
 
-    // Listar características de solicitud
     @GetMapping
     public ResponseEntity<List<ListarCarsolDto>> listarCarsol() {
         List<ListarCarsolDto> lista = parCarsolService.listarCarsol();

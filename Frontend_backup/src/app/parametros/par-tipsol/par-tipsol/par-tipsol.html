@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <h3>Tipos de Solicitud</h3>
+    <hr>
+
+    <table class="table table-hover align-middle" *ngIf="tipsols.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción Tipo de Solicitud</th>
+                <th>Sigla</th>
+                <th>Estado</th>
+                <th class="id-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of tipsols" [ngClass]="!t.estTipsol ? 'fila-inactiva' : ''">
+                <td>{{ t.idTipsol }}</td>
+                <td>{{ t.dsTipsol }}</td>
+                <td>{{ t.sgTipsol }}</td>
+                <td>{{ t.estTipsol ? 'Activo' : 'Inactivo' }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-2"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarTipsol"
+                        (click)="seleccionarTipsolParaEditar(t)">
+                        Editar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="tipsols.length === 0" class="alert alert-warning">
+        No se encontraron tipos de solicitud
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-success mb-3"
+            data-bs-toggle="modal" data-bs-target="#modalAgregarTipsol">
+            Agregar Tipo de Solicitud
+        </button>
+    </div>
+
+    <app-par-tipsol-insert (cargarTipsols)="cargarTipsols()"></app-par-tipsol-insert>
+    <app-par-tipsol-edit [tipsolSeleccionado]="tipsolSeleccionado" (cargarTipsols)="cargarTipsols()">
+    </app-par-tipsol-edit>
+</div>

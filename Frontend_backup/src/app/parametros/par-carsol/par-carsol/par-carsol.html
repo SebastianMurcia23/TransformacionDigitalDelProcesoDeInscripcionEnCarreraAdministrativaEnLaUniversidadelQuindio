@@ -1,0 +1,48 @@
+<div class="container mt-4">
+    <h3>Características de Solicitud</h3>
+    <hr>
+
+    <table class="table table-hover align-middle" *ngIf="carsols.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Sigla</th>
+                <th>Tipo de Solicitud</th>
+                <th>Estado</th>
+                <th class="id-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of carsols" [ngClass]="!c.estCarsol ? 'fila-inactiva' : ''">
+                <td>{{ c.idCarsol }}</td>
+                <td>{{ c.dsCarsol }}</td>
+                <td>{{ c.sgCarsol }}</td>
+                <td>{{ c.nombreTipsol }}</td>
+                <td>{{ c.estCarsol ? 'Activo' : 'Inactivo' }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-2"
+                        data-bs-toggle="modal" data-bs-target="#modalEditarCarsol"
+                        (click)="seleccionarCarsolParaEditar(c)">
+                        Editar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="carsols.length === 0" class="alert alert-warning">
+        No se encontraron características de solicitud
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-success mb-3"
+            data-bs-toggle="modal" data-bs-target="#modalAgregarCarsol">
+            Agregar Característica
+        </button>
+    </div>
+
+    <app-par-carsol-insert (cargarCarsols)="cargarCarsols()"></app-par-carsol-insert>
+    <app-par-carsol-edit [carsolSeleccionado]="carsolSeleccionado" (cargarCarsols)="cargarCarsols()">
+    </app-par-carsol-edit>
+</div>

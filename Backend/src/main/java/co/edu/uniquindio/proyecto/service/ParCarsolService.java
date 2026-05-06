@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ParCarsolService {
 
-    Integer crearCarsol(CrearCarsolDto dto) throws Exception;
+    void crearCarsol(CrearCarsolDto dto) throws Exception;
 
     void editarCarsol(EditarCarsolDto dto) throws Exception;
 

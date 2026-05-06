@@ -22,7 +22,7 @@ public class ParTipsolServiceImpl implements ParTipsolService {
     private final ParTipsolRepository parTipsolRepository;
 
     @Override
-    public String crearTipsol(CrearTipsolDto dto) throws Exception {
+    public void crearTipsol(CrearTipsolDto dto) throws Exception {
         if (parTipsolRepository.existsById(dto.idTipsol())) {
             throw new Exception("El tipo de solicitud con ID " + dto.idTipsol() + " ya existe");
         }
@@ -34,7 +34,7 @@ public class ParTipsolServiceImpl implements ParTipsolService {
                 .estTipsol(dto.estTipsol())
                 .build();
 
-        return parTipsolRepository.save(nuevo).getIdTipsol();
+        parTipsolRepository.save(nuevo);
     }
 
     @Override
@@ -72,11 +72,16 @@ public class ParTipsolServiceImpl implements ParTipsolService {
 
     @Override
     public List<ListarTipsolDto> listarTipsol() {
-        List<ParTipsol> lista = parTipsolRepository.findAll();
+        List<ParTipsol> lista = parTipsolRepository.finAllOrderByTipsolsolAsc();
         List<ListarTipsolDto> items = new ArrayList<>();
 
         for (ParTipsol t : lista) {
-            items.add(new ListarTipsolDto(t.getIdTipsol(), t.getDsTipsol()));
+            items.add(new ListarTipsolDto(
+                    t.getIdTipsol(),
+                    t.getDsTipsol(),
+                    t.getSgTipsol(),
+                    t.getEstTipsol()
+            ));
         }
 
         return items;

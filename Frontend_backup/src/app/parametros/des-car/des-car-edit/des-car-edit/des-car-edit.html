@@ -1,0 +1,94 @@
+<div class="modal fade modal-derecha" id="modalEditarDesCar" tabindex="-1" aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header bg-success text-white">
+        <h4 class="modal-title">
+          <i class="bi bi-pencil-square"></i> Editar Descripción de Cargo
+        </h4>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <ng-container *ngIf="descarSeleccionado as desCar">
+          <form (ngSubmit)="guardarCambios()" #formEditar="ngForm">
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Código</label>
+                <input type="number" class="form-control"
+                       [(ngModel)]="nuevoCodigo" name="cd_descar" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Grado</label>
+                <input type="number" class="form-control"
+                       [(ngModel)]="nuevoGrado" name="gr_descar" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Nombre Actual</label>
+              <input type="text" class="form-control"
+                     [value]="desCar.dsDescar" disabled>
+            </div>
+
+            <div class="mb-3">
+              <label for="ds_descar_nuevo" class="form-label">
+                Nuevo Nombre de la Descripción de Cargo
+              </label>
+              <input id="ds_descar_nuevo" type="text" class="form-control"
+                     required
+                     [(ngModel)]="nuevoNombre"
+                     name="ds_descar_nuevo"
+                     placeholder="Ingrese el Nuevo Nombre"
+                     (input)="convertirMayusculas($event)">
+            </div>
+
+            <div class="mb-3">
+              <label for="niv_descar" class="form-label">Nivel del Cargo</label>
+              <select id="niv_descar" class="form-select"
+                      [(ngModel)]="nuevoIdNivcar" name="niv_descar" required>
+                <option *ngFor="let n of nivcars" [ngValue]="n.idNivcar">
+                  {{ n.dsNivcar }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="den_descar" class="form-label">Denominación de Cargo</label>
+              <select id="den_descar" class="form-select"
+                      [(ngModel)]="nuevoIdDencar" name="den_descar" required>
+                <option *ngFor="let d of dencars" [ngValue]="d.idDencar">
+                  {{ d.dsDencar }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="estado_descar" class="form-label">Estado</label>
+              <select id="estado_descar" class="form-select"
+                      [(ngModel)]="nuevoEstado" name="estado_descar">
+                <option [ngValue]="true">Activo</option>
+                <option [ngValue]="false">Inactivo</option>
+              </select>
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success me-2"
+                      [disabled]="formEditar.invalid">
+                Actualizar
+              </button>
+              <button type="button" class="btn btn-dark"
+                      data-bs-dismiss="modal" (click)="limpiarCampos()">
+                Cancelar
+              </button>
+            </div>
+
+          </form>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+</div>

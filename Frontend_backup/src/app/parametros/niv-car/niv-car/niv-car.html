@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <h3> Niveles de Cargo registrados</h3>
+    <hr>
+
+    <table class="table table-hover align-middle" *ngIf="nivcar.length > 0">
+        <thead>
+            <tr>
+                <th>Identificación</th>
+                <th>Nombre del Nivel de Carrera</th>
+                <th>Estado</th>
+                <th class="id-acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let n of nivcar" [ngClass]="!n.estNivcar ? 'fila-inactiva' : ''">
+                <td>{{ n.idNivcar }}</td>
+                <td>{{ n.dsNivcar }}</td>
+                <td>{{ n.estNivcar ? 'Activo' : 'Inactivo'}}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
+                        (click)="seleccionarNivcarParaEditar(n)">
+                        Editar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="nivcar.length === 0" class="alert alert-warning">
+        No se encontraron niveles de cargo
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+            Agregar Nivel de Cargo
+        </button>
+    </div>
+    <app-niv-car-insert (cargarNivcars)="cargarNivcars()"></app-niv-car-insert>
+    <app-par-nivcar-edit [nivcarSeleccionado]="nivCarSeleccionado"
+        (cargarNivcars)="cargarNivcars()"></app-par-nivcar-edit>
+</div>
