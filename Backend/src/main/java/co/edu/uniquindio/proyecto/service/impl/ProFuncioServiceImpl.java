@@ -19,13 +19,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProFuncioServiceImpl implements ProFuncioService {
 
-    private final ProFuncioRepository    proFuncioRepository;
-    private final ParTipdocRepository    parTipdocRepository;
-    private final ParGeneroRepository    parGeneroRepository;
-    private final ParDepartRepository    parDepartRepository;
-    private final ParMuniciRepository    parMuniciRepository;
-    private final ParPaisesRepository    parPaisesRepository;
-    private final ParDescarRepository    parDescarRepository;
+    private final ProFuncioRepository proFuncioRepository;
+    private final ParTipdocRepository parTipdocRepository;
+    private final ParGeneroRepository parGeneroRepository;
+    private final ParDepartRepository parDepartRepository;
+    private final ParMuniciRepository parMuniciRepository;
+    private final ParPaisesRepository parPaisesRepository;
+    private final ParDescarRepository parDescarRepository;
+    private final ParTipsolRepository parTipsolRepository;
+
+    private List<ParTipsol> resolverTipsoles(List<String> ids) throws Exception {
+        List<ParTipsol> tipsoles = new ArrayList<>();
+        if (ids != null) {
+            for (String id : ids) {
+                tipsoles.add(parTipsolRepository.findById(id)
+                        .orElseThrow(() -> new Exception("Tipo de solicitud no encontrado: " + id)));
+            }
+        }
+        return tipsoles;
+    }
 
     @Override
     public Integer crearFuncio(CrearFuncioDto dto) throws Exception {
@@ -50,6 +62,8 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                     .orElseThrow(() -> new Exception("Descripción de cargo no encontrada"));
         }
 
+        List<ParTipsol> tipsoles = resolverTipsoles(dto.idTipsoles());
+
         ProFuncio nuevo = ProFuncio.builder()
                 .id_funcio(dto.id_funcio())
                 .tipdoc(tipdoc)
@@ -65,6 +79,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 .ce_funcio(dto.ce_funcio())
                 .fechaExpedicion(dto.fechaExpedicion())
                 .descar(descar)
+                .tipsoles(tipsoles)
                 .build();
 
         return proFuncioRepository.save(nuevo).getId_funcio();
@@ -109,6 +124,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         funcio.setCe_funcio(dto.ce_funcio());
         funcio.setFechaExpedicion(dto.fechaExpedicion());
         funcio.setDescar(descar);
+        funcio.setTipsoles(resolverTipsoles(dto.idTipsoles()));
 
         proFuncioRepository.save(funcio);
     }
@@ -140,7 +156,8 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 funcio.getCe_funcio(),
                 funcio.getFechaExpedicion(),
                 funcio.getDescar() != null ? funcio.getDescar().getIdDescar() : null,
-                funcio.getDescar() != null ? funcio.getDescar().getDsDescar() : null
+                funcio.getDescar() != null ? funcio.getDescar().getDsDescar() : null,
+                funcio.getTipsoles().stream().map(ParTipsol::getIdTipsol).toList()
         );
     }
 
@@ -165,7 +182,8 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                     f.getCe_funcio(),
                     f.getFechaExpedicion(),
                     f.getDescar() != null ? f.getDescar().getIdDescar() : null,
-                    f.getDescar() != null ? f.getDescar().getDsDescar() : null
+                    f.getDescar() != null ? f.getDescar().getDsDescar() : null,
+                    f.getTipsoles().stream().map(ParTipsol::getIdTipsol).toList()
             ));
         }
 

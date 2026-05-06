@@ -10,18 +10,22 @@ import { ParDesCarDto, ParDesCarService } from '../../../service/DesCar/des-car'
 })
 export class ProcAnotaciones implements OnInit {
 
-  searchId:             string        = '';
-  funcionarios:         ProFuncioDto[] = [];
+  // ── Búsqueda ──────────────────────────────────────────────────────────────
+  searchId: string = '';
+  funcionarios: ProFuncioDto[] = [];
   todosLosFuncionarios: ProFuncioDto[] = [];
-  descars:              ParDesCarDto[] = [];
+  descars: ParDesCarDto[] = [];
 
   funcionarioSeleccionado: ProFuncioDto | null = null;
-  descarSeleccionado:      ParDesCarDto | null = null;
+  descarSeleccionado: ParDesCarDto | null = null;
+
+  // ── Modal ─────────────────────────────────────────────────────────────────
+  mostrarModal: boolean = false;
 
   constructor(
     private proFuncioService: ProFuncioService,
     private parDesCarService: ParDesCarService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarFuncionarios();
@@ -30,15 +34,15 @@ export class ProcAnotaciones implements OnInit {
 
   cargarFuncionarios(): void {
     this.proFuncioService.listarFuncionarios().subscribe({
-      next:  (data) => { this.todosLosFuncionarios = data; this.funcionarios = []; },
-      error: (err)  => console.error('Error cargando funcionarios', err)
+      next: (data) => { this.todosLosFuncionarios = data; this.funcionarios = []; },
+      error: (err) => console.error('Error cargando funcionarios', err)
     });
   }
 
   cargarDescars(): void {
     this.parDesCarService.listarDesCars().subscribe({
-      next:  (data) => this.descars = data,
-      error: (err)  => console.error('Error cargando descars', err)
+      next: (data) => this.descars = data,
+      error: (err) => console.error('Error cargando descars', err)
     });
   }
 
@@ -47,10 +51,7 @@ export class ProcAnotaciones implements OnInit {
     this.funcionarioSeleccionado = null;
     this.descarSeleccionado = null;
 
-    if (!search) {
-      this.funcionarios = [];
-      return;
-    }
+    if (!search) { this.funcionarios = []; return; }
 
     this.funcionarios = this.todosLosFuncionarios.filter(f =>
       f.id_funcio.toString().startsWith(search)
@@ -62,7 +63,6 @@ export class ProcAnotaciones implements OnInit {
     this.funcionarios = [];
     this.searchId = funcionario.id_funcio.toString();
 
-    // Buscar el descar asociado en la lista ya cargada
     if (funcionario.id_descar) {
       this.descarSeleccionado = this.descars.find(
         d => d.idDescar === funcionario.id_descar
@@ -77,5 +77,14 @@ export class ProcAnotaciones implements OnInit {
     this.descarSeleccionado = null;
     this.funcionarios = [];
     this.searchId = '';
+    this.mostrarModal = false;
+  }
+
+  abrirModal(): void { this.mostrarModal = true; }
+  cerrarModal(): void { this.mostrarModal = false; }
+
+  onAnotacionGuardada(payload: any): void {
+    console.log('Anotación guardada desde el padre:', payload);
+    // TODO: refrescar lista de anotaciones si se implementa
   }
 }

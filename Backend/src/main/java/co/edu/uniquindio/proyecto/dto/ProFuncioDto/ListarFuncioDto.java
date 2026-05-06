@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.dto.ProFuncioDto;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.List;
 
 public record ListarFuncioDto(
         Integer id_funcio,
@@ -18,5 +19,6 @@ public record ListarFuncioDto(
         String ce_funcio,
         LocalDate fechaExpedicion,
         Integer id_descar,
-        String ds_descar
+        String ds_descar,
+        List<String> idTipsoles
 ) { }

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.List;
 
 public record CrearFuncioDto(
         @NotNull Integer id_funcio,
@@ -19,5 +20,6 @@ public record CrearFuncioDto(
         BigInteger no_funcio,
         @NotBlank @Size(max = 100) String ce_funcio,
         @NotNull LocalDate fechaExpedicion,
-        Integer id_descar
+        Integer id_descar,
+        List<String> idTipsoles
 ) { }

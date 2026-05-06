@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pro_funcio")
@@ -61,4 +63,13 @@ public class ProFuncio {
     @ManyToOne
     @JoinColumn(name = "id_descar", nullable = true)
     private ParDescar descar;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pro_funcio_tipsol",
+            joinColumns = @JoinColumn(name = "id_funcio"),
+            inverseJoinColumns = @JoinColumn(name = "id_tipsol")
+    )
+    @Builder.Default
+    private List<ParTipsol> tipsoles = new ArrayList<>();
 }

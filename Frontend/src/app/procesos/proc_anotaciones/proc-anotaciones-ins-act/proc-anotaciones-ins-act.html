@@ -1,101 +1,146 @@
-<div class="modal fade modal-derecha" id="modalAgregar" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-Keyboard="false">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
+<div *ngIf="visible" class="d-flex align-items-center justify-content-center"
+    style="position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1050;">
 
-      <div class="modal-header">
-        <h4 class="modal-title">Agregar Anotación</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+    <div class="bg-white rounded shadow-lg p-4" style="width:100%; max-width:700px; max-height:90vh; overflow-y:auto;">
 
-      <div class="modal-body">
-        <form>
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+            <h5 class="mb-0 fw-semibold">Agregar Anotación</h5>
+            <button type="button" class="btn-close" (click)="onCerrar()"></button>
+        </div>
 
-          <div class="mb-3">
-            <label for="tipoAnotacion" class="form-label">Seleccionar anotación</label>
-            <select id="tipoAnotacion" class="form-select" required>
-              <option value="">Inscripción / Actualización</option>
+        <!-- ── Seleccionar tipo de anotación ── -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Seleccionar anotación</label>
+            <select class="form-select" (change)="onTipsolChange($any($event.target).value)">
+                <option value="">-- Seleccione --</option>
+                <option *ngFor="let t of tipsolesDelFuncionario" [value]="t.idTipsol">
+                    {{ t.dsTipsol }}
+                </option>
             </select>
-          </div>
+        </div>
 
-          <hr>
+        <!-- ════════════════════════════════════════════════
+         SECCIÓN DINÁMICA según el tipsol seleccionado
+         ════════════════════════════════════════════════ -->
+        <ng-container *ngIf="tipsolSeleccionado">
+            <hr>
 
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="incorporacion">
-                <label class="form-check-label" for="incorporacion">Por Incorporación</label>
-              </div>
+            <!-- ── Checkboxes de carsol (comunes a ACT, COM y CAN) ── -->
+            <div *ngIf="carsolesDelTipsol.length > 0" class="mb-3">
+                <div class="row g-2">
+                    <div *ngFor="let c of carsolesDelTipsol" class="col-md-6 col-lg-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [id]="'carsol-' + c.idCarsol"
+                                [checked]="isCarsolChecked(c.idCarsol)" (change)="toggleCarsol(c.idCarsol)">
+                            <label class="form-check-label small" [for]="'carsol-' + c.idCarsol">
+                                {{ c.dsCarsol }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="sentencia">
-                <label class="form-check-label" for="sentencia">Por Sentencia Judicial</label>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="ascenso">
-                <label class="form-check-label" for="ascenso">Por Ascenso derivado de un concurso de mérito</label>
-              </div>
-            </div>
-          </div>
 
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="traslado">
-                <label class="form-check-label" for="traslado">Por Traslado</label>
-              </div>
+            <div *ngIf="carsolesDelTipsol.length === 0" class="alert alert-warning py-2 small mb-3">
+                <i class="bi bi-exclamation-triangle"></i>
+                Este tipo de anotación no tiene opciones de causa asociadas.
             </div>
-            <div class="col-md-4">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="nomenclatura">
-                <label class="form-check-label" for="nomenclatura">Por Cambio de Nomenclatura</label>
-              </div>
-            </div>
-          </div>
 
-          <hr>
+            <!-- ── Bloque exclusivo de COM: Fechas de Comisión ── -->
+            <ng-container *ngIf="esCOM">
+                <div class="border rounded p-3 mb-3 bg-light">
+                    <p class="fw-semibold mb-2">Fechas Comisión</p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha Inicio</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaInicioComision">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha Terminación</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaTerminacionComision">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
 
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="actoAdmin" class="form-label">Acto Administrativo</label>
-              <input type="text" id="actoAdmin" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-              <label for="fecha" class="form-label">Fecha</label>
-              <input type="date" id="fecha" class="form-control" required>
-            </div>
-          </div>
+            <hr>
 
-          <div class="row mb-3">
-            <div class="col-md-6 col-lg-4">
-              <label for="denominacion" class="form-label">Denominación del empleo</label>
-              <input type="text" id="denominacion" class="form-control" required>
+            <!-- ── Acto administrativo + Fecha (comunes a todos) ── -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-7">
+                    <label class="form-label fw-semibold">Acto Administrativo</label>
+                    <input type="text" class="form-control" placeholder="Ej: Resolución 001-2024"
+                        [(ngModel)]="actoAdministrativo">
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label fw-semibold">Fecha</label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaAnotacion">
+                </div>
             </div>
-            <div class="col-md-3 col-lg-4">
-              <label for="codigo" class="form-label">Código</label>
-              <input type="text" id="codigo" class="form-control" required>
-            </div>
-            <div class="col-md-3 col-lg-4">
-              <label for="grado" class="form-label">Grado</label>
-              <div class="input-group">
-                <input type="text" id="grado" class="form-control" required>
-                <button class="btn btn-outline-secondary" type="button">
-                  🔍
-                </button>
-              </div>
-            </div>
-          </div>
 
-          <div class="text-center mt-4">
-            <button type="submit" class="btn btn-success me-2">Agregar</button>
-            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
-          </div>
+            <!-- ── Denominación del empleo (descar) ── -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Denominación del empleo</label>
+                <div class="position-relative">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar por denominación o código..."
+                            [(ngModel)]="descarBusqueda" (input)="buscarDescarModal()">
+                        <span class="input-group-text bg-white">
+                            <i class="bi bi-search text-muted"></i>
+                        </span>
+                    </div>
 
-        </form>
-      </div>
+                    <!-- Dropdown resultados descar -->
+                    <div *ngIf="descarBusqueda && descaresModal.length > 0 && !descarModalSeleccionado"
+                        class="border rounded shadow-sm bg-white mt-1"
+                        style="max-height:160px; overflow-y:auto; position:absolute; width:100%; z-index:200;">
+                        <table class="table table-hover table-sm mb-0">
+                            <tbody>
+                                <tr *ngFor="let d of descaresModal" style="cursor:pointer;"
+                                    (click)="seleccionarDescarModal(d)">
+                                    <td class="small">{{ d.dsDescar }}</td>
+                                    <td class="small text-muted">Cód: {{ d.cdDescar }}</td>
+                                    <td class="small text-muted">Grado: {{ d.grDescar }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Detalle del descar seleccionado -->
+                <div *ngIf="descarModalSeleccionado as dm" class="row g-2 mt-2 p-2 bg-light rounded border">
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small mb-1">Denominación</label>
+                        <input type="text" class="form-control form-control-sm" [value]="dm.dsDescar" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small mb-1">Código</label>
+                        <input type="text" class="form-control form-control-sm" [value]="dm.cdDescar" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small mb-1">Grado</label>
+                        <input type="text" class="form-control form-control-sm" [value]="dm.grDescar" disabled>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button class="btn btn-link btn-sm text-danger p-0" (click)="limpiarDescar()">
+                            <i class="bi bi-x-circle"></i> Cambiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+        <!-- ── fin sección dinámica ── -->
+
+        <!-- ── Botones ── -->
+        <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-2">
+            <button class="btn btn-dark px-4" (click)="onCerrar()">
+                Cerrar
+            </button>
+            <button class="btn btn-success px-4" (click)="agregarAnotacion()" [disabled]="!tipsolSeleccionado">
+                <i class="bi bi-check-circle"></i> Agregar
+            </button>
+        </div>
 
     </div>
-  </div>
 </div>
