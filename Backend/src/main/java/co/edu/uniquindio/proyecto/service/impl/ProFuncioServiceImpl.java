@@ -19,12 +19,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProFuncioServiceImpl implements ProFuncioService {
 
-    private final ProFuncioRepository proFuncioRepository;
-    private final ParTipdocRepository parTipdocRepository;
-    private final ParGeneroRepository parGeneroRepository;
-    private final ParDepartRepository parDepartRepository;
-    private final ParMuniciRepository parMuniciRepository;
-    private final ParPaisesRepository parPaisesRepository;
+    private final ProFuncioRepository    proFuncioRepository;
+    private final ParTipdocRepository    parTipdocRepository;
+    private final ParGeneroRepository    parGeneroRepository;
+    private final ParDepartRepository    parDepartRepository;
+    private final ParMuniciRepository    parMuniciRepository;
+    private final ParPaisesRepository    parPaisesRepository;
+    private final ParDescarRepository    parDescarRepository;
 
     @Override
     public Integer crearFuncio(CrearFuncioDto dto) throws Exception {
@@ -43,6 +44,12 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         ParPaises pais = parPaisesRepository.findById(dto.id_pais())
                 .orElseThrow(() -> new Exception("País no encontrado"));
 
+        ParDescar descar = null;
+        if (dto.id_descar() != null) {
+            descar = parDescarRepository.findById(dto.id_descar())
+                    .orElseThrow(() -> new Exception("Descripción de cargo no encontrada"));
+        }
+
         ProFuncio nuevo = ProFuncio.builder()
                 .id_funcio(dto.id_funcio())
                 .tipdoc(tipdoc)
@@ -57,6 +64,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 .no_funcio(dto.no_funcio())
                 .ce_funcio(dto.ce_funcio())
                 .fechaExpedicion(dto.fechaExpedicion())
+                .descar(descar)
                 .build();
 
         return proFuncioRepository.save(nuevo).getId_funcio();
@@ -82,6 +90,12 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         ParPaises pais = parPaisesRepository.findById(dto.id_pais())
                 .orElseThrow(() -> new Exception("País no encontrado"));
 
+        ParDescar descar = null;
+        if (dto.id_descar() != null) {
+            descar = parDescarRepository.findById(dto.id_descar())
+                    .orElseThrow(() -> new Exception("Descripción de cargo no encontrada"));
+        }
+
         funcio.setTipdoc(tipdoc);
         funcio.setGenero(genero);
         funcio.setNm_func1(dto.nm_func1());
@@ -94,6 +108,7 @@ public class ProFuncioServiceImpl implements ProFuncioService {
         funcio.setNo_funcio(dto.no_funcio());
         funcio.setCe_funcio(dto.ce_funcio());
         funcio.setFechaExpedicion(dto.fechaExpedicion());
+        funcio.setDescar(descar);
 
         proFuncioRepository.save(funcio);
     }
@@ -102,7 +117,6 @@ public class ProFuncioServiceImpl implements ProFuncioService {
     public void eliminarFuncio(Integer id) throws Exception {
         ProFuncio funcio = proFuncioRepository.findById(id)
                 .orElseThrow(() -> new Exception("Funcionario no encontrado"));
-
         proFuncioRepository.delete(funcio);
     }
 
@@ -124,7 +138,9 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                 funcio.getMunici().getId_munici(),
                 funcio.getNo_funcio(),
                 funcio.getCe_funcio(),
-                funcio.getFechaExpedicion()
+                funcio.getFechaExpedicion(),
+                funcio.getDescar() != null ? funcio.getDescar().getIdDescar() : null,
+                funcio.getDescar() != null ? funcio.getDescar().getDsDescar() : null
         );
     }
 
@@ -138,13 +154,19 @@ public class ProFuncioServiceImpl implements ProFuncioService {
                     f.getId_funcio(),
                     f.getTipdoc().getDs_tipdoc(),
                     f.getGenero().getDs_genero(),
-                    f.getNm_func1(),f.getNm_func2(),
-                    f.getAp_func1(),f.getAp_func2(),
+                    f.getNm_func1(),
+                    f.getNm_func2(),
+                    f.getAp_func1(),
+                    f.getAp_func2(),
                     f.getPais().getNm_paises(),
                     f.getDepart().getNm_depart(),
                     f.getMunici().getNm_munici(),
-                    f.getNo_funcio(),f.getCe_funcio(),
-                    f.getFechaExpedicion()));
+                    f.getNo_funcio(),
+                    f.getCe_funcio(),
+                    f.getFechaExpedicion(),
+                    f.getDescar() != null ? f.getDescar().getIdDescar() : null,
+                    f.getDescar() != null ? f.getDescar().getDsDescar() : null
+            ));
         }
 
         return items;

@@ -1,44 +1,117 @@
 <div class="container mt-4">
-  <h3>Información Anotaciones</h3>
+  <h3>Gestión de Anotaciones</h3>
   <hr>
 
-  <div class="mb-4">
-    <h5>Búsqueda de Funcionarios</h5>
+  <!-- BÚSQUEDA -->
+  <div class="mb-3">
+    <h5>Búsqueda de Funcionario</h5>
     <label for="searchInput" class="form-label">Identificación del funcionario</label>
-    <div class="input-group">
-      <input type="text" id="searchInput" class="form-control" placeholder="Identificación del funcionario"
-        [(ngModel)]="searchId" (input)="buscarFuncionario()" (keyup.enter)="buscarFuncionario()" />
+    <div class="input-group" style="max-width: 1000px;">
+      <input type="text" id="searchInput" class="form-control"
+             placeholder="Identificación del funcionario"
+             [(ngModel)]="searchId"
+             (input)="buscarFuncionario()"
+             (keyup.enter)="buscarFuncionario()" />
       <button class="btn btn-outline-secondary" (click)="buscarFuncionario()">
-        🔍
+        <i class="bi bi-search"></i>
       </button>
+    </div>
+
+    <!-- Dropdown de resultados -->
+    <div *ngIf="funcionarios.length > 0"
+         class="border rounded shadow-sm mt-1 bg-white"
+         style="max-width: 1000px; max-height: 220px; overflow-y: auto; position: relative; z-index: 100;">
+      <table class="table table-hover mb-0">
+        <tbody>
+          <tr *ngFor="let f of funcionarios"
+              style="cursor: pointer;"
+              (click)="seleccionarFuncionario(f)">
+            <td><strong>{{ f.id_funcio }}</strong></td>
+            <td>{{ f.nm_func1 }} {{ f.nm_func2 }} {{ f.ap_func1 }} {{ f.ap_func2 }}</td>
+            <td class="text-muted small">{{ f.ce_funcio }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="funcionarios.length === 0 && searchId !== '' && !funcionarioSeleccionado"
+         class="alert alert-warning mt-2" style="max-width: 1000px;">
+      No se encontraron funcionarios
     </div>
   </div>
 
   <hr>
-  <div *ngIf="searchId !== ''">
-    <h5>Funcionario encontrado</h5>
-    <table class="table table-hover align-middle" *ngIf="funcionarios.length > 0">
-      <thead>
+
+  <!-- CARD DEL FUNCIONARIO SELECCIONADO -->
+  <ng-container *ngIf="funcionarioSeleccionado as func">
+
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 class="mb-0">Funcionario registrado</h5>
+      <button class="btn btn-sm btn-outline-secondary" (click)="limpiarSeleccion()">
+        <i class="bi bi-x-circle"></i> Limpiar
+      </button>
+    </div>
+
+    <!-- Fila principal del funcionario -->
+    <table class="table table-bordered align-middle mb-0">
+      <thead class="table-light">
         <tr>
           <th>Identificación</th>
           <th>Nombres y Apellidos</th>
-          <th>Email</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let funcionario of funcionarios">
-          <td>{{ funcionario.id_funcio }}</td>
+        <tr>
+          <td>{{ func.id_funcio }}</td>
+          <td>{{ func.nm_func1 }} {{ func.nm_func2 }} {{ func.ap_func1 }} {{ func.ap_func2 }}</td>
           <td>
-            {{ funcionario.nm_func1 }} {{ funcionario.nm_func2 }}
-            {{ funcionario.ap_func1 }} {{ funcionario.ap_func2 }}
+            <span class="badge"
+                  [ngClass]="descarSeleccionado?.estDescar ? 'bg-success' : 'bg-secondary'">
+              {{ descarSeleccionado?.estDescar ? 'Activo' : (descarSeleccionado ? 'Inactivo' : 'Sin cargo') }}
+            </span>
           </td>
-          <td>{{ funcionario.ce_funcio }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <div *ngIf="funcionarios.length === 0 && searchId !== ''" class="alert alert-warning">
-    No se encontraron funcionarios
-  </div>
+    <!-- Datos del cargo expandidos debajo -->
+    <div *ngIf="descarSeleccionado as cargo"
+         class="border border-top-0 rounded-bottom p-3 bg-light mb-4">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label text-muted small mb-1">Denominación del empleo</label>
+          <input type="text" class="form-control form-control-sm"
+                 [value]="cargo.dsDescar" disabled>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label text-muted small mb-1">Código</label>
+          <input type="text" class="form-control form-control-sm"
+                 [value]="cargo.cdDescar" disabled>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label text-muted small mb-1">Grado</label>
+          <input type="text" class="form-control form-control-sm"
+                 [value]="cargo.grDescar" disabled>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-muted small mb-1">Nivel del Cargo</label>
+          <input type="text" class="form-control form-control-sm"
+                 [value]="cargo.nombreNivcar" disabled>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-muted small mb-1">Denominación del Cargo</label>
+          <input type="text" class="form-control form-control-sm"
+                 [value]="cargo.nombreDencar" disabled>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sin cargo asignado -->
+    <div *ngIf="!descarSeleccionado" class="alert alert-info mb-4">
+      <i class="bi bi-info-circle"></i> Este funcionario no tiene cargo asignado.
+    </div>
+
+  </ng-container>
+
 </div>

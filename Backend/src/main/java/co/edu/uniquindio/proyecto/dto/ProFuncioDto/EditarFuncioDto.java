@@ -18,6 +18,6 @@ public record EditarFuncioDto(
         @Size(max = 25) String ap_func2,
         BigInteger no_funcio,
         @NotBlank @Size(max = 100) String ce_funcio,
-        @NotBlank LocalDate fechaExpedicion
+        @NotBlank LocalDate fechaExpedicion,
+        Integer id_descar
 ) { }
-

@@ -16,7 +16,7 @@ public record ListarFuncioDto(
         String id_munici,
         BigInteger no_funcio,
         String ce_funcio,
-        LocalDate fechaExpedicion
-
+        LocalDate fechaExpedicion,
+        Integer id_descar,
+        String ds_descar
 ) { }
-

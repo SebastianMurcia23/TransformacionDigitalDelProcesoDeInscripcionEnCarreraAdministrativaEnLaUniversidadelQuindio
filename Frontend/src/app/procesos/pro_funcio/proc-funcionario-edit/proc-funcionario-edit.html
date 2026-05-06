@@ -10,9 +10,135 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
 
-
       <div class="modal-body">
+        <ng-container *ngIf="funcionarioSeleccionado as func">
+          <form (ngSubmit)="guardarCambios()" #formEditar="ngForm">
+
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label class="form-label">Género</label>
+                <select class="form-select" required [(ngModel)]="editForm.id_genero" name="id_genero">
+                  <option value="0" disabled>Seleccione...</option>
+                  <option *ngFor="let g of generos" [ngValue]="g.id_genero">
+                    {{ g.ds_genero }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Tipo Documento</label>
+                <select class="form-select" required [(ngModel)]="editForm.id_tipdoc" name="id_tipdoc">
+                  <option value="0" disabled>Seleccione...</option>
+                  <ng-container *ngFor="let t of tipDocs">
+                    <option *ngIf="t.est_tipdoc" [ngValue]="t.id_tipdoc">
+                      {{ t.ds_tipdoc }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">No. Documento (no editable)</label>
+                <input type="number" class="form-control" [value]="func.id_funcio" disabled>
+              </div>
+
+              <div class="col-md-3">
+                <label class="form-label">Fecha de Expedición</label>
+                <input type="date" class="form-control" required [(ngModel)]="editForm.fechaExpedicion"
+                  name="fechaExpedicion">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label class="form-label">Primer Nombre</label>
+                <input type="text" class="form-control" required [(ngModel)]="editForm.nm_func1" name="nm_func1"
+                  placeholder="Primer Nombre" (input)="convertirMayusculas($event)">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Segundo Nombre</label>
+                <input type="text" class="form-control" [(ngModel)]="editForm.nm_func2" name="nm_func2"
+                  placeholder="Segundo Nombre" (input)="convertirMayusculas($event)">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Primer Apellido</label>
+                <input type="text" class="form-control" required [(ngModel)]="editForm.ap_func1" name="ap_func1"
+                  placeholder="Primer Apellido" (input)="convertirMayusculas($event)">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Segundo Apellido</label>
+                <input type="text" class="form-control" [(ngModel)]="editForm.ap_func2" name="ap_func2"
+                  placeholder="Segundo Apellido" (input)="convertirMayusculas($event)">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">País</label>
+                <select class="form-select" required [(ngModel)]="editForm.id_pais" name="id_pais">
+                  <option value="0" disabled>Seleccione...</option>
+                  <option *ngFor="let p of paises" [ngValue]="p.id">
+                    {{ p.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Departamento</label>
+                <select class="form-select" required [(ngModel)]="editForm.id_depart" name="id_depart">
+                  <option value="0" disabled>Seleccione...</option>
+                  <option [ngValue]="1">Quindio</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Municipio</label>
+                <select class="form-select" required [(ngModel)]="editForm.id_munici" name="id_munici">
+                  <option value="0" disabled>Seleccione...</option>
+                  <option [ngValue]="1">Armenia</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Número de Contacto</label>
+                <input type="tel" class="form-control" pattern="[0-9]{7,10}" [(ngModel)]="editForm.no_funcio"
+                  name="no_funcio">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" required [(ngModel)]="editForm.ce_funcio" name="ce_funcio"
+                  placeholder="Correo Electrónico">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label class="form-label">Descripción de Cargo (opcional)</label>
+                <select class="form-select" [(ngModel)]="editForm.id_descar" name="id_descar">
+                  <option [ngValue]="null">-- Sin asignar --</option>
+                  <option *ngFor="let d of descars" [ngValue]="d.idDescar">
+                    {{ d.cdDescar }} - Gr.{{ d.grDescar }} | {{ d.dsDescar }}
+                    ({{ d.nombreNivcar }} / {{ d.nombreDencar }})
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success me-2" [disabled]="formEditar.invalid">
+                Actualizar
+              </button>
+              <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="limpiarForm()">
+                Cancelar
+              </button>
+            </div>
+
+          </form>
+        </ng-container>
       </div>
+
     </div>
   </div>
 </div>

@@ -57,15 +57,8 @@ public class ProFuncio {
 
     @Column(nullable = false)
     private LocalDate fechaExpedicion;
+
+    @ManyToOne
+    @JoinColumn(name = "id_descar", nullable = true)
+    private ParDescar descar;
 }
-
-
-
-
-
-
-
-
-
-
-

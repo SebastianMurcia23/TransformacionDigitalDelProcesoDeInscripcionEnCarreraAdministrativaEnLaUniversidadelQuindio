@@ -72,7 +72,7 @@ public class ParDencarServiceImpl implements ParDencarService {
 
     @Override
     public List<ListarDencarDto> listarDencar() {
-        List<ParDencar> lista = parDencarRepository.findAll();
+        List<ParDencar> lista = parDencarRepository.finAllOrderByDencarAsc();
         List<ListarDencarDto> items = new ArrayList<>();
 
         for (ParDencar d : lista) {

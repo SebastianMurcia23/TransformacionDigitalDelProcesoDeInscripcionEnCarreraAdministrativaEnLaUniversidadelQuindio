@@ -12,7 +12,8 @@
       <div class="modal-body" *ngIf="funcionarioSeleccionado; else noData">
         <div class="container py-3">
           <div class="card border-0 shadow-sm p-4 rounded-4">
-            <h5 id="fecha">creado el: {{funcionarioSeleccionado.fechaExpedicion}}</h5>
+            <h5 id="fecha">Creado el: {{ funcionarioSeleccionado.fechaExpedicion }}</h5>
+
             <h5 class="mb-3 text-success fw-bold">Datos personales</h5>
             <div class="row mb-3">
               <div class="col-md-4">
@@ -58,7 +59,7 @@
             </div>
 
             <h5 class="mb-3 text-success fw-bold">Contacto</h5>
-            <div class="row">
+            <div class="row mb-3">
               <div class="col-md-6">
                 <strong>Correo electrónico:</strong>
                 <div>{{ funcionarioSeleccionado.ce_funcio }}</div>
@@ -68,8 +69,18 @@
                 <div>{{ funcionarioSeleccionado.no_funcio }}</div>
               </div>
             </div>
-          </div>
 
+            <h5 class="mb-3 text-success fw-bold">Cargo</h5>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <strong>Descripción de Cargo:</strong>
+                <div>
+                  {{ funcionarioSeleccionado.ds_descar ?? 'Sin cargo asignado' }}
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 

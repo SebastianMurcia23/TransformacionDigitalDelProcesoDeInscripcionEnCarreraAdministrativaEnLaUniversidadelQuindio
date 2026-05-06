@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ParDencarRepository extends JpaRepository<ParDencar,Integer>{
 
-    @Query("SELECT p FROM ParDencar p ORDER BY p.estDencar ASC")
+    @Query("SELECT p FROM ParDencar p ORDER BY p.idDencar ASC")
     List<ParDencar> finAllOrderByDencarAsc();
 }

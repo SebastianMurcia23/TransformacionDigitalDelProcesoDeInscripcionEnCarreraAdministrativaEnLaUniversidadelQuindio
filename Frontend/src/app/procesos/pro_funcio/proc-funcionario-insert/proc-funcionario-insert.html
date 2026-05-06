@@ -10,7 +10,6 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
 
-
       <div class="modal-body">
         <form (ngSubmit)="guardarFuncionario()" #formFuncio="ngForm">
 
@@ -56,23 +55,23 @@
             <div class="col-md-3">
               <label for="primerNombre" class="form-label">Primer Nombre</label>
               <input id="primerNombre" type="text" class="form-control" required [(ngModel)]="nuevoFuncionario.nm_func1"
-                name="nm_func1" placeholder="Ingrese Primer Nombre" (input)="convertirMayusculas($event)">
+                name="nm_func1" placeholder="Ingrese Primer Nombre" (ngModelChange)="convertirMayusculasCampo('nm_func1')">
             </div>
             <div class="col-md-3">
               <label for="segundoNombre" class="form-label">Segundo Nombre</label>
               <input id="segundoNombre" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.nm_func2"
-                name="nm_func2" placeholder="Ingrese Segundo Nombre" (input)="convertirMayusculas($event)">
+                name="nm_func2" placeholder="Ingrese Segundo Nombre" (ngModelChange)="convertirMayusculasCampo('nm_func2')">
             </div>
             <div class="col-md-3">
               <label for="primerApellido" class="form-label">Primer Apellido</label>
               <input id="primerApellido" type="text" class="form-control" required
                 [(ngModel)]="nuevoFuncionario.ap_func1" name="ap_func1" placeholder="Ingrese Primer Apellido"
-                (input)="convertirMayusculas($event)">
+                (ngModelChange)="convertirMayusculasCampo('ap_func1')">
             </div>
             <div class="col-md-3">
               <label for="segundoApellido" class="form-label">Segundo Apellido</label>
               <input id="segundoApellido" type="text" class="form-control" [(ngModel)]="nuevoFuncionario.ap_func2"
-                name="ap_func2" placeholder="Ingrese Segundo Apellido" (input)="convertirMayusculas($event)">
+                name="ap_func2" placeholder="Ingrese Segundo Apellido" (ngModelChange)="convertirMayusculasCampo('ap_func2')">
             </div>
           </div>
 
@@ -115,7 +114,21 @@
             <div class="col-md-6">
               <label for="correo" class="form-label">Correo Electrónico</label>
               <input id="correo" type="email" class="form-control" required [(ngModel)]="nuevoFuncionario.ce_funcio"
-                name="ce_funcio" placeholder="Ingrese Correo Electronico" (input)="convertirMayusculas($event)">
+                name="ce_funcio" placeholder="Ingrese Correo Electronico"
+                (input)="convertirMayusculasCampo('ce_funcio')">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="descar_insert" class="form-label">Descripción de Cargo (opcional)</label>
+              <select id="descar_insert" class="form-select" [(ngModel)]="nuevoFuncionario.id_descar" name="id_descar">
+                <option [ngValue]="null">-- Sin asignar --</option>
+                <option *ngFor="let d of descars" [ngValue]="d.idDescar">
+                  {{ d.cdDescar }} - Gr.{{ d.grDescar }} | {{ d.dsDescar }}
+                  ({{ d.nombreNivcar }} / {{ d.nombreDencar }})
+                </option>
+              </select>
             </div>
           </div>
 

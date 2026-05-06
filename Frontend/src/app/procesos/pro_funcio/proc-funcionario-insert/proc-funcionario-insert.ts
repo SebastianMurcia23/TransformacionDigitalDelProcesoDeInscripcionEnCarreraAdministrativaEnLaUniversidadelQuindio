@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PaisDto, ParPaisesService } from '../../../service/ParPaises/par-paises';
 import { ParGeneroService, ParGeneroDto } from '../../../service/ParGenero/par-genero';
 import { ParTipDocService, ParTipdocDto } from '../../../service/ParTipdoc/par-tipdoc';
 import { ProFuncioDto, ProFuncioService } from '../../../service/ProFuncio/pro-funcio';
+import { ParDesCarService, ParDesCarDto } from '../../../service/DesCar/des-car';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,13 +12,14 @@ import Swal from 'sweetalert2';
   templateUrl: './proc-funcionario-insert.html',
   styleUrl: './proc-funcionario-insert.css'
 })
-export class ProcFuncionarioInsert {
+export class ProcFuncionarioInsert implements OnInit {
 
   @Output() cargarFuncionarios = new EventEmitter<void>();
 
   paises: PaisDto[] = [];
   generos: ParGeneroDto[] = [];
   tipDocs: ParTipdocDto[] = [];
+  descars: ParDesCarDto[] = [];
 
   nuevoFuncionario: ProFuncioDto = {
     id_funcio: 0,
@@ -32,29 +34,37 @@ export class ProcFuncionarioInsert {
     id_munici: 0,
     no_funcio: 0,
     ce_funcio: '',
-    fechaExpedicion: null
+    fechaExpedicion: null,
+    id_descar: null
   };
 
   constructor(
     private parPaises: ParPaisesService,
     private parGeneros: ParGeneroService,
     private parTipdoc: ParTipDocService,
-    private proFuncioService: ProFuncioService
+    private proFuncioService: ProFuncioService,
+    private parDesCarService: ParDesCarService
   ) { }
 
   ngOnInit(): void {
     this.cargarPaises();
     this.cargarGeneros();
     this.cargarParTipDocs();
+    this.cargarDescars();
   }
 
-  convertirMayusculas(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input) return;
+  cargarDescars(): void {
+    this.parDesCarService.listarDesCars().subscribe({
+      next: (data) => this.descars = data,
+      error: (err) => console.error('Error cargando descars', err)
+    });
+  }
 
-    const valor = input.value.toUpperCase();
-    input.value = valor;
-
+  convertirMayusculasCampo(campo: keyof ProFuncioDto): void {
+    const valor = this.nuevoFuncionario[campo];
+    if (valor && typeof valor === 'string') {
+      (this.nuevoFuncionario as any)[campo] = valor.toUpperCase();
+    }
   }
 
   cerrarModal(): void {
@@ -63,7 +73,6 @@ export class ProcFuncionarioInsert {
 
   guardarFuncionario(): void {
     this.nuevoFuncionario.no_funcio = Number(this.nuevoFuncionario.no_funcio);
-    console.log('Valores actuales del funcionario:', this.nuevoFuncionario);
 
     if (!this.nuevoFuncionario.nm_func1 || !this.nuevoFuncionario.ap_func1) {
       Swal.fire({
@@ -88,53 +97,27 @@ export class ProcFuncionarioInsert {
       cancelButtonText: 'Cancelar',
       reverseButtons: true
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.proFuncioService.crearFuncionario(this.nuevoFuncionario).subscribe({
-          next: (data) => {
-            console.log('Funcionario guardado con éxito', data);
+      if (!result.isConfirmed) return;
 
-            Swal.fire({
-              title: '¡Guardado!',
-              text: 'El funcionario ha sido agregado correctamente.',
-              icon: 'success',
-              confirmButtonColor: '#28a745',
-              timer: 2000,
-              showConfirmButton: false
-            });
-
-            // Emitir evento para actualizar la lista del padre
-            this.cargarFuncionarios.emit();
-
-            // Limpiar el formulario
-            this.nuevoFuncionario = {
-              id_genero: 0,
-              id_tipdoc: 0,
-              id_funcio: 0,
-              fechaExpedicion: null,
-              nm_func1: '',
-              nm_func2: '',
-              ap_func1: '',
-              ap_func2: '',
-              id_pais: 0,
-              id_depart: 0,
-              id_munici: 0,
-              no_funcio: 0,
-              ce_funcio: ''
-            };
-
-            this.cerrarModal();
-          },
-          error: (err) => {
-            console.error('Error al guardar funcionario', err);
-            Swal.fire({
-              title: 'Error',
-              text: 'Ocurrió un problema al guardar el funcionario.',
-              icon: 'error',
-              confirmButtonColor: '#d33'
-            });
-          }
-        });
-      }
+      this.proFuncioService.crearFuncionario(this.nuevoFuncionario).subscribe({
+        next: () => {
+          Swal.fire({
+            title: '¡Guardado!',
+            text: 'El funcionario ha sido agregado correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#28a745',
+            timer: 2000,
+            showConfirmButton: false
+          });
+          this.cargarFuncionarios.emit();
+          this.limpiarFormulario();
+          this.cerrarModal();
+        },
+        error: (err) => {
+          console.error('Error al guardar funcionario', err);
+          Swal.fire('Error', 'Ocurrió un problema al guardar el funcionario.', 'error');
+        }
+      });
     });
   }
 
@@ -173,7 +156,8 @@ export class ProcFuncionarioInsert {
       id_depart: 0,
       id_munici: 0,
       no_funcio: 0,
-      ce_funcio: ''
+      ce_funcio: '',
+      id_descar: null
     };
   }
 }

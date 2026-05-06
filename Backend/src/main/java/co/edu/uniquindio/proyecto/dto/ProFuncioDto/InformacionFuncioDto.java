@@ -1,4 +1,5 @@
 package co.edu.uniquindio.proyecto.dto.ProFuncioDto;
+
 import java.math.BigInteger;
 import java.time.LocalDate;
 
@@ -15,6 +16,7 @@ public record InformacionFuncioDto(
         Integer id_munici,
         BigInteger no_funcio,
         String ce_funcio,
-        LocalDate fechaExpedicion
+        LocalDate fechaExpedicion,
+        Integer id_descar,
+        String ds_descar
 ) { }
-

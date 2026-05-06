@@ -8,9 +8,7 @@
     <div class="input-group">
       <input type="text" id="searchInput" class="form-control" placeholder="Identificación del funcionario"
         [(ngModel)]="searchId" (input)="buscarFuncionario()" />
-      <button class="btn btn-outline-secondary" (click)="buscarFuncionario()">
-        🔍
-      </button>
+      <button class="btn btn-outline-secondary" (click)="buscarFuncionario()">🔍</button>
     </div>
   </div>
 
@@ -23,24 +21,26 @@
         <th>Identificación</th>
         <th>Nombres y Apellidos</th>
         <th>Email</th>
-        <th class="id-acciones  ">Acciones</th>
+        <th class="id-acciones">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let funcionario of funcionarios">
-        <td>{{ funcionario.id_funcio}}</td>
-        <td>{{ funcionario.nm_func1 + " " }}{{funcionario.nm_func2 +" "}}{{funcionario.ap_func1 + "
-          "}}{{funcionario.ap_func2 + " "}}</td>
-        <td>{{ funcionario.ce_funcio}}</td>
+        <td>{{ funcionario.id_funcio }}</td>
+        <td>{{ funcionario.nm_func1 }} {{ funcionario.nm_func2 }}
+          {{ funcionario.ap_func1 }} {{ funcionario.ap_func2 }}</td>
+        <td>{{ funcionario.ce_funcio }}</td>
         <td>
           <div class="btn id-eyes bi bi-eye-fill btn-sm me-2" (click)="abrirModalMostrar(funcionario)"
-            data-bs-toggle="modal" data-bs-target="#modalMostrar"></div>
-          <app-proc-funcionario-mostrar
-            [funcionarioSeleccionado]="funcionarioSeleccionado"></app-proc-funcionario-mostrar>
-          <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal"
-            data-bs-target="#modalEditar">Editar</button>
-          <app-proc-funcionario-edit [funcionarioSeleccionado]="funcionarioSeleccionado"></app-proc-funcionario-edit>
-          <button class="btn btn-danger btn-sm" (click)="eliminarFuncionario(funcionario.id_funcio)">Eliminar</button>
+            data-bs-toggle="modal" data-bs-target="#modalMostrar">
+          </div>
+          <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#modalEditar"
+            (click)="seleccionarParaEditar(funcionario)"> <!-- ✅ AGREGADO -->
+            Editar
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarFuncionario(funcionario.id_funcio)">
+            Eliminar
+          </button>
         </td>
       </tr>
     </tbody>
@@ -55,5 +55,15 @@
       Agregar Funcionario
     </button>
   </div>
-  <app-proc-funcionario-insert (cargarFuncionarios)="cargarFuncionarios()"></app-proc-funcionario-insert>
+
+  <!-- Componentes hijos fuera de la tabla -->
+  <app-proc-funcionario-mostrar [funcionarioSeleccionado]="funcionarioSeleccionado">
+  </app-proc-funcionario-mostrar>
+
+  <app-proc-funcionario-edit [funcionarioSeleccionado]="funcionarioSeleccionado"
+    (cargarFuncionarios)="cargarFuncionarios()">
+  </app-proc-funcionario-edit>
+
+  <app-proc-funcionario-insert (cargarFuncionarios)="cargarFuncionarios()">
+  </app-proc-funcionario-insert>
 </div>
