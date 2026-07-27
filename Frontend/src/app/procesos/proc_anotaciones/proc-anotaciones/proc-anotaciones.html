@@ -7,14 +7,18 @@
     <h5>Búsqueda de Funcionario</h5>
     <label for="searchInput" class="form-label">Identificación del funcionario</label>
     <div class="input-group" style="max-width: 1000px;">
-      <input type="text" id="searchInput" class="form-control" placeholder="Identificación del funcionario"
-        [(ngModel)]="searchId" (input)="buscarFuncionario()" (keyup.enter)="buscarFuncionario()" />
+      <input type="text" id="searchInput" class="form-control"
+        placeholder="Identificación del funcionario"
+        [(ngModel)]="searchId"
+        (input)="buscarFuncionario()"
+        (keyup.enter)="buscarFuncionario()" />
       <button class="btn btn-outline-secondary" (click)="buscarFuncionario()">
         <i class="bi bi-search"></i>
       </button>
     </div>
 
-    <div *ngIf="funcionarios.length > 0" class="border rounded shadow-sm mt-1 bg-white"
+    <div *ngIf="funcionarios.length > 0"
+      class="border rounded shadow-sm mt-1 bg-white"
       style="max-width:1000px; max-height:220px; overflow-y:auto; position:relative; z-index:100;">
       <table class="table table-hover mb-0">
         <tbody>
@@ -50,6 +54,7 @@
       </div>
     </div>
 
+    <!-- Tabla funcionario -->
     <table class="table table-bordered align-middle mb-0">
       <thead class="table-light">
         <tr>
@@ -63,7 +68,8 @@
           <td>{{ func.id_funcio }}</td>
           <td>{{ func.nm_func1 }} {{ func.nm_func2 }} {{ func.ap_func1 }} {{ func.ap_func2 }}</td>
           <td>
-            <span class="badge" [ngClass]="descarSeleccionado?.estDescar ? 'bg-success' : 'bg-secondary'">
+            <span class="badge"
+              [ngClass]="descarSeleccionado?.estDescar ? 'bg-success' : 'bg-secondary'">
               {{ descarSeleccionado?.estDescar ? 'Activo' : (descarSeleccionado ? 'Inactivo' : 'Sin cargo') }}
             </span>
           </td>
@@ -71,7 +77,9 @@
       </tbody>
     </table>
 
-    <div *ngIf="descarSeleccionado as cargo" class="border border-top-0 rounded-bottom p-3 bg-light mb-4">
+    <!-- Datos del cargo -->
+    <div *ngIf="descarSeleccionado as cargo"
+      class="border border-top-0 rounded-bottom p-3 bg-light mb-4">
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label text-muted small mb-1">Denominación del empleo</label>
@@ -96,15 +104,93 @@
       </div>
     </div>
 
-    <div *ngIf="!descarSeleccionado" class="alert alert-info mb-4">
+    <div *ngIf="!descarSeleccionado" class="alert alert-info mb-3">
       <i class="bi bi-info-circle"></i> Este funcionario no tiene cargo asignado.
     </div>
+
+    <!-- ══════════════════════════════════════
+         SECCIÓN ANOTACIONES
+         ══════════════════════════════════════ -->
+    <h5 class="mt-2">Anotaciones</h5>
+    <hr class="mt-1">
+
+    <div *ngIf="anotacionesAgrupadas.length === 0" class="alert alert-info">
+      <i class="bi bi-info-circle"></i> Este funcionario no tiene anotaciones registradas.
+    </div>
+
+    <!-- Acordeón por tipsol -->
+    <div *ngFor="let grupo of anotacionesAgrupadas" class="mb-2">
+
+      <!-- Cabecera -->
+      <div class="d-flex justify-content-between align-items-center px-3 py-2 border rounded"
+        style="cursor:pointer; background:#f8f9fa;"
+        (click)="toggleAcordeon(grupo.idTipsol)">
+        <span class="fw-semibold">{{ grupo.dsTipsol }}</span>
+        <i class="bi"
+          [ngClass]="acordeonAbierto === grupo.idTipsol ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      </div>
+
+      <!-- Contenido -->
+      <div *ngIf="acordeonAbierto === grupo.idTipsol"
+        class="border border-top-0 rounded-bottom p-3">
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Acto Administrativo</th>
+                <th>Fecha</th>
+                <th *ngIf="grupo.idTipsol === 'COM'">Inicio Comisión</th>
+                <th *ngIf="grupo.idTipsol === 'COM'">Fin Comisión</th>
+                <th>Causa(s)</th>
+                <th>Denominación Empleo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of grupo.items">
+                <td>{{ a.idAnotacion }}</td>
+                <td>{{ a.actoAdministrativo }}</td>
+                <td>{{ a.fechaAnotacion }}</td>
+                <td *ngIf="grupo.idTipsol === 'COM'">{{ a.fechaIniComision ?? '—' }}</td>
+                <td *ngIf="grupo.idTipsol === 'COM'">{{ a.fechaFinComision ?? '—' }}</td>
+                <td>
+                  <span *ngFor="let c of a.dsCarsoles"
+                    class="badge bg-secondary me-1 mb-1">{{ c }}</span>
+                  <span *ngIf="!a.dsCarsoles || a.dsCarsoles.length === 0"
+                    class="text-muted small">—</span>
+                </td>
+                <td>
+                  <span *ngIf="a.dsDescar">
+                    {{ a.dsDescar }}<br>
+                    <small class="text-muted">Cód: {{ a.cdDescar }} | Grado: {{ a.grDescar }}</small>
+                  </span>
+                  <span *ngIf="!a.dsDescar" class="text-muted small">—</span>
+                </td>
+                <td>
+                  <button class="btn btn-danger btn-sm"
+                    (click)="eliminarAnotacion(a.idAnotacion)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- fin acordeón -->
 
   </ng-container>
 </div>
 
-<!-- ── COMPONENTE MODAL HIJO ── -->
-<app-proc-anotaciones-ins-act *ngIf="funcionarioSeleccionado" [visible]="mostrarModal"
-  [funcionario]="funcionarioSeleccionado!" [descars]="descars" (cerrar)="cerrarModal()"
+<!-- ── MODAL HIJO ── -->
+<app-proc-anotaciones-ins-act
+  *ngIf="funcionarioSeleccionado"
+  [visible]="mostrarModal"
+  [funcionario]="funcionarioSeleccionado!"
+  [descars]="descars"
+  (cerrar)="cerrarModal()"
   (anotacionGuardada)="onAnotacionGuardada($event)">
 </app-proc-anotaciones-ins-act>

@@ -3,6 +3,7 @@ import { ParDesCarDto } from '../../../service/DesCar/des-car';
 import { ListarCarsolDto, ParCarsolService } from '../../../service/ParCarsol/par-carsol';
 import { InformacionTipsolDto, ParTipsolService } from '../../../service/ParTipsol/par-tipsol';
 import { ProFuncioDto } from '../../../service/ProFuncio/pro-funcio';
+import { ProAnotacionService, CrearAnotacionDto } from '../../../service/proAnotacion/pro-anotacion.service';
 
 @Component({
   selector: 'app-proc-anotaciones-ins-act',
@@ -12,11 +13,11 @@ import { ProFuncioDto } from '../../../service/ProFuncio/pro-funcio';
 })
 export class ProcAnotacionesInsAct implements OnInit, OnChanges {
 
-  @Input()  funcionario!:      ProFuncioDto;
-  @Input()  descars:           ParDesCarDto[] = [];
-  @Input()  visible:           boolean = false;
-  @Output() cerrar =           new EventEmitter<void>();
-  @Output() anotacionGuardada = new EventEmitter<any>();
+  @Input()  funcionario!:       ProFuncioDto;
+  @Input()  descars:            ParDesCarDto[] = [];
+  @Input()  visible:            boolean = false;
+  @Output() cerrar =            new EventEmitter<void>();
+  @Output() anotacionGuardada = new EventEmitter<void>();
 
   // Tipsoles
   tipsoles:           InformacionTipsolDto[] = [];
@@ -34,23 +35,23 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
   fechaInicioComision:      string = '';
   fechaTerminacionComision: string = '';
 
-  // Descar modal
+  // Descar
   descarBusqueda:          string = '';
   descaresModal:           ParDesCarDto[] = [];
   descarModalSeleccionado: ParDesCarDto | null = null;
 
-  // ID del tipsol activo para controlar la vista
-  get idTipsolActivo(): string {
-    return this.tipsolSeleccionado?.idTipsol ?? '';
-  }
+  // Estado
+  guardando: boolean = false;
 
+  get idTipsolActivo(): string { return this.tipsolSeleccionado?.idTipsol ?? ''; }
   get esCOM(): boolean { return this.idTipsolActivo === 'COM'; }
   get esACT(): boolean { return this.idTipsolActivo === 'ACT'; }
   get esCAN(): boolean { return this.idTipsolActivo === 'CAN'; }
 
   constructor(
-    private parTipsolService: ParTipsolService,
-    private parCarsolService: ParCarsolService
+    private parTipsolService:    ParTipsolService,
+    private parCarsolService:    ParCarsolService,
+    private proAnotacionService: ProAnotacionService
   ) {}
 
   ngOnInit(): void {
@@ -70,16 +71,12 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     }
   }
 
-  // ── Tipsoles filtrados por el funcionario ─────────────────────────────────
-
   get tipsolesDelFuncionario(): InformacionTipsolDto[] {
     if (!this.funcionario) return [];
     const ids: string[] = (this.funcionario as any).idTipsoles ?? [];
     if (!ids.length) return this.tipsoles;
     return this.tipsoles.filter(t => ids.includes(t.idTipsol));
   }
-
-  // ── Cambio de tipsol ──────────────────────────────────────────────────────
 
   onTipsolChange(idTipsol: string): void {
     this.tipsolSeleccionado       = this.tipsoles.find(t => t.idTipsol === idTipsol) ?? null;
@@ -98,8 +95,6 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     });
   }
 
-  // ── Checkboxes carsol ─────────────────────────────────────────────────────
-
   toggleCarsol(idCarsol: number): void {
     this.carsolesSeleccionados.has(idCarsol)
       ? this.carsolesSeleccionados.delete(idCarsol)
@@ -109,8 +104,6 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
   isCarsolChecked(idCarsol: number): boolean {
     return this.carsolesSeleccionados.has(idCarsol);
   }
-
-  // ── Búsqueda descar ───────────────────────────────────────────────────────
 
   buscarDescarModal(): void {
     const q = this.descarBusqueda.trim().toLowerCase();
@@ -133,8 +126,6 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     this.descaresModal  = [...this.descars];
   }
 
-  // ── Guardar ───────────────────────────────────────────────────────────────
-
   agregarAnotacion(): void {
     if (!this.tipsolSeleccionado) {
       alert('Debe seleccionar un tipo de anotación.'); return;
@@ -149,26 +140,31 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
       alert('Debe ingresar las fechas de comisión.'); return;
     }
 
-    const payload: any = {
-      idFuncio:              this.funcionario.id_funcio,
-      idTipsol:              this.tipsolSeleccionado.idTipsol,
-      carsolesSeleccionados: Array.from(this.carsolesSeleccionados),
-      actoAdministrativo:    this.actoAdministrativo,
-      fecha:                 this.fechaAnotacion,
-      idDescar:              this.descarModalSeleccionado?.idDescar ?? null
+    const dto: CrearAnotacionDto = {
+      idFuncio:           this.funcionario.id_funcio,
+      idTipsol:           this.tipsolSeleccionado.idTipsol,
+      fechaAnotacion:     this.fechaAnotacion,
+      actoAdministrativo: this.actoAdministrativo,
+      idDescar:           this.descarModalSeleccionado?.idDescar ?? null,
+      idCarsoles:         Array.from(this.carsolesSeleccionados),
+      fechaIniComision:   this.esCOM ? this.fechaInicioComision      : null,
+      fechaFinComision:   this.esCOM ? this.fechaTerminacionComision  : null
     };
 
-    if (this.esCOM) {
-      payload.fechaInicioComision      = this.fechaInicioComision;
-      payload.fechaTerminacionComision = this.fechaTerminacionComision;
-    }
-
-    console.log('Anotación a guardar:', payload);
-    this.anotacionGuardada.emit(payload);
-    this.onCerrar();
+    this.guardando = true;
+    this.proAnotacionService.crear(dto).subscribe({
+      next: () => {
+        this.guardando = false;
+        this.anotacionGuardada.emit();
+        this.onCerrar();
+      },
+      error: (err) => {
+        this.guardando = false;
+        console.error('Error creando anotación', err);
+        alert('Error al guardar la anotación.');
+      }
+    });
   }
-
-  // ── Cerrar ────────────────────────────────────────────────────────────────
 
   onCerrar(): void {
     this.reset();
@@ -186,5 +182,6 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     this.descarBusqueda           = '';
     this.descarModalSeleccionado  = null;
     this.descaresModal            = [...this.descars];
+    this.guardando                = false;
   }
 }
