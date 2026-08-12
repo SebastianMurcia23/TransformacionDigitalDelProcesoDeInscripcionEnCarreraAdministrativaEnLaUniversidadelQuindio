@@ -54,6 +54,16 @@ public class ProAnotacionServiceImpl implements ProAnotacionService {
                 .fechaIniComision(dto.fechaIniComision())
                 .fechaFinComision(dto.fechaFinComision())
                 .carsoles(carsoles)
+                // ── NUEVO ──
+                .numeroConvocatoriaActoAdministrativo(dto.numeroConvocatoriaActoAdministrativo())
+                .fechaConvocatoriaActoAdministrativo(dto.fechaConvocatoriaActoAdministrativo())
+                .numeroResolucionListaElegibles(dto.numeroResolucionListaElegibles())
+                .fechaResolucion(dto.fechaResolucion())
+                .actoAdministrativoNombramiento(dto.actoAdministrativoNombramiento())
+                .fechaActoAdministrativo(dto.fechaActoAdministrativo())
+                .numeroActaPosesion(dto.numeroActaPosesion())
+                .fechaActaPosesion(dto.fechaActaPosesion())
+                .fechaSuperoPeriodoPrueba(dto.fechaSuperoPeriodoPrueba())
                 .build();
 
         return proAnotacionRepository.save(anotacion).getIdAnotacion();
@@ -68,7 +78,7 @@ public class ProAnotacionServiceImpl implements ProAnotacionService {
 
     @Override
     public List<ListarAnotacionDto> listarPorFuncionario(Integer idFuncio) {
-        List<ProAnotacion> lista = proAnotacionRepository.findByFuncioId(idFuncio); // <-- cambio aquí
+        List<ProAnotacion> lista = proAnotacionRepository.findByFuncioId(idFuncio);
         List<ListarAnotacionDto> resultado = new ArrayList<>();
 
         for (ProAnotacion a : lista) {
@@ -88,7 +98,17 @@ public class ProAnotacionServiceImpl implements ProAnotacionService {
                     a.getDescar() != null ? a.getDescar().getDsDescar()  : null,
                     a.getDescar() != null ? a.getDescar().getCdDescar()  : null,
                     a.getDescar() != null ? a.getDescar().getGrDescar()  : null,
-                    dsCarsoles
+                    dsCarsoles,
+                    // ── NUEVO ──
+                    a.getNumeroConvocatoriaActoAdministrativo(),
+                    a.getFechaConvocatoriaActoAdministrativo(),
+                    a.getNumeroResolucionListaElegibles(),
+                    a.getFechaResolucion(),
+                    a.getActoAdministrativoNombramiento(),
+                    a.getFechaActoAdministrativo(),
+                    a.getNumeroActaPosesion(),
+                    a.getFechaActaPosesion(),
+                    a.getFechaSuperoPeriodoPrueba()
             ));
         }
         return resultado;

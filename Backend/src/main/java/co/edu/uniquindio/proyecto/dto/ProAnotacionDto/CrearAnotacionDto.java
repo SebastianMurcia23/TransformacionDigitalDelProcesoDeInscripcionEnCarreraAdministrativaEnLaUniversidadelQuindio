@@ -14,5 +14,16 @@ public record CrearAnotacionDto(
         Integer   idDescar,
         List<Integer> idCarsoles,
         LocalDate fechaIniComision,
-        LocalDate fechaFinComision
+        LocalDate fechaFinComision,
+
+        // ── NUEVO: Datos del Proceso de Selección (solo "Por Incorporación") ──
+        String    numeroConvocatoriaActoAdministrativo,
+        LocalDate fechaConvocatoriaActoAdministrativo,
+        String    numeroResolucionListaElegibles,
+        LocalDate fechaResolucion,
+        String    actoAdministrativoNombramiento,
+        LocalDate fechaActoAdministrativo,
+        String    numeroActaPosesion,
+        LocalDate fechaActaPosesion,
+        LocalDate fechaSuperoPeriodoPrueba
 ) {}

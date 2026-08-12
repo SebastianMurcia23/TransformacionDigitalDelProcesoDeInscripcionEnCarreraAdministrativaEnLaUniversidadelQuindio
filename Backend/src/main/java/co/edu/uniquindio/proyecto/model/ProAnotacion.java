@@ -38,6 +38,26 @@ public class ProAnotacion {
     private LocalDate fechaIniComision;
     private LocalDate fechaFinComision;
 
+    // ── NUEVO: Datos del Proceso de Selección (solo "Por Incorporación") ──
+    @Column(length = 100)
+    private String numeroConvocatoriaActoAdministrativo;
+    private LocalDate fechaConvocatoriaActoAdministrativo;
+
+    @Column(length = 100)
+    private String numeroResolucionListaElegibles;
+    private LocalDate fechaResolucion;
+
+    @Column(length = 200)
+    private String actoAdministrativoNombramiento;
+    private LocalDate fechaActoAdministrativo;
+
+    @Column(length = 100)
+    private String numeroActaPosesion;
+    private LocalDate fechaActaPosesion;
+
+    private LocalDate fechaSuperoPeriodoPrueba;
+    // ── FIN NUEVO ──
+
     @ManyToMany
     @JoinTable(
             name = "pro_anotacion_carsol",
