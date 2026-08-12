@@ -20,7 +20,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-  width: 400px;
+  width: 300px;
 }
 
 /* Flecha clickable */
@@ -56,14 +56,18 @@ body {
   font-size: 22px;
 }
 
-.id-selection-procesos {
-  background-color: #007C00;
-  font-size: 20px;
-}
-
+.id-selection-procesos,
 .id-selection-parametros {
   background-color: #007C00;
   font-size: 20px;
+  box-sizing: border-box;
+  margin-left: -3rem !important;   /* anula el padding izq. del .p-5 y vence a .ms-3 */
+  margin-right: -3rem !important;  /* anula el padding der. del .p-5 */
+  width: calc(100% + 6rem);        /* recupera el ancho total que perdía por el padding del padre */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 3.75rem;           /* mantiene el texto separado del borde izquierdo */
+  padding-right: 3rem;             /* mantiene el texto separado del borde derecho */
 }
 
 /*#007C00 color para el efecto del arrow */
