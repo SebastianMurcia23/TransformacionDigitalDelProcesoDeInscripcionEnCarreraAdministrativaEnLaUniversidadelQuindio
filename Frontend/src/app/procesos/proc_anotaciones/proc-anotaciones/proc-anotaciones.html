@@ -111,7 +111,17 @@
     <!-- ══════════════════════════════════════
          SECCIÓN ANOTACIONES
          ══════════════════════════════════════ -->
-    <h5 class="mt-2">Anotaciones</h5>
+    <div class="d-flex justify-content-between align-items-center mt-2">
+      <h5 class="mb-0">Anotaciones</h5>
+      <div class="d-flex gap-2" *ngIf="anotacionesAgrupadas.length > 0">
+        <button class="btn btn-outline-success btn-sm" (click)="onDescargarTodasExcel()">
+          <i class="bi bi-file-earmark-excel"></i> Descargar Excel
+        </button>
+        <button class="btn btn-outline-primary btn-sm" (click)="onDescargarTodasCSV()">
+          <i class="bi bi-filetype-csv"></i> Descargar CSV
+        </button>
+      </div>
+    </div>
     <hr class="mt-1">
 
     <div *ngIf="anotacionesAgrupadas.length === 0" class="alert alert-info">
@@ -168,10 +178,20 @@
                   <span *ngIf="!a.dsDescar" class="text-muted small">—</span>
                 </td>
                 <td>
-                  <button class="btn btn-danger btn-sm"
-                    (click)="eliminarAnotacion(a.idAnotacion)">
-                    <i class="bi bi-trash"></i>
-                  </button>
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-outline-success btn-sm" title="Descargar Excel"
+                      (click)="onDescargarAnotacionExcel(a)">
+                      <i class="bi bi-file-earmark-excel"></i>
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" title="Descargar CSV"
+                      (click)="onDescargarAnotacionCSV(a)">
+                      <i class="bi bi-filetype-csv"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                      (click)="eliminarAnotacion(a.idAnotacion)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>

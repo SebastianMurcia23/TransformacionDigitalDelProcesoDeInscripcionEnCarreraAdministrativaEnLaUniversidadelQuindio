@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProFuncioDto, ProFuncioService } from '../../../service/ProFuncio/pro-funcio';
 import { ParDesCarDto, ParDesCarService } from '../../../service/DesCar/des-car';
 import { ListarAnotacionDto, ProAnotacionService } from '../../../service/proAnotacion/pro-anotacion.service';
+import {descargarAnotacionExcel,descargarAnotacionCSV,descargarTodasAnotacionesCSV,descargarTodasAnotacionesExcel,} from './anotaciones-export.util'
 
 
 @Component({
@@ -130,5 +131,45 @@ export class ProcAnotaciones implements OnInit {
       },
       error: (err) => console.error('Error eliminando anotación', err)
     });
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  // EXPORTACIÓN (funcionalidad NUEVA, aditiva)
+  // ══════════════════════════════════════════════════════════════════════
+
+  /** Aplana anotacionesAgrupadas para obtener la lista completa del funcionario actual. */
+  private obtenerTodasLasAnotaciones(): ListarAnotacionDto[] {
+    return this.anotacionesAgrupadas.reduce(
+      (acc, grupo) => acc.concat(grupo.items),
+      [] as ListarAnotacionDto[]
+    );
+  }
+
+  onDescargarAnotacionExcel(a: ListarAnotacionDto): void {
+    descargarAnotacionExcel(a, this.funcionarioSeleccionado);
+  }
+
+  onDescargarAnotacionCSV(a: ListarAnotacionDto): void {
+    descargarAnotacionCSV(a, this.funcionarioSeleccionado);
+  }
+
+  onDescargarTodasExcel(): void {
+    if (!this.funcionarioSeleccionado) return;
+    const todas = this.obtenerTodasLasAnotaciones();
+    if (todas.length === 0) {
+      alert('Este funcionario no tiene anotaciones para exportar.');
+      return;
+    }
+    descargarTodasAnotacionesExcel(todas, this.funcionarioSeleccionado);
+  }
+
+  onDescargarTodasCSV(): void {
+    if (!this.funcionarioSeleccionado) return;
+    const todas = this.obtenerTodasLasAnotaciones();
+    if (todas.length === 0) {
+      alert('Este funcionario no tiene anotaciones para exportar.');
+      return;
+    }
+    descargarTodasAnotacionesCSV(todas, this.funcionarioSeleccionado);
   }
 }
