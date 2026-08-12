@@ -63,6 +63,65 @@
                 </div>
             </ng-container>
 
+            <!-- ── NUEVO: Bloque exclusivo de "Inscripción/Actualización" + "Por Incorporación" ── -->
+            <ng-container *ngIf="mostrarDatosProcesoSeleccion">
+                <div class="border rounded p-3 mb-3">
+                    <p class="fw-semibold mb-3" style="font-size:1.05rem;">Datos del Proceso de Selección</p>
+
+                    <div class="row g-3 mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label small">Número de Convocatoria o Acto Administrativo</label>
+                            <input type="text" class="form-control" [(ngModel)]="numeroConvocatoriaActoAdministrativo">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Fecha de la Convocatoria o Acto Administrativo</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaConvocatoriaActoAdministrativo">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label small">Número de Resolución de la Lista de Elegibles</label>
+                            <input type="text" class="form-control" [(ngModel)]="numeroResolucionListaElegibles">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Fecha de la Resolución</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaResolucion">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label small">Acto Administrativo de Nombramiento</label>
+                            <input type="text" class="form-control" [(ngModel)]="actoAdministrativoNombramiento">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Fecha del Acto Administrativo</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaActoAdministrativo">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label small">Número del Acta de Posesión</label>
+                            <input type="text" class="form-control" [(ngModel)]="numeroActaPosesion">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Fecha del Acta de Posesión</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaActaPosesion">
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small">Fecha en la que superó el Período de Prueba</label>
+                            <input type="date" class="form-control" [(ngModel)]="fechaSuperoPeriodoPrueba">
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- ── FIN NUEVO ── -->
+
             <hr>
 
             <!-- ── Acto administrativo + Fecha (comunes a todos) ── -->

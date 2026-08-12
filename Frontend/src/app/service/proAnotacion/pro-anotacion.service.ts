@@ -11,6 +11,17 @@ export interface CrearAnotacionDto {
   idCarsoles:         number[];
   fechaIniComision?:  string | null;
   fechaFinComision?:  string | null;
+
+  // ── NUEVO: Datos del Proceso de Selección (solo "Por Incorporación") ──
+  numeroConvocatoriaActoAdministrativo?: string | null;
+  fechaConvocatoriaActoAdministrativo?:  string | null;
+  numeroResolucionListaElegibles?:       string | null;
+  fechaResolucion?:                      string | null;
+  actoAdministrativoNombramiento?:       string | null;
+  fechaActoAdministrativo?:              string | null;
+  numeroActaPosesion?:                   string | null;
+  fechaActaPosesion?:                    string | null;
+  fechaSuperoPeriodoPrueba?:             string | null;
 }
 
 export interface ListarAnotacionDto {
@@ -26,6 +37,17 @@ export interface ListarAnotacionDto {
   cdDescar:           number | null;
   grDescar:           number | null;
   dsCarsoles:         string[];
+
+  // ── NUEVO ──
+  numeroConvocatoriaActoAdministrativo: string | null;
+  fechaConvocatoriaActoAdministrativo:  string | null;
+  numeroResolucionListaElegibles:       string | null;
+  fechaResolucion:                      string | null;
+  actoAdministrativoNombramiento:       string | null;
+  fechaActoAdministrativo:              string | null;
+  numeroActaPosesion:                   string | null;
+  fechaActaPosesion:                    string | null;
+  fechaSuperoPeriodoPrueba:             string | null;
 }
 
 @Injectable({ providedIn: 'root' })

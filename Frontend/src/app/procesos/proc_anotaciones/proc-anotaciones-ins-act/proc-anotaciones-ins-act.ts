@@ -35,6 +35,17 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
   fechaInicioComision:      string = '';
   fechaTerminacionComision: string = '';
 
+  // ── NUEVO: Datos del Proceso de Selección (solo "Por Incorporación") ──
+  numeroConvocatoriaActoAdministrativo:  string = '';
+  fechaConvocatoriaActoAdministrativo:   string = '';
+  numeroResolucionListaElegibles:        string = '';
+  fechaResolucion:                       string = '';
+  actoAdministrativoNombramiento:        string = '';
+  fechaActoAdministrativo:               string = '';
+  numeroActaPosesion:                    string = '';
+  fechaActaPosesion:                     string = '';
+  fechaSuperoPeriodoPrueba:              string = '';
+
   // Descar
   descarBusqueda:          string = '';
   descaresModal:           ParDesCarDto[] = [];
@@ -47,6 +58,35 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
   get esCOM(): boolean { return this.idTipsolActivo === 'COM'; }
   get esACT(): boolean { return this.idTipsolActivo === 'ACT'; }
   get esCAN(): boolean { return this.idTipsolActivo === 'CAN'; }
+
+  // ── NUEVO: helpers para "Inscripción/Actualización" + "Por Incorporación" ──
+  // Se detectan por texto normalizado (sin tildes/mayúsculas) para no depender
+  // de un idTipsol/idCarsol específico que no estaba disponible en el código fuente.
+  private normalizar(txt: string | null | undefined): string {
+    return (txt ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  get esInscripcionActualizacion(): boolean {
+    return this.normalizar(this.tipsolSeleccionado?.dsTipsol).includes('inscripcion');
+  }
+
+  get carsolPorIncorporacion(): ListarCarsolDto | undefined {
+    return this.carsolesDelTipsol.find(c => this.normalizar(c.dsCarsol).includes('incorporacion'));
+  }
+
+  get porIncorporacionMarcado(): boolean {
+    const c = this.carsolPorIncorporacion;
+    return !!c && this.carsolesSeleccionados.has(c.idCarsol);
+  }
+
+  get mostrarDatosProcesoSeleccion(): boolean {
+    return this.esInscripcionActualizacion && this.porIncorporacionMarcado;
+  }
+  // ── FIN NUEVO ──
 
   constructor(
     private parTipsolService:    ParTipsolService,
@@ -84,6 +124,7 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     this.carsolesDelTipsol        = [];
     this.fechaInicioComision      = '';
     this.fechaTerminacionComision = '';
+    this.limpiarDatosProcesoSeleccion();
 
     if (!idTipsol) return;
 
@@ -99,6 +140,11 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     this.carsolesSeleccionados.has(idCarsol)
       ? this.carsolesSeleccionados.delete(idCarsol)
       : this.carsolesSeleccionados.add(idCarsol);
+
+    // Si se desmarca "Por Incorporación", se limpian sus datos asociados
+    if (!this.porIncorporacionMarcado) {
+      this.limpiarDatosProcesoSeleccion();
+    }
   }
 
   isCarsolChecked(idCarsol: number): boolean {
@@ -140,6 +186,8 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
       alert('Debe ingresar las fechas de comisión.'); return;
     }
 
+    const incorporacion = this.mostrarDatosProcesoSeleccion;
+
     const dto: CrearAnotacionDto = {
       idFuncio:           this.funcionario.id_funcio,
       idTipsol:           this.tipsolSeleccionado.idTipsol,
@@ -148,7 +196,17 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
       idDescar:           this.descarModalSeleccionado?.idDescar ?? null,
       idCarsoles:         Array.from(this.carsolesSeleccionados),
       fechaIniComision:   this.esCOM ? this.fechaInicioComision      : null,
-      fechaFinComision:   this.esCOM ? this.fechaTerminacionComision  : null
+      fechaFinComision:   this.esCOM ? this.fechaTerminacionComision  : null,
+
+      numeroConvocatoriaActoAdministrativo: incorporacion ? this.numeroConvocatoriaActoAdministrativo : null,
+      fechaConvocatoriaActoAdministrativo:  incorporacion ? this.fechaConvocatoriaActoAdministrativo  : null,
+      numeroResolucionListaElegibles:       incorporacion ? this.numeroResolucionListaElegibles       : null,
+      fechaResolucion:                      incorporacion ? this.fechaResolucion                      : null,
+      actoAdministrativoNombramiento:       incorporacion ? this.actoAdministrativoNombramiento        : null,
+      fechaActoAdministrativo:              incorporacion ? this.fechaActoAdministrativo               : null,
+      numeroActaPosesion:                   incorporacion ? this.numeroActaPosesion                    : null,
+      fechaActaPosesion:                    incorporacion ? this.fechaActaPosesion                     : null,
+      fechaSuperoPeriodoPrueba:             incorporacion ? this.fechaSuperoPeriodoPrueba               : null
     };
 
     this.guardando = true;
@@ -171,6 +229,18 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     this.cerrar.emit();
   }
 
+  private limpiarDatosProcesoSeleccion(): void {
+    this.numeroConvocatoriaActoAdministrativo = '';
+    this.fechaConvocatoriaActoAdministrativo  = '';
+    this.numeroResolucionListaElegibles       = '';
+    this.fechaResolucion                      = '';
+    this.actoAdministrativoNombramiento       = '';
+    this.fechaActoAdministrativo              = '';
+    this.numeroActaPosesion                   = '';
+    this.fechaActaPosesion                    = '';
+    this.fechaSuperoPeriodoPrueba             = '';
+  }
+
   private reset(): void {
     this.tipsolSeleccionado       = null;
     this.carsolesDelTipsol        = [];
@@ -183,5 +253,6 @@ export class ProcAnotacionesInsAct implements OnInit, OnChanges {
     this.descarModalSeleccionado  = null;
     this.descaresModal            = [...this.descars];
     this.guardando                = false;
+    this.limpiarDatosProcesoSeleccion();
   }
 }
